@@ -4,4 +4,8 @@
     <string name="ng_nh_p">Đăng nhập</string>
     <string name="m_t_kh_u">Mật khẩu</string>
     <string name="qu_n_m_t_kh_u">Quên mật khẩu ?</string>
+
+    <string name="facebook_app_id">206500901266485</string>
+    <string name="fb_login_protocol_scheme">fb206500901266485</string>
+
 </resources>

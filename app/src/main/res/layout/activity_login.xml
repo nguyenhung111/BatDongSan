@@ -21,6 +21,7 @@
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/editaccount1"
+                android:background="@color/white"
                 android:layout_marginTop="10dp"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
@@ -127,20 +128,34 @@
                     android:textAlignment="center"
                     android:textSize="16dp" />
             </LinearLayout>
+
+
+
+                <com.facebook.login.widget.LoginButton
+                    android:id="@+id/btnLoginface1"
+                    android:visibility="invisible"
+                    android:layout_below="@id/viewtext"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="10dp" />
+
             <Button
                 android:id="@+id/btnLoginface"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/viewtext"
+                android:layout_height="60dp"
+                android:layout_below="@id/viewtext"
+                android:layout_marginTop="10dp"
                 android:backgroundTint="@color/white"
                 android:drawableLeft="@drawable/facebook_old_48px"
                 android:text="Đăng nhập bằng Facebook"
-                android:textColor="@color/colorFB" />
+                android:textColor="@color/colorGM" />
 
             <Button
+                android:layout_marginTop="10dp"
                 android:id="@+id/btnLoginGmail"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="60dp"
                 android:layout_below="@id/btnLoginface"
                 android:backgroundTint="@color/white"
                 android:drawableLeft="@drawable/gmail_48px"
