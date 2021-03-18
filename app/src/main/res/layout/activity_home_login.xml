@@ -18,33 +18,42 @@
         android:orientation="horizontal"
         android:gravity="center_horizontal"
         android:layout_below="@+id/viewpager"
+        android:layout_marginBottom="10dp"
         android:layout_width="match_parent"
-        android:layout_height="20dp"/>
+        android:layout_height="30dp"/>
     <LinearLayout
         android:layout_marginTop="10dp"
         android:layout_below="@+id/linear"
         android:orientation="vertical"
         android:padding="30dp"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
         <Button
+            android:backgroundTint="#FF9800"
+            android:background="@drawable/radiusbutton"
+            android:textColor="@color/white"
             android:layout_marginTop="10dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/dangnhap"
             android:text="Đăng nhập"/>
         <Button
+            android:textColor="#FF9800"
+            android:backgroundTint="#F8EBC6"
+            android:background="@drawable/radiusbutton"
             android:layout_marginTop="10dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/dangky"
             android:text="Đăng ký"/>
         <TextView
+            android:textColor="#A59797"
             android:id="@+id/countine"
-            android:layout_marginTop="10dp"
+            android:fontFamily="@font/roboto_thin"
+            android:layout_marginTop="20dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="16dp"
+            android:textSize="18dp"
             android:text=" Tiếp tục với tư cách khách hàng"
             android:layout_gravity="center_horizontal"
             android:textAlignment="center"/>

@@ -1,175 +1,181 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Login.Login">
 
-    <LinearLayout
+
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/backlogin"
-        android:orientation="vertical"
-        android:padding="20dp">
+        android:layout_height="match_parent">
 
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:layout_below="@+id/backlogin"
+            android:orientation="vertical"
+            android:padding="20dp">
 
-
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/editaccount1"
-                android:background="@color/white"
-                android:layout_marginTop="10dp"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/dangnhap"
-                >
+                android:layout_height="match_parent">
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/editaccount"
+
+                <Button
+                    android:id="@+id/btnLogin"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:textSize="22dp"
-                    android:layout_below="@+id/dangnhap"
-                    android:hint="Email hoặc số điện thoại"
+                    android:layout_height="55dp"
+                    android:layout_below="@+id/forgetpass"
                     android:layout_marginTop="15dp"
-                    >
+                    android:text="Đăng nhập"
+                    android:textColor="@color/white"
+                    android:textSize="16dp"
+                    android:background="@drawable/radiusbutton"
+                    android:backgroundTint="#FF9800" />
 
-                </com.google.android.material.textfield.TextInputEditText>
-            </com.google.android.material.textfield.TextInputLayout>
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/editpass1"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:layout_below="@id/editaccount1"
-                app:passwordToggleEnabled="true">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:layout_below="@id/editaccount"
-                    android:id="@+id/editpass"
-                    android:layout_marginTop="10dp"
-                    android:textSize="22dp"
+                <Button
+                    android:id="@+id/btnLoginface"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:hint="Mật khẩu"
-                    android:inputType="textPassword">
+                    android:layout_height="60dp"
+                    android:layout_below="@id/viewtext"
+                    android:layout_marginTop="10dp"
+                    android:backgroundTint="@color/white"
+                    android:drawableLeft="@drawable/facebook_old_48px"
+                    android:text="Đăng nhập bằng Facebook"
+                    android:textColor="@color/colorGM" />
 
-                </com.google.android.material.textfield.TextInputEditText>
 
-            </com.google.android.material.textfield.TextInputLayout>
+                <Button
+                    android:id="@+id/btnLoginGmail"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_below="@id/btnLoginface"
+                    android:layout_marginTop="10dp"
+                    android:backgroundTint="@color/white"
+                    android:drawableLeft="@drawable/gmail_48px"
+                    android:text="Đăng nhập bằng Gmail"
+                    android:textColor="@color/colorGM" />
 
+                <LinearLayout
+                    android:id="@+id/viewtext"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/btnLogin"
+                    android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/forgetpass"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/editpass1"
-                android:layout_marginTop="15dp"
-                android:text="@string/qu_n_m_t_kh_u"
-                android:textColor="@color/blue"
-                android:textSize="16sp" />
-            <Button
-                android:id="@+id/btnLogin"
-                android:layout_width="match_parent"
-                android:layout_height="55dp"
-                android:layout_below="@+id/forgetpass"
-                android:layout_marginTop="15dp"
-                android:text="Đăng nhập"
-                android:textSize="16dp"
-                app:backgroundTint="#FF5722" />
-            <TextView
-                android:id="@+id/dangnhap"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/ng_nh_p"
-                android:textColor="@color/black"
-                android:textSize="24sp" />
+                    <TextView
+                        android:id="@+id/taikhoan"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="10dp"
+                        android:text="Chưa có tài khoản ?"
+                        android:textAlignment="center"
+                        android:textSize="16dp" />
 
-            <LinearLayout
-                android:id="@+id/viewtext"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/btnLogin"
-                android:orientation="vertical">
+                    <TextView
+                        android:id="@+id/dangkyngay"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="10dp"
+                        android:text="Đăng ký ngay!"
+                        android:textAlignment="center"
+                        android:textColor="@color/blue"
+                        android:textSize="16dp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="20dp"
+                        android:text="Hoặc "
+                        android:textAlignment="center"
+                        android:textSize="16dp" />
+                </LinearLayout>
 
                 <TextView
-                    android:id="@+id/taikhoan"
-                    android:layout_width="wrap_content"
+                    android:id="@+id/dangnhap"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="10dp"
-                    android:text="Chưa có tài khoản ?"
-                    android:textAlignment="center"
-                    android:textSize="16dp" />
+                    android:text="@string/ng_nh_p"
+                    android:textColor="@color/black"
+                    android:textSize="24sp" />
 
                 <TextView
-                    android:id="@+id/dangkyngay"
+                    android:id="@+id/forgetpass"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="10dp"
-                    android:text="Đăng ký ngay!"
-                    android:textAlignment="center"
+                    android:layout_below="@+id/editpass1"
+                    android:layout_marginTop="15dp"
+                    android:text="@string/qu_n_m_t_kh_u"
                     android:textColor="@color/blue"
-                    android:textSize="16dp" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="20dp"
-                    android:text="Hoặc "
-                    android:textAlignment="center"
-                    android:textSize="16dp" />
-            </LinearLayout>
-
+                    android:textSize="16sp" />
 
 
                 <com.facebook.login.widget.LoginButton
                     android:id="@+id/btnLoginface1"
-                    android:visibility="invisible"
-                    android:layout_below="@id/viewtext"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_below="@id/viewtext"
                     android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="10dp" />
+                    android:layout_marginTop="10dp"
+                    android:visibility="invisible" />
 
-            <Button
-                android:id="@+id/btnLoginface"
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:layout_below="@id/viewtext"
-                android:layout_marginTop="10dp"
-                android:backgroundTint="@color/white"
-                android:drawableLeft="@drawable/facebook_old_48px"
-                android:text="Đăng nhập bằng Facebook"
-                android:textColor="@color/colorGM" />
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/editpass1"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/editaccount1"
+                    android:layout_marginTop="10dp"
+                    app:passwordToggleEnabled="true">
 
-            <Button
-                android:layout_marginTop="10dp"
-                android:id="@+id/btnLoginGmail"
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:layout_below="@id/btnLoginface"
-                android:backgroundTint="@color/white"
-                android:drawableLeft="@drawable/gmail_48px"
-                android:text="Đăng nhập bằng Gmail"
-                android:textColor="@color/colorGM" />
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/editpass"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_below="@id/editaccount"
+                        android:layout_marginTop="10dp"
+                        android:hint="Mật khẩu"
+                        android:inputType="textPassword"
+                        android:textSize="22dp">
 
-        </RelativeLayout>
-    </LinearLayout>
+                    </com.google.android.material.textfield.TextInputEditText>
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/backlogin"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:title="Quay lại"
-        app:titleTextColor="#E19525" />
+                </com.google.android.material.textfield.TextInputLayout>
 
-</RelativeLayout>
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/editaccount1"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/dangnhap"
+                    android:layout_marginTop="10dp">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/editaccount"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_below="@+id/dangnhap"
+                        android:layout_marginTop="15dp"
+                        android:hint="Email hoặc số điện thoại"
+                        android:textSize="22dp">
+
+                    </com.google.android.material.textfield.TextInputEditText>
+                </com.google.android.material.textfield.TextInputLayout>
+
+            </RelativeLayout>
+        </LinearLayout>
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/backlogin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:title="Quay lại"
+            app:titleTextColor="#E19525" />
+
+    </RelativeLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -5,8 +5,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.content.pm.Signature;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -23,12 +27,15 @@ import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+
 public class Login extends AppCompatActivity {
     private Toolbar toolbar;
     private EditText editaccount, editpass;
     private TextView forgetpass, nowregistration;
-    private Button btnlogin, btnLoginGmail,loginF;
-    public String account,password;
+    private Button btnlogin, btnLoginGmail, loginF;
+    public String account, password;
     private Button btnLoginFace;
     private LoginButton btnLoginFace1;
     CallbackManager callbackManager;
@@ -38,13 +45,27 @@ public class Login extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        try {
+            PackageInfo info = getPackageManager().getPackageInfo(
+                    "com.example.btngsn.Login",                  //Insert your own package name.
+                    PackageManager.GET_SIGNATURES);
+            for (Signature signature : info.signatures) {
+                MessageDigest md = MessageDigest.getInstance("SHA");
+                md.update(signature.toByteArray());
+                Log.d("KeyHash:" , Base64.encodeToString(md.digest(), Base64.DEFAULT));
+            }
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
         init();
         ActionTool();
         event();
         LoginFace();
     }
 
-    public void init(){
+    public void init() {
         toolbar = (Toolbar) findViewById(R.id.backlogin);
         editaccount = (EditText) findViewById(R.id.editaccount);
         editpass = (EditText) findViewById(R.id.editpass);
@@ -57,6 +78,7 @@ public class Login extends AppCompatActivity {
 
 
     }
+
     private void ActionTool() {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -69,7 +91,7 @@ public class Login extends AppCompatActivity {
 
     }
 
-    public void event(){
+    public void event() {
         nowregistration.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -85,7 +107,7 @@ public class Login extends AppCompatActivity {
         });
     }
 
-    public void LoginFace(){
+    public void LoginFace() {
         callbackManager = CallbackManager.Factory.create();
         LoginManager.getInstance().registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
@@ -93,7 +115,7 @@ public class Login extends AppCompatActivity {
                 Intent intent = new Intent(Login.this, HomePage.class);
                 startActivity(intent);
                 AccessToken accessToken = loginResult.getAccessToken();
-                
+
 
             }
 
@@ -108,6 +130,7 @@ public class Login extends AppCompatActivity {
             }
         });
     }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
