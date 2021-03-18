@@ -47,7 +47,7 @@
             android:id="@+id/dangky"
             android:text="Đăng ký"/>
         <TextView
-            android:textColor="#A59797"
+            android:textColor="#191818"
             android:id="@+id/countine"
             android:fontFamily="@font/roboto_thin"
             android:layout_marginTop="20dp"
