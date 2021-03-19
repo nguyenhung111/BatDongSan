@@ -4,6 +4,9 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
+import com.example.btngsn.Fragment.AccountFragment;
+import com.example.btngsn.Fragment.FavoriteFragment;
+import com.example.btngsn.Fragment.HomeFragment;
 
 
 public class SectionsPagerAdapter extends FragmentPagerAdapter {
@@ -16,13 +19,13 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
         Fragment frag = null;
         switch (position) {
             case 0:
-                frag = new Fragment();
+                frag = new HomeFragment();
                 break;
             case 1:
-                frag = new Fragment();
+                frag = new FavoriteFragment();
                 break;
             case 2:
-                frag = new Fragment();
+                frag = new AccountFragment();
                 break;
         }
         return frag;

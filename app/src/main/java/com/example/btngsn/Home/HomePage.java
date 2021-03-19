@@ -59,9 +59,9 @@ public class HomePage extends AppCompatActivity {
 //    }
 
     private void createAhBottom() {
-        AHBottomNavigationItem item1 = new AHBottomNavigationItem("Home", R.drawable.ic_baseline_home_24);
-        AHBottomNavigationItem item2 = new AHBottomNavigationItem("Home", R.drawable.ic_baseline_home_24);
-        AHBottomNavigationItem item3 = new AHBottomNavigationItem("Home", R.drawable.ic_baseline_home_24);
+        AHBottomNavigationItem item1 = new AHBottomNavigationItem("Trang Chủ", R.drawable.ic_baseline_home_24);
+        AHBottomNavigationItem item2 = new AHBottomNavigationItem("Yêu Thích", R.drawable.ic_baseline_favorite_border_24);
+        AHBottomNavigationItem item3 = new AHBottomNavigationItem("Tài Khoản", R.drawable.ic_baseline_person_24);
         // Add items
         bottomNavigation.addItem(item1);
         bottomNavigation.addItem(item2);
@@ -70,7 +70,7 @@ public class HomePage extends AppCompatActivity {
         bottomNavigation.setDefaultBackgroundColor(getResources().getColor(R.color.white));
 
         //mau khi chon tab
-        bottomNavigation.setAccentColor(getResources().getColor(R.color.colorPrimary));
+        bottomNavigation.setAccentColor(getResources().getColor(R.color.colorRed));
         //mau khi chua chon tab
         bottomNavigation.setInactiveColor(getResources().getColor(R.color.colorBlack));
 
