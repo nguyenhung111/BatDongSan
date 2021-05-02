@@ -20,6 +20,7 @@
                 android:weightSum="2">
 
                 <LinearLayout
+                    android:id="@+id/buyhome"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
@@ -27,6 +28,7 @@
                     android:padding="10dp">
 
                     <ImageButton
+
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
@@ -45,6 +47,7 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/sellhome"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"

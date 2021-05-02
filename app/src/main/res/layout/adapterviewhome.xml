@@ -1,7 +1,89 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:padding="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <FrameLayout
+                android:id="@+id/framelayout"
+                android:layout_width="match_parent"
+                android:layout_height="200dp">
+
+                <ImageView
+                    android:id="@+id/image"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/home" />
+
+                <TextView
+                    android:id="@+id/hottext"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="top|left"
+                    android:text="Nổi bật"
+                    android:textColor="@color/colorRed"
+                    android:textSize="18dp" />
+
+                <TextView
+                    android:id="@+id/phone"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom|right"
+                    android:background="@drawable/radiusbutton"
+                    android:drawableLeft="@drawable/ic_baseline_call_24"
+                    android:gravity="center"
+                    android:padding="10dp"
+                    android:text=" 0335236374"
+                    android:textColor="@color/colorPrimaryDark" />
+            </FrameLayout>
+
+            <LinearLayout
+                android:layout_below="@+id/framelayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <TextView
+                    android:id="@+id/tittle"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:textColor="@color/colorRed"
+                    android:drawableLeft="@drawable/ic_baseline_star_24"
+                    android:textSize="20dp"
+                    android:text="Tiêu đề ">
+                </TextView>
+                <TextView
+                    android:id="@+id/price"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Giá"
+                    android:textSize="18dp"/>
+                <TextView
+                    android:id="@+id/acreage"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Diện tích"
+                    android:textSize="18dp"/>
+                <TextView
+                    android:id="@+id/address"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Địa chỉ"
+                    android:textSize="18dp"/>
+                <TextView
+                    android:id="@+id/datepost"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Ngày đăng"
+                    android:textSize="18dp"/>
+            </LinearLayout>
+        </RelativeLayout>
+    </androidx.cardview.widget.CardView>
 </androidx.constraintlayout.widget.ConstraintLayout>
