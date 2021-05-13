@@ -14,23 +14,24 @@
 
             <FrameLayout
                 android:id="@+id/framelayout"
-                android:layout_width="match_parent"
+                android:layout_width="370dp"
                 android:layout_height="200dp">
 
                 <ImageView
                     android:id="@+id/image"
+                    android:scaleType="centerCrop"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:src="@drawable/home" />
 
-                <TextView
-                    android:id="@+id/hottext"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="top|left"
-                    android:text="Nổi bật"
-                    android:textColor="@color/colorRed"
-                    android:textSize="18dp" />
+<!--                <TextView-->
+<!--                    android:id="@+id/hottext"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_gravity="top|left"-->
+<!--                    android:text="Nổi bật"-->
+<!--                    android:textColor="@color/colorRed"-->
+<!--                    android:textSize="18dp" />-->
 
                 <TextView
                     android:id="@+id/phone"
@@ -52,8 +53,9 @@
                 android:orientation="vertical">
                 <TextView
                     android:id="@+id/tittle"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_width="370dp"
+                    android:layout_height="50dp"
+                    android:gravity="start|center"
                     android:textColor="@color/colorRed"
                     android:drawableLeft="@drawable/ic_baseline_star_24"
                     android:textSize="20dp"

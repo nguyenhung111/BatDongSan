@@ -96,14 +96,14 @@
             <LinearLayout
                 android:id="@+id/linearmuaban"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_below="@+id/linearlogo"
                 android:orientation="vertical">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
+                    android:layout_marginTop="10dp"
                     android:orientation="horizontal">
 
                     <ImageView
@@ -135,16 +135,17 @@
             </LinearLayout>
 
             <LinearLayout
+                android:layout_marginBottom="50dp"
                 android:id="@+id/linearsellhome"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_below="@+id/linearmuaban"
                 android:orientation="vertical">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
+                    android:layout_marginTop="10dp"
                     android:orientation="horizontal">
 
                     <ImageView
@@ -171,10 +172,8 @@
                     android:id="@+id/recyviewthuehome"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
-
                 </androidx.recyclerview.widget.RecyclerView>
             </LinearLayout>
-
         </RelativeLayout>
     </ScrollView>
         <com.google.android.material.appbar.AppBarLayout

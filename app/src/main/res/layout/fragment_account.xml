@@ -11,45 +11,63 @@
         android:layout_height="100dp"
         android:background="@drawable/logotrangchu"
         android:backgroundTint="@color/blue"
+        android:weightSum="3"
         android:orientation="horizontal">
 
         <ImageView
             android:id="@+id/imgAva"
+            android:layout_weight="1"
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:layout_marginLeft="10dp"
             android:src="@drawable/ic_baseline_account_circle_24">
-
         </ImageView>
 
         <LinearLayout
             android:padding="20dp"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_gravity="center"
             android:layout_weight="2"
-            android:gravity="center">
-
-            <Button
-                android:id="@+id/loginAcc"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            >
+            <LinearLayout
                 android:layout_weight="1"
-                android:background="@drawable/radiusbutton"
-                android:text="Đăng nhập">
+                android:id="@+id/btnLiner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <Button
+                    android:id="@+id/loginAcc"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/radiusbutton"
+                    android:text="Đăng nhập">
+                </Button>
 
-            </Button>
+                <Button
+                    android:id="@+id/registrationAcc"
+                    android:layout_marginLeft="30dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/radiusbutton"
+                    android:text="Đăng ký">
 
-            <Button
-                android:id="@+id/registrationAcc"
-                android:layout_marginLeft="30dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                </Button>
+            </LinearLayout>
+            <TextView
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:visibility="gone"
                 android:layout_weight="1"
-                android:background="@drawable/radiusbutton"
-                android:text="Đăng ký">
+                android:id="@+id/fullName"
+                android:text="Họ tên"
+                android:textSize="22dp"
+                android:textColor="@color/white"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
-            </Button>
+            </TextView>
         </LinearLayout>
     </LinearLayout>
     <RelativeLayout

@@ -9,6 +9,8 @@
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
+        app:titleTextColor="@color/white"
+        android:background="@color/blue"
         app:title="Đăng tin rao bán/cho thuê"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -37,6 +39,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
                     <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/edttieude"
                         app:counterMaxLength="1000"
                         android:maxLength="30"
                         app:errorEnabled="true"
@@ -57,9 +60,11 @@
                     android:layout_height="match_parent"
                     android:text="Hình thức"
                     android:textColor="@color/black"
-                    android:gravity="start|center"
+                    android:gravity="center"
                     android:textSize="20dp"/>
                 <Spinner
+                    android:id="@+id/spnhinhthuc"
+                    android:spinnerMode="dropdown"
                     android:layout_marginLeft="10dp"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"/>
@@ -78,7 +83,8 @@
                     android:gravity="start|center"
                     android:textSize="20dp"/>
                 <Spinner
-                    android:spinnerMode="dialog"
+                    android:id="@+id/siploai"
+                    android:spinnerMode="dropdown"
                     android:layout_marginLeft="10dp"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"/>
@@ -97,6 +103,7 @@
                     android:gravity="start|center"
                     android:textSize="20dp"/>
                     <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/edtdientich"
                         android:layout_marginLeft="10dp"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent">
@@ -116,6 +123,7 @@
                     android:gravity="start|center"
                     android:textSize="20dp"/>
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edtgiatien"
                     android:layout_marginLeft="10dp"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
@@ -138,6 +146,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
                     <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/edtdiachi"
                         android:layout_marginLeft="10dp"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent">
@@ -156,13 +165,13 @@
                     android:text="Hình ảnh :"
                     android:textColor="@color/black"
                     android:textSize="20dp"/>
-                <Button
-                    android:text="Thêm ảnh"
+                <ImageView
+                    android:id="@+id/imageView"
                     android:gravity="top"
                     android:layout_gravity="center|top"
                     android:background="@drawable/ic_baseline_add_photo_alternate_24"
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     />
             </LinearLayout>
             <LinearLayout
@@ -186,7 +195,7 @@
                         app:counterMaxLength="3000"
                         android:maxLength="30"
                         app:errorEnabled="true"
-                        android:id="@+id/editpass"
+                        android:id="@+id/edtmota"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_below="@id/editaccount"
@@ -228,14 +237,15 @@
                         android:background="@drawable/radiuscongtru"
                         android:focusable="false"
                         android:text="-"
-                        android:id="@+id/btnTru2"
+                        android:id="@+id/tangtru"
                         android:textColor="#FFFFFF"
                         android:textSize="22dp"
                         android:layout_width="40dp"
                         android:layout_height="40dp" />
                     <TextView
                         android:gravity="center"
-                        android:id="@+id/btnvalues2"
+                        android:id="@+id/valuestang"
+                        android:text="0"
                         android:layout_width="75dp"
                         android:layout_height="50dp"
                         android:background="@null"
@@ -247,7 +257,7 @@
                         android:focusable="false"
                         android:text="+"
                         android:textColor="#FFFFFF"
-                        android:id="@+id/btnCong2"
+                        android:id="@+id/tangcong"
                         android:textSize="22dp"
                         android:layout_width="40dp"
                         android:layout_height="40dp" />
@@ -276,16 +286,17 @@
                         android:background="@drawable/radiuscongtru"
                         android:focusable="false"
                         android:text="-"
-                        android:id="@+id/btnTru"
+                        android:id="@+id/truphong"
                         android:textColor="#FFFFFF"
                         android:textSize="22dp"
                         android:layout_width="40dp"
                         android:layout_height="40dp" />
                     <TextView
                         android:gravity="center"
-                        android:id="@+id/btnvalues"
+                        android:id="@+id/valuesphong"
                         android:layout_width="75dp"
                         android:layout_height="50dp"
+                        android:text="0"
                         android:background="@null"
                         android:focusable="false"
                         android:textSize="20dp" />
@@ -295,7 +306,7 @@
                         android:focusable="false"
                         android:text="+"
                         android:textColor="#FFFFFF"
-                        android:id="@+id/btnCong"
+                        android:id="@+id/congphong"
                         android:textSize="22dp"
                         android:layout_width="40dp"
                         android:layout_height="40dp" />
@@ -324,18 +335,19 @@
                         android:background="@drawable/radiuscongtru"
                         android:focusable="false"
                         android:text="-"
-                        android:id="@+id/btnTru1"
+                        android:id="@+id/trutoilet"
                         android:textColor="#FFFFFF"
                         android:textSize="22dp"
                         android:layout_width="40dp"
                         android:layout_height="40dp" />
                     <TextView
                         android:gravity="center"
-                        android:id="@+id/btnvalues1"
+                        android:id="@+id/valuestoilet"
                         android:layout_width="75dp"
                         android:layout_height="50dp"
                         android:background="@null"
                         android:focusable="false"
+                        android:text="0"
                         android:textSize="20dp" />
                     <Button
                         android:layout_marginLeft="10dp"
@@ -343,7 +355,7 @@
                         android:focusable="false"
                         android:text="+"
                         android:textColor="#FFFFFF"
-                        android:id="@+id/btnCong1"
+                        android:id="@+id/congtoilet"
                         android:textSize="22dp"
                         android:layout_width="40dp"
                         android:layout_height="40dp" />
@@ -363,6 +375,8 @@
                     android:gravity="start|center"/>
 
                 <Spinner
+                    android:gravity="center"
+                    android:id="@+id/spnhuongnha"
                     android:layout_marginLeft="10dp"
                     android:spinnerMode="dialog"
                     android:layout_width="match_parent"
@@ -383,7 +397,9 @@
                     android:gravity="start|center"/>
 
                 <Spinner
+                    android:gravity="center"
                     android:layout_marginLeft="10dp"
+                    android:id="@+id/spnbancong"
                     android:spinnerMode="dialog"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
@@ -439,7 +455,7 @@
                         app:passwordToggleEnabled="true">
 
                         <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/editphaply"
+                            android:id="@+id/edtphaply"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_below="@id/editaccount"
