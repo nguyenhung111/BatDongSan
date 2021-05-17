@@ -130,8 +130,48 @@
                 </com.google.android.material.textfield.TextInputEditText>
             </LinearLayout>
             <LinearLayout
-                android:id="@+id/diachi"
+                android:id="@+id/loaitien"
                 android:layout_below="@+id/giatien"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="50dp">
+                <TextView
+                    android:layout_width="100dp"
+                    android:layout_height="match_parent"
+                    android:text="Đơn vị"
+                    android:textColor="@color/black"
+                    android:gravity="start|center"
+                    android:textSize="20dp"/>
+                <Spinner
+                    android:id="@+id/spnloaitien"
+                    android:spinnerMode="dropdown"
+                    android:layout_marginLeft="10dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+            </LinearLayout>
+            <LinearLayout
+                android:visibility="gone"
+                android:id="@+id/tongtien"
+                android:layout_below="@+id/loaitien"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="50dp">
+                <TextView
+                    android:layout_width="100dp"
+                    android:layout_height="match_parent"
+                    android:text="Tổng tiền"
+                    android:textColor="@color/black"
+                    android:gravity="start|center"
+                    android:textSize="20dp"/>
+                <TextView
+                    android:id="@+id/txttongtien"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                </TextView>
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/diachi"
+                android:layout_below="@+id/tongtien"
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="50dp">

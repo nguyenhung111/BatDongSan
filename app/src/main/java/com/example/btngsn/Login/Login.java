@@ -32,7 +32,8 @@ import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 
-import org.greenrobot.eventbus.EventBus;
+
+import org.simple.eventbus.EventBus;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -177,13 +178,14 @@ public class Login extends AppCompatActivity {
                         String Email = userArrayList.get(0).getEmail();
                         String idspUser = userArrayList.get(0).getIdspUser();
                         String CMND = userArrayList.get(0).getCmnd();
+
                         updateCaced(getApplicationContext(), idUser, fullName, userName, pasWord, numberPhone, Email, idspUser, CMND);
 
                         Intent intent = new Intent(getApplicationContext(), HomePage.class);
                         intent.putExtra("dataUser", userArrayList);
                         startActivity(intent);
 
-                        EventBus.getDefault().post(true);
+                        EventBus.getDefault().post(true,"loginSuccess");
                         finish();
                     }
                 }
@@ -197,11 +199,6 @@ public class Login extends AppCompatActivity {
 
     }
 
-    public String LayCached(Context context) {
-        SharedPreferences cacheddanganhp = context.getSharedPreferences("datalogin", context.MODE_PRIVATE);
-        String hoten = cacheddanganhp.getString("fullName", "");
-        return hoten;
-    }
 
     public void updateCaced(Context context, String idUser, String fullName, String userName, String passWord, String numberPhone, String Email, String idspUser, String CMND) {
         SharedPreferences cachedangnhap = context.getSharedPreferences("datalogin", Context.MODE_PRIVATE);

@@ -2,6 +2,7 @@ package com.example.btngsn.Retrofit;
 
 import com.example.btngsn.Model.Listing;
 import com.example.btngsn.Model.User;
+import com.example.btngsn.Model.test;
 import com.example.btngsn.Model.viewDirection;
 import com.example.btngsn.Model.viewForm;
 import com.example.btngsn.Model.viewSpecies;
@@ -57,5 +58,7 @@ public interface DataClient {
     @GET("getDirection.php")
     Call<List<viewDirection>> getDirection();
 
+    @GET("image.php")
+    Call<List<test>> getAnh();
 
 }

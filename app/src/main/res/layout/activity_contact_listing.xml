@@ -30,7 +30,7 @@
             android:layout_height="wrap_content">
         </TextView>
         <EditText
-            android:id="@+id/edtnamcontact"
+            android:id="@+id/edtnamecontact"
             android:layout_below="@+id/thongtinlienhe"
             android:hint="Tên liên hệ"
             android:textColor="@color/black"
@@ -39,7 +39,7 @@
         </EditText>
         <EditText
             android:id="@+id/addresscontact"
-            android:layout_below="@id/edtnamcontact"
+            android:layout_below="@id/edtnamecontact"
             android:hint="Địa chỉ"
             android:textColor="@color/black"
             android:layout_width="match_parent"
@@ -114,6 +114,7 @@
                 android:textSize="18dp"
                 android:textColor="@color/black"/>
             <TextView
+                android:id="@+id/startDate"
                 android:gravity="center"
                 android:layout_weight="1"
                 android:layout_width="wrap_content"
@@ -141,6 +142,7 @@
                 android:textSize="18dp"
                 android:textColor="@color/black"/>
             <TextView
+                android:id="@+id/endDate"
                 android:gravity="center"
                 android:layout_weight="1"
                 android:layout_width="wrap_content"

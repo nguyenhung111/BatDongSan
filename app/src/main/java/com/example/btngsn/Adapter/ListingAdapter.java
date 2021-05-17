@@ -46,18 +46,25 @@ public class ListingAdapter extends RecyclerView.Adapter<ListingAdapter.ItemHole
     public void onBindViewHolder(@NonNull ItemHoler holder, int position) {
 
         final Listing listing = arrayList.get(position);
-
+        String localhost = "http://192.168.1.12/batdongsan/image/";
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
 
         holder.title.setMaxLines(3);
         holder.title.setEllipsize(TextUtils.TruncateAt.END);
         holder.title.setText(listing.getTitle());
-        holder.phone.setText("0"+listing.getPhoneContact());
+        holder.phone.setText("0" + listing.getPhoneContact());
         holder.price.setText("Giá " + listing.getPrice() + "triệu / m2");
         holder.acreage.setText(listing.getAcreage() + "m2");
         holder.address.setMaxLines(2);
         holder.address.setEllipsize(TextUtils.TruncateAt.END);
         holder.address.setText(listing.getAddress());
+//        String url = arrayList.get(0).getImage();
+//        String[] link = url.split("/");
+//        for (String t : link)
+//            String.valueOf(t);
+//        String anh = link[5];
+//
+//        Picasso.get().load(localhost + anh).into(holder.imageView);
         Picasso.get().load(listing.getImage()).into(holder.imageView);
         holder.dateStart.setText(listing.getDateStart());
 
@@ -70,9 +77,10 @@ public class ListingAdapter extends RecyclerView.Adapter<ListingAdapter.ItemHole
         return arrayList.size();
     }
 
-    public class ItemHoler extends RecyclerView.ViewHolder{
+    public class ItemHoler extends RecyclerView.ViewHolder {
         private ImageView imageView;
-        private TextView title, price, acreage, address, dateStart,phone;
+        private TextView title, price, acreage, address, dateStart, phone;
+
         public ItemHoler(@NonNull View itemView) {
             super(itemView);
 

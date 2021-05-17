@@ -1,5 +1,6 @@
 
 package com.example.btngsn.Model;
+
 import android.os.Parcel;
 import android.os.Parcelable;
 
@@ -7,7 +8,7 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 
-public class Listing implements Parcelable {
+public class Listing  implements Parcelable{
 
     @SerializedName("idListing")
     @Expose
@@ -33,6 +34,9 @@ public class Listing implements Parcelable {
     @SerializedName("image")
     @Expose
     private String image;
+    @SerializedName("description")
+    @Expose
+    private String description;
     @SerializedName("floors")
     @Expose
     private String floors;
@@ -42,12 +46,12 @@ public class Listing implements Parcelable {
     @SerializedName("toilet")
     @Expose
     private String toilet;
-    @SerializedName("idHouse")
+    @SerializedName("directionHouse")
     @Expose
-    private String idHouse;
-    @SerializedName("idBancoly")
+    private String directionHouse;
+    @SerializedName("directionBancoly")
     @Expose
-    private String idBancoly;
+    private String directionBancoly;
     @SerializedName("furniture")
     @Expose
     private String furniture;
@@ -69,6 +73,9 @@ public class Listing implements Parcelable {
     @SerializedName("dateEnd")
     @Expose
     private String dateEnd;
+    @SerializedName("emailContact")
+    @Expose
+    private String emailContact;
 
     protected Listing(Parcel in) {
         idListing = in.readString();
@@ -79,11 +86,12 @@ public class Listing implements Parcelable {
         price = in.readString();
         address = in.readString();
         image = in.readString();
+        description = in.readString();
         floors = in.readString();
         bedroom = in.readString();
         toilet = in.readString();
-        idHouse = in.readString();
-        idBancoly = in.readString();
+        directionHouse = in.readString();
+        directionBancoly = in.readString();
         furniture = in.readString();
         juridical = in.readString();
         nameContact = in.readString();
@@ -91,6 +99,7 @@ public class Listing implements Parcelable {
         idUser = in.readString();
         dateStart = in.readString();
         dateEnd = in.readString();
+        emailContact = in.readString();
     }
 
     public static final Creator<Listing> CREATOR = new Creator<Listing>() {
@@ -169,6 +178,14 @@ public class Listing implements Parcelable {
         this.image = image;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
     public String getFloors() {
         return floors;
     }
@@ -193,20 +210,20 @@ public class Listing implements Parcelable {
         this.toilet = toilet;
     }
 
-    public String getIdHouse() {
-        return idHouse;
+    public String getDirectionHouse() {
+        return directionHouse;
     }
 
-    public void setIdHouse(String idHouse) {
-        this.idHouse = idHouse;
+    public void setDirectionHouse(String directionHouse) {
+        this.directionHouse = directionHouse;
     }
 
-    public String getIdBancoly() {
-        return idBancoly;
+    public String getDirectionBancoly() {
+        return directionBancoly;
     }
 
-    public void setIdBancoly(String idBancoly) {
-        this.idBancoly = idBancoly;
+    public void setDirectionBancoly(String directionBancoly) {
+        this.directionBancoly = directionBancoly;
     }
 
     public String getFurniture() {
@@ -265,6 +282,14 @@ public class Listing implements Parcelable {
         this.dateEnd = dateEnd;
     }
 
+    public String getEmailContact() {
+        return emailContact;
+    }
+
+    public void setEmailContact(String emailContact) {
+        this.emailContact = emailContact;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -280,11 +305,12 @@ public class Listing implements Parcelable {
         parcel.writeString(price);
         parcel.writeString(address);
         parcel.writeString(image);
+        parcel.writeString(description);
         parcel.writeString(floors);
         parcel.writeString(bedroom);
         parcel.writeString(toilet);
-        parcel.writeString(idHouse);
-        parcel.writeString(idBancoly);
+        parcel.writeString(directionHouse);
+        parcel.writeString(directionBancoly);
         parcel.writeString(furniture);
         parcel.writeString(juridical);
         parcel.writeString(nameContact);
@@ -292,5 +318,6 @@ public class Listing implements Parcelable {
         parcel.writeString(idUser);
         parcel.writeString(dateStart);
         parcel.writeString(dateEnd);
+        parcel.writeString(emailContact);
     }
 }

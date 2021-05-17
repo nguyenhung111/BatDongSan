@@ -22,8 +22,8 @@ import android.widget.TextView;
 import com.example.btngsn.Home.HomePage;
 import com.example.btngsn.Login.HomeLogin;
 
-import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
+import org.simple.eventbus.EventBus;
+import org.simple.eventbus.Subscriber;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -62,11 +62,10 @@ public class MainActivity extends AppCompatActivity {
         sharedPreferences = getSharedPreferences("datalogin", Context.MODE_PRIVATE);
         editor = sharedPreferences.edit();
     }
-    @Subscribe
+    @Subscriber(tag = "loginSuccess")
     public void loginSuccess(boolean b){
         check();
     }
-    @Subscribe
     public void check(){
         String fullname = sharedPreferences.getString("fullName","");
         if(!TextUtils.isEmpty(fullname)){

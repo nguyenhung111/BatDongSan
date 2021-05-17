@@ -1,18 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Activity.ProductDetail">
-
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        app:title="  "
         tools:ignore="MissingConstraints">
 
     </androidx.appcompat.widget.Toolbar>
+
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="match_parent"
@@ -23,37 +24,32 @@
     </ImageView>
 
     <ScrollView
-        android:layout_marginTop="200dp"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_marginTop="200dp">
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:padding="15dp">
-            <TextView
-                android:id="@+id/titileName"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:text="Giá cực sốc"
-                android:textSize="18dp">
 
-            </TextView>
-            <TextView
-                android:id="@+id/price"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/titileName"
-                android:text="6,8 tỷ"
-                android:textColor="@color/blue"
-                android:textSize="18dp">
-
-            </TextView>
             <LinearLayout
                 android:id="@+id/inforDes"
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
                 android:layout_below="@+id/price"
                 android:orientation="vertical">
+
+                <ScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:id="@+id/inforDescription"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"></TextView>
+                </ScrollView>
+
                 <TextView
                     android:id="@+id/description"
                     android:layout_width="match_parent"
@@ -63,16 +59,6 @@
                     android:textSize="18dp">
 
                 </TextView>
-                <ScrollView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <TextView
-                        android:id="@+id/inforDescription"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent">
-                    </TextView>
-                </ScrollView>
             </LinearLayout>
 
             <LinearLayout
@@ -81,14 +67,7 @@
                 android:layout_height="300dp"
                 android:layout_below="@id/inforDes"
                 android:orientation="vertical">
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Thông tin chi tiết"
-                    android:textColor="@color/black"
-                    android:textSize="18dp">
 
-                </TextView>
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="30dp"
@@ -159,6 +138,16 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:gravity="center|start" />
+
+                    <com.google.android.material.floatingactionbutton.FloatingActionButton
+                        android:id="@+id/floatingActionButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="right|bottom|end"
+                        android:background="@drawable/radiuscongtru"
+                        android:clickable="true"
+                        android:src="@drawable/ic_baseline_call_24"
+                        tools:ignore="VectorDrawableCompat" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -206,10 +195,10 @@
                         android:layout_width="100dp"
                         android:layout_height="match_parent"
                         android:gravity="center|start"
-                        android:text="Ngày đăng tin" />
+                        android:text="Pháp lý" />
 
                     <TextView
-                        android:id="@+id/DatePost"
+                        android:id="@+id/phaply"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:gravity="center|start" />
@@ -224,25 +213,26 @@
                         android:layout_width="100dp"
                         android:layout_height="match_parent"
                         android:gravity="center|start"
-                        android:text="Ngày hết hạn" />
+                        android:text="Ngày đăng tin" />
 
                     <TextView
-                        android:id="@+id/DateEnd"
+                        android:id="@+id/DatePost"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:gravity="center|start" />
                 </LinearLayout>
-            </LinearLayout>
-            <TextView
-                android:id="@+id/lienhe"
-                android:layout_below="@+id/inforDetail"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Thông tin liên hệ"
-                android:textColor="@color/black"
-                android:textSize="18dp">
 
-            </TextView>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Thông tin chi tiết"
+                    android:textColor="@color/black"
+                    android:textSize="18dp">
+
+                </TextView>
+
+            </LinearLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="120dp"
@@ -257,6 +247,7 @@
                 </ImageView>
 
                 <LinearLayout
+                    android:id="@+id/inforLienhe"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_weight="3"
@@ -290,8 +281,46 @@
                         android:textSize="18dp" />
                 </LinearLayout>
             </LinearLayout>
-        </RelativeLayout>
 
+            <TextView
+                android:id="@+id/price"
+                android:layout_width="378dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/titileName"
+                android:text="6,8 tỷ"
+                android:textColor="@color/blue"
+                android:textSize="18dp">
+
+            </TextView>
+
+            <TextView
+                android:id="@+id/lienhe"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/inforDetail"
+                android:text="Thông tin liên hệ"
+                android:textColor="@color/black"
+                android:textSize="18dp">
+
+            </TextView>
+
+            <TextView
+                android:id="@+id/titileName"
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:text="Giá cực sốc"
+                android:textSize="18dp">
+
+            </TextView>
+        </RelativeLayout>
     </ScrollView>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="@dimen/fab_margin"
+        app:srcCompat="@android:drawable/sym_call_outgoing" />
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
