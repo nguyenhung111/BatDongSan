@@ -20,7 +20,10 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.btngsn.Activity.ChangePass;
+import com.example.btngsn.Activity.InforUser;
 import com.example.btngsn.Activity.PostListing;
+import com.example.btngsn.Activity.Thongtincoban;
 import com.example.btngsn.Activity.chosePhoto;
 import com.example.btngsn.Adapter.ListingAdapter;
 import com.example.btngsn.Login.Login;
@@ -45,7 +48,7 @@ import retrofit2.Response;
 
 public class AccountFragment extends Fragment {
     public Button login, registration, btnlogout;
-    public TextView postlisting, fullName, sdt;
+    public TextView postlisting, fullName, sdt,managerinfor,changepass;
     public ImageView imgAva;
     Login loginClass;
     SharedPreferences sharedPreferences;
@@ -69,7 +72,10 @@ public class AccountFragment extends Fragment {
         registration = (Button) view.findViewById(R.id.registrationAcc);
         postlisting = (TextView) view.findViewById(R.id.postlisting);
         fullName = (TextView) view.findViewById(R.id.fullName);
+        managerinfor = (TextView) view.findViewById(R.id.managerinfor);
         sdt = (TextView) view.findViewById(R.id.sdt);
+        changepass = (TextView) view.findViewById(R.id.changepass);
+
         imgAva = (ImageView) view.findViewById(R.id.imgAva);
 
         btnlogout = (Button) view.findViewById(R.id.btnlogout);
@@ -137,11 +143,25 @@ public class AccountFragment extends Fragment {
         postlisting.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getContext(), PostListing.class);
+                Intent intent = new Intent(getContext(), Thongtincoban.class);
                 startActivity(intent);
             }
         });
 
+        managerinfor.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getContext(), InforUser.class);
+                startActivity(intent);
+            }
+        });
+        changepass.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getContext(), ChangePass.class);
+                startActivity(intent);
+            }
+        });
 
     }
 

@@ -56,21 +56,14 @@ import retrofit2.Response;
 public class PostListing extends AppCompatActivity {
     private Button countine, trutang, truphong, trutoilet, congtang, congphong, congtoilet;
     private TextView valuestang, valuesphong, valuestoilet, txttongtien;
-    private Spinner spnhinhthuc, spnloai, spnhuongnha, spnbancong, spndonvi;
-    private EditText edttieude, edtdientich, edtdiachi, edtmota, edtnoithat, edtphaply,edtgiatien;
+    private Spinner spnhuongnha, spnbancong, spndonvi;
+    private EditText edttieude, edtdientich, edtmota, edtnoithat, edtphaply,edtgiatien;
     private ImageView imageView;
     final int REQUEST_CHOOSE_PHOTO = 321;
     String realpath = "";
     String s = "";
     Uri mUri;
 
-    ArrayList<viewForm> arrayListForm;
-    formAdapter adapterForm;
-    viewForm viewFormIntent;
-
-    ArrayList<viewSpecies> arrayListSpecies;
-    speciesAdapter speciesAdapter;
-    viewSpecies viewSpeciesIntent;
 
     ArrayList<viewDirection> directionArrayList;
     directionAdapter directionAdapter;
@@ -84,8 +77,6 @@ public class PostListing extends AppCompatActivity {
         init();
         EventSpiner();
         ChoosePhoto();
-        getForm();
-        getSpecies();
         getDirection();
         getBalconly();
         clickonitem();
@@ -106,8 +97,6 @@ public class PostListing extends AppCompatActivity {
         valuestoilet = (TextView) findViewById(R.id.valuestoilet);
         txttongtien = (TextView) findViewById(R.id.txttongtien);
 
-        spnhinhthuc = (Spinner) findViewById(R.id.spnhinhthuc);
-        spnloai = (Spinner) findViewById(R.id.siploai);
         spnhuongnha = (Spinner) findViewById(R.id.spnhuongnha);
         spnbancong = (Spinner) findViewById(R.id.spnbancong);
         spndonvi = (Spinner) findViewById(R.id.spnloaitien);
@@ -115,7 +104,6 @@ public class PostListing extends AppCompatActivity {
         edttieude = (EditText) findViewById(R.id.edttieude);
         edtdientich = (EditText) findViewById(R.id.edtdientich);
         edtgiatien = (EditText) findViewById(R.id.edtgiatien);
-        edtdiachi = (EditText) findViewById(R.id.edtdiachi);
         edtmota = (EditText) findViewById(R.id.edtmota);
         edtnoithat = (EditText) findViewById(R.id.edtnoithat);
         edtphaply = (EditText) findViewById(R.id.edtphaply);
@@ -217,8 +205,6 @@ public class PostListing extends AppCompatActivity {
 
 
     public void senddata() {
-        String hinhthuc = viewFormIntent.getIdForm();
-        String loai = viewSpeciesIntent.getNameSpecies();
         String huongnha = viewDirectionIntent.getNameDirection();
         String bancong = directionBalcony.getNameDirection();
         String giatien = edtgiatien.getText().toString();
@@ -229,11 +215,8 @@ public class PostListing extends AppCompatActivity {
         Intent myIntent = new Intent(PostListing.this, ContactListing.class);
         Bundle bundle = new Bundle();
         bundle.putString("tieude", edttieude.getText().toString().trim());
-        bundle.putString("hinhthuc", hinhthuc);
-        bundle.putString("loai", loai);
         bundle.putString("dientich", edtdientich.getText().toString().trim());
         bundle.putString("giatien", txttongtien.getText().toString().trim());
-        bundle.putString("diachi", edtdiachi.getText().toString().trim());
         bundle.putString("mota", edtmota.getText().toString().trim());
         bundle.putString("sotang", valuestang.getText().toString().trim());
         bundle.putString("sophongngu", valuesphong.getText().toString().trim());
@@ -254,7 +237,7 @@ public class PostListing extends AppCompatActivity {
 
 
     private void ChoosePhoto() {
-        Log.d("daipv", handlerPermission() + "");
+        Log.d("log", handlerPermission() + "");
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -310,14 +293,14 @@ public class PostListing extends AppCompatActivity {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if (checkSelfPermission(android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
                     == PackageManager.PERMISSION_GRANTED) {
-                Log.v("daipv", "Permission is granted");
+                Log.v("log", "Permission is granted");
                 return true;
             } else {
                 ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
                 return false;
             }
         } else { //permission is automatically granted on sdk<23 upon installation
-            Log.v("daipv", "Permission is granted");
+            Log.v("log", "Permission is granted");
             return true;
         }
     }
@@ -326,7 +309,7 @@ public class PostListing extends AppCompatActivity {
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-            Log.v("daipv", "Permission: " + permissions[0] + "was " + grantResults[0]);
+            Log.v("log", "Permission: " + permissions[0] + "was " + grantResults[0]);
             //resume tasks needing this permission
         }
     }
@@ -337,48 +320,8 @@ public class PostListing extends AppCompatActivity {
         spndonvi.setAdapter(arrayAdapter);
     }
 
-    public void getForm() {
-        arrayListForm = new ArrayList<>();
-        DataClient getData = APIUtils.getData();
-        Call<List<viewForm>> callback = getData.getForm();
-        callback.enqueue(new Callback<List<viewForm>>() {
-            @Override
-            public void onResponse(Call<List<viewForm>> call, Response<List<viewForm>> response) {
-                arrayListForm = (ArrayList<viewForm>) response.body();
-                if (arrayListForm.size() > 0) {
-                    adapterForm = new formAdapter(PostListing.this, arrayListForm);
-                    spnhinhthuc.setAdapter(adapterForm);
-                }
-            }
 
-            @Override
-            public void onFailure(Call<List<viewForm>> call, Throwable t) {
 
-            }
-        });
-    }
-
-    public void getSpecies() {
-        arrayListSpecies = new ArrayList<>();
-        DataClient getData = APIUtils.getData();
-        Call<List<viewSpecies>> callback = getData.getSpecies();
-        callback.enqueue(new Callback<List<viewSpecies>>() {
-            @Override
-            public void onResponse(Call<List<viewSpecies>> call, Response<List<viewSpecies>> response) {
-                arrayListSpecies = (ArrayList<viewSpecies>) response.body();
-                if (arrayListSpecies.size() > 0) {
-                    speciesAdapter = new speciesAdapter(PostListing.this, arrayListSpecies);
-                    spnloai.setAdapter(speciesAdapter);
-                }
-            }
-
-            @Override
-            public void onFailure(Call<List<viewSpecies>> call, Throwable t) {
-
-            }
-        });
-
-    }
 
     public void getDirection() {
         directionArrayList = new ArrayList<>();
@@ -424,28 +367,6 @@ public class PostListing extends AppCompatActivity {
     }
 
     public void clickonitem() {
-        spnhinhthuc.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                viewFormIntent = new viewForm(arrayListForm.get(position).getIdForm(), arrayListForm.get(position).getNameForm());
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
-        spnloai.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                viewSpeciesIntent = new viewSpecies(arrayListSpecies.get(position).getIdSpecies(), arrayListSpecies.get(position).getNameSpecies());
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
         spnhuongnha.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {

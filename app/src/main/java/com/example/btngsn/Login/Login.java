@@ -10,6 +10,7 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.Signature;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Base64;
 import android.util.Log;
@@ -75,7 +76,7 @@ public class Login extends AppCompatActivity {
         }
         luutaikhoan = getApplicationContext().getSharedPreferences("thongtintaikhoan", Context.MODE_PRIVATE);
         init();
-        ActionTool();
+        ActionBar();
         event();
         LoginFace();
     }
@@ -93,9 +94,11 @@ public class Login extends AppCompatActivity {
 
     }
 
-    private void ActionTool() {
+    public void ActionBar() {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        getSupportActionBar().setHomeAsUpIndicator( getResources().getDrawable(R.drawable.ic_baseline_arrow_back_ios_24) );
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -178,8 +181,14 @@ public class Login extends AppCompatActivity {
                         String Email = userArrayList.get(0).getEmail();
                         String idspUser = userArrayList.get(0).getIdspUser();
                         String CMND = userArrayList.get(0).getCmnd();
+                        String address = userArrayList.get(0).getAddress();
+                        String linkFace = userArrayList.get(0).getLinkFace();
+                        String linkWeb = userArrayList.get(0).getLinkWeb();
+                        String sodu = userArrayList.get(0).getSodu();
+                        String sex = (String) userArrayList.get(0).getSex();
 
-                        updateCaced(getApplicationContext(), idUser, fullName, userName, pasWord, numberPhone, Email, idspUser, CMND);
+                        updateCaced(getApplicationContext(), idUser, fullName, userName, pasWord, numberPhone, Email,
+                                idspUser, CMND,address,linkFace,linkWeb,sodu,sex);
 
                         Intent intent = new Intent(getApplicationContext(), HomePage.class);
                         intent.putExtra("dataUser", userArrayList);
@@ -200,7 +209,8 @@ public class Login extends AppCompatActivity {
     }
 
 
-    public void updateCaced(Context context, String idUser, String fullName, String userName, String passWord, String numberPhone, String Email, String idspUser, String CMND) {
+    public void updateCaced(Context context, String idUser, String fullName, String userName, String passWord, String numberPhone, String Email, String idspUser, String CMND,String address,
+                            String linkFace, String linkWeb, String sodu, String sex) {
         SharedPreferences cachedangnhap = context.getSharedPreferences("datalogin", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = cachedangnhap.edit();
         editor.putString("idUser", idUser);
@@ -211,6 +221,12 @@ public class Login extends AppCompatActivity {
         editor.putString("Email", Email);
         editor.putString("idspUser", idspUser);
         editor.putString("CMND", CMND);
+        editor.putString("address", address);
+        editor.putString("linkFace", linkFace);
+        editor.putString("linkWeb", linkWeb);
+        editor.putString("sodu", sodu);
+        editor.putString("sex", sex);
+
         editor.commit();
     }
 }

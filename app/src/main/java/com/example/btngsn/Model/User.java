@@ -34,6 +34,21 @@ public class User  implements Parcelable {
     @SerializedName("CMND")
     @Expose
     private String cmnd;
+    @SerializedName("address")
+    @Expose
+    private String address;
+    @SerializedName("linkFace")
+    @Expose
+    private String linkFace;
+    @SerializedName("linkWeb")
+    @Expose
+    private String linkWeb;
+    @SerializedName("sodu")
+    @Expose
+    private String sodu;
+    @SerializedName("sex")
+    @Expose
+    private String sex;
 
     protected User(Parcel in) {
         idUser = in.readString();
@@ -44,6 +59,10 @@ public class User  implements Parcelable {
         email = in.readString();
         idspUser = in.readString();
         cmnd = in.readString();
+        address = in.readString();
+        linkFace = in.readString();
+        linkWeb = in.readString();
+        sodu = in.readString();
     }
 
     public static final Creator<User> CREATOR = new Creator<User>() {
@@ -122,6 +141,46 @@ public class User  implements Parcelable {
         this.cmnd = cmnd;
     }
 
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getLinkFace() {
+        return linkFace;
+    }
+
+    public void setLinkFace(String linkFace) {
+        this.linkFace = linkFace;
+    }
+
+    public String getLinkWeb() {
+        return linkWeb;
+    }
+
+    public void setLinkWeb(String linkWeb) {
+        this.linkWeb = linkWeb;
+    }
+
+    public String getSodu() {
+        return sodu;
+    }
+
+    public void setSodu(String sodu) {
+        this.sodu = sodu;
+    }
+
+    public Object getSex() {
+        return sex;
+    }
+
+    public void setSex(String sex) {
+        this.sex = sex;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -137,5 +196,9 @@ public class User  implements Parcelable {
         parcel.writeString(email);
         parcel.writeString(idspUser);
         parcel.writeString(cmnd);
+        parcel.writeString(address);
+        parcel.writeString(linkFace);
+        parcel.writeString(linkWeb);
+        parcel.writeString(sodu);
     }
 }

@@ -20,6 +20,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
+import com.bumptech.glide.Glide;
 import com.example.btngsn.Model.Listing;
 import com.example.btngsn.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -74,7 +75,7 @@ public class ProductDetail extends AppCompatActivity {
         Listing listing = (Listing) intent.getParcelableExtra("thongtinchitiet");
 
         titileName.setText(listing.getTitle());
-        price.setText(listing.getPrice() + "triệu / m2");
+        price.setText(listing.getPrice());
 
         inforDescription.setText(listing.getDescription());
         Acreage.setText(listing.getAcreage() + " M2 ");
@@ -92,12 +93,14 @@ public class ProductDetail extends AppCompatActivity {
         titileName.setMaxLines(3);
         titileName.setEllipsize(TextUtils.TruncateAt.END);
 
-        Picasso.get().load(listing.getImage()).placeholder(R.drawable.ic_baseline_hide_image_24).error(R.drawable.ic_baseline_error_24).into(imageView);
+        Glide.with(getApplicationContext()).load(listing.getImage()).placeholder(R.drawable.ic_baseline_hide_image_24).error(R.drawable.ic_baseline_error_24).centerCrop().into(imageView);
     }
 
     private void ActionTool() {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        getSupportActionBar().setHomeAsUpIndicator( getResources().getDrawable(R.drawable.ic_baseline_arrow_back_ios_24) );
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

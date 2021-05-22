@@ -4,13 +4,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Fragment.HomeFragment">
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:padding="10dp">
+
             <LinearLayout
                 android:id="@+id/linearlogo"
                 android:layout_width="match_parent"
@@ -98,6 +101,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_below="@+id/linearlogo"
+                android:layout_marginTop="5dp"
                 android:orientation="vertical">
 
                 <LinearLayout
@@ -135,11 +139,11 @@
             </LinearLayout>
 
             <LinearLayout
-                android:layout_marginBottom="50dp"
                 android:id="@+id/linearsellhome"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_below="@+id/linearmuaban"
+                android:layout_marginBottom="50dp"
                 android:orientation="vertical">
 
                 <LinearLayout
@@ -172,51 +176,53 @@
                     android:id="@+id/recyviewthuehome"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
+
                 </androidx.recyclerview.widget.RecyclerView>
             </LinearLayout>
         </RelativeLayout>
     </ScrollView>
-        <com.google.android.material.appbar.AppBarLayout
-            android:id="@+id/appbarlayout"
-            android:layout_width="match_parent"
-            android:layout_height="70dp"
-            android:background="#45C4FD">
 
-            <RelativeLayout
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appbarlayout"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:background="#45C4FD">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:background="@drawable/radiusbutton"
+            android:backgroundTint="#F1EDED"
+            android:orientation="horizontal"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp">
+
+            <ImageButton
+                android:id="@+id/btnSearch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:background="@null"
+                android:src="@drawable/ic_baseline_search_24" />
+
+            <TextView
+                android:id="@+id/edt_seach"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:background="@drawable/radiusbutton"
-                android:backgroundTint="#F1EDED"
-                android:orientation="horizontal"
-                android:paddingLeft="5dp"
-                android:paddingRight="5dp">
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="30dp"
+                android:layout_toRightOf="@+id/btnSearch"
+                android:background="@null"
+                android:hint="Bạn tìm gì hôm nay "
+                android:maxLines="1"
+                android:textSize="18dp" />
 
-                <ImageButton
-                    android:id="@+id/btnSearch"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginBottom="10dp"
-                    android:background="@null"
-                    android:src="@drawable/ic_baseline_search_24" />
-
-                <TextView
-                    android:id="@+id/edt_seach"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="30dp"
-                    android:layout_toRightOf="@+id/btnSearch"
-                    android:background="@null"
-                    android:hint="Bạn tìm gì hôm nay "
-                    android:maxLines="1"
-                    android:textSize="18dp" />
-
-            </RelativeLayout>
-        </com.google.android.material.appbar.AppBarLayout>
+        </RelativeLayout>
+    </com.google.android.material.appbar.AppBarLayout>
 
 </FrameLayout>

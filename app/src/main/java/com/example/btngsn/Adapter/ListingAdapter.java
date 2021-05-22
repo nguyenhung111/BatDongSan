@@ -14,6 +14,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.btngsn.Activity.ProductDetail;
 import com.example.btngsn.Model.CheckConnection;
 import com.example.btngsn.Model.Listing;
@@ -46,30 +47,18 @@ public class ListingAdapter extends RecyclerView.Adapter<ListingAdapter.ItemHole
     public void onBindViewHolder(@NonNull ItemHoler holder, int position) {
 
         final Listing listing = arrayList.get(position);
-        String localhost = "http://192.168.1.12/batdongsan/image/";
-        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
 
-        holder.title.setMaxLines(3);
-        holder.title.setEllipsize(TextUtils.TruncateAt.END);
+
         holder.title.setText(listing.getTitle());
         holder.phone.setText("0" + listing.getPhoneContact());
-        holder.price.setText("Giá " + listing.getPrice() + "triệu / m2");
-        holder.acreage.setText(listing.getAcreage() + "m2");
-        holder.address.setMaxLines(2);
-        holder.address.setEllipsize(TextUtils.TruncateAt.END);
+        holder.price.setText("Giá " + listing.getPrice());
+        holder.acreage.setText("Diện tích " + listing.getAcreage() + "m2");
         holder.address.setText(listing.getAddress());
-//        String url = arrayList.get(0).getImage();
-//        String[] link = url.split("/");
-//        for (String t : link)
-//            String.valueOf(t);
-//        String anh = link[5];
-//
-//        Picasso.get().load(localhost + anh).into(holder.imageView);
-        Picasso.get().load(listing.getImage()).into(holder.imageView);
-        holder.dateStart.setText(listing.getDateStart());
 
-//        Bitmap bmHinhDaiDien = BitmapFactory.decodeByteArray(listing.image,0,listing.image.length);
-//        holder.imageView.setImageBitmap(bmHinhDaiDien);
+        holder.dateStart.setText(listing.getDateStart());
+        Glide.with(context).load(listing.getImage()).placeholder(R.drawable.ic_baseline_hide_image_24)
+                .error(R.drawable.ic_baseline_error_24).centerCrop().into(holder.imageView);
+
     }
 
     @Override

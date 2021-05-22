@@ -11,7 +11,7 @@
         android:id="@+id/toolbar"
         app:titleTextColor="@color/white"
         android:background="@color/blue"
-        app:title="Đăng tin rao bán/cho thuê"
+        app:title="Mô tả"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         tools:ignore="MissingConstraints">
@@ -50,48 +50,8 @@
                 </ScrollView>
             </LinearLayout>
             <LinearLayout
-                android:id="@+id/hinhthuc"
-                android:layout_below="@+id/tieude"
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="50dp">
-                <TextView
-                    android:layout_width="100dp"
-                    android:layout_height="match_parent"
-                    android:text="Hình thức"
-                    android:textColor="@color/black"
-                    android:gravity="center"
-                    android:textSize="20dp"/>
-                <Spinner
-                    android:id="@+id/spnhinhthuc"
-                    android:spinnerMode="dropdown"
-                    android:layout_marginLeft="10dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"/>
-            </LinearLayout>
-            <LinearLayout
-                android:id="@+id/loai"
-                android:layout_below="@+id/hinhthuc"
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="50dp">
-                <TextView
-                    android:layout_width="100dp"
-                    android:layout_height="match_parent"
-                    android:text="Loại"
-                    android:textColor="@color/black"
-                    android:gravity="start|center"
-                    android:textSize="20dp"/>
-                <Spinner
-                    android:id="@+id/siploai"
-                    android:spinnerMode="dropdown"
-                    android:layout_marginLeft="10dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"/>
-            </LinearLayout>
-            <LinearLayout
                 android:id="@+id/dientich"
-                android:layout_below="@+id/loai"
+                android:layout_below="@+id/tieude"
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="50dp">
@@ -170,32 +130,8 @@
                 </TextView>
             </LinearLayout>
             <LinearLayout
-                android:id="@+id/diachi"
-                android:layout_below="@+id/tongtien"
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="50dp">
-                <TextView
-                    android:layout_width="100dp"
-                    android:layout_height="match_parent"
-                    android:text="Địa chỉ"
-                    android:textColor="@color/black"
-                    android:gravity="start|center"
-                    android:textSize="20dp"/>
-                <ScrollView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/edtdiachi"
-                        android:layout_marginLeft="10dp"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent">
-                    </com.google.android.material.textfield.TextInputEditText>
-                </ScrollView>
-            </LinearLayout>
-            <LinearLayout
                 android:id="@+id/hinhanh"
-                android:layout_below="@+id/diachi"
+                android:layout_below="@+id/tongtien"
                 android:layout_width="match_parent"
                 android:orientation="vertical"
                 android:layout_height="130dp">
@@ -515,7 +451,7 @@
                 android:textSize="24dp"
                 android:background="@color/blue"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="wrap_content">
             </Button>
         </RelativeLayout>
     </ScrollView>

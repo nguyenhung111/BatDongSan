@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".Activity.ContactListing">
     <androidx.appcompat.widget.Toolbar
         app:title="Liên hệ và thanh toán"
@@ -11,270 +12,297 @@
         app:titleTextColor="@color/white"
         android:background="@color/blue"
         android:gravity="center"
-        android:layout_height="50dp"
-        tools:ignore="MissingConstraints">
+        android:layout_height="50dp">
     </androidx.appcompat.widget.Toolbar>
 
-    <RelativeLayout
-        android:layout_marginTop="50dp"
-        android:orientation="vertical"
-        android:padding="10dp"
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-        <TextView
-            android:id="@+id/thongtinlienhe"
-            android:text="THÔNG TIN LIÊN HỆ"
-            android:textSize="20dp"
-            android:textColor="@color/black"
+        <RelativeLayout
+            android:orientation="vertical"
+            android:padding="10dp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-        </TextView>
-        <EditText
-            android:id="@+id/edtnamecontact"
-            android:layout_below="@+id/thongtinlienhe"
-            android:hint="Tên liên hệ"
-            android:textColor="@color/black"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-        </EditText>
-        <EditText
-            android:id="@+id/addresscontact"
-            android:layout_below="@id/edtnamecontact"
-            android:hint="Địa chỉ"
-            android:textColor="@color/black"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-        </EditText>
-        <EditText
-            android:id="@+id/phonecontact"
-            android:layout_below="@id/addresscontact"
-            android:hint="Phone"
-            android:inputType="phone"
-            android:textColor="@color/black"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-        </EditText>
-        <EditText
-            android:id="@+id/emailcontact"
-            android:layout_below="@id/phonecontact"
-            android:hint="Email"
-            android:textColor="@color/black"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-        </EditText>
-        <TextView
-            android:id="@+id/thongtinthanhtoan"
-            android:layout_below="@id/emailcontact"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textColor="@color/black"
-            android:textSize="20dp"
-            android:text="THÔNG TIN THANH TOÁN">
-        </TextView>
-        <LinearLayout
-            android:gravity="center"
-            android:layout_below="@+id/thongtinthanhtoan"
-            android:id="@+id/dongia"
-            android:weightSum="2"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:orientation="horizontal">
+            android:layout_height="match_parent">
             <TextView
-                android:gravity="center|start"
-                android:layout_weight="1"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:text="Đơn giá"
-                android:textSize="18dp"
-                android:textColor="@color/black"/>
+                android:id="@+id/thongtinlienhe"
+                android:text="THÔNG TIN LIÊN HỆ"
+                android:textSize="20dp"
+                android:textColor="@color/black"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+            </TextView>
+            <EditText
+                android:id="@+id/edtnamecontact"
+                android:layout_below="@+id/thongtinlienhe"
+                android:hint="Tên liên hệ"
+                android:textColor="@color/black"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+            </EditText>
+            <EditText
+                android:id="@+id/addresscontact"
+                android:layout_below="@id/edtnamecontact"
+                android:hint="Địa chỉ"
+                android:textColor="@color/black"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+            </EditText>
+            <EditText
+                android:id="@+id/phonecontact"
+                android:layout_below="@id/addresscontact"
+                android:hint="Phone"
+                android:inputType="phone"
+                android:textColor="@color/black"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+            </EditText>
+            <EditText
+                android:id="@+id/emailcontact"
+                android:layout_below="@id/phonecontact"
+                android:hint="Email"
+                android:textColor="@color/black"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+            </EditText>
             <TextView
-                android:layout_weight="1"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:text="2.000 đ/Ngày"
-                android:textSize="18dp"
+                android:id="@+id/thongtinthanhtoan"
+                android:layout_below="@id/emailcontact"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:textSize="20dp"
+                android:text="THÔNG TIN THANH TOÁN">
+            </TextView>
+            <LinearLayout
                 android:gravity="center"
-                android:textAlignment="center"
-                android:textColor="@color/colorRed"/>
-        </LinearLayout>
-        <LinearLayout
-            android:gravity="center"
-            android:layout_below="@+id/dongia"
-            android:id="@+id/datestart"
-            android:weightSum="2"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:orientation="horizontal">
-            <TextView
-                android:gravity="center|start"
-                android:layout_weight="1"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:text="Ngày bắt đầu"
-                android:textSize="18dp"
-                android:textColor="@color/black"/>
-            <TextView
-                android:id="@+id/startDate"
+                android:layout_below="@+id/thongtinthanhtoan"
+                android:id="@+id/loaitin"
+                android:weightSum="2"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:orientation="horizontal">
+                <TextView
+                    android:gravity="center|start"
+                    android:layout_weight="1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="Loại tin"
+                    android:textSize="18dp"
+                    android:textColor="@color/black"/>
+                <Spinner
+                    android:id="@+id/spnloaitin"
+                    android:spinnerMode="dropdown"
+                    android:layout_weight="1"
+                    android:layout_marginRight="10dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent">
+                </Spinner>
+            </LinearLayout>
+            <LinearLayout
                 android:gravity="center"
-                android:layout_weight="1"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:textSize="18dp"
-                android:layout_gravity="center"
-                android:textAlignment="center"
-                android:drawableRight="@drawable/ic_baseline_date_range_24"
-                android:textColor="@color/colorRed"/>
-        </LinearLayout>
-        <LinearLayout
-            android:gravity="center"
-            android:layout_below="@+id/datestart"
-            android:id="@+id/dateend"
-            android:weightSum="2"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:orientation="horizontal">
-            <TextView
-                android:gravity="center|start"
-                android:layout_weight="1"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:text="Ngày kết thúc"
-                android:textSize="18dp"
-                android:textColor="@color/black"/>
-            <TextView
-                android:id="@+id/endDate"
+                android:layout_below="@+id/loaitin"
+                android:id="@+id/dongia"
+                android:weightSum="2"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:orientation="horizontal">
+                <TextView
+                    android:gravity="center|start"
+                    android:layout_weight="1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="Đơn giá"
+                    android:textSize="18dp"
+                    android:textColor="@color/black"/>
+                <TextView
+                    android:layout_weight="1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="2.000 đ/Ngày"
+                    android:textSize="18dp"
+                    android:gravity="center"
+                    android:textAlignment="center"
+                    android:textColor="@color/colorRed"/>
+            </LinearLayout>
+            <LinearLayout
                 android:gravity="center"
-                android:layout_weight="1"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:textSize="18dp"
-                android:layout_gravity="center"
-                android:textAlignment="center"
-                android:drawableRight="@drawable/ic_baseline_date_range_24"
-                android:textColor="@color/colorRed"/>
-        </LinearLayout>
-        <LinearLayout
-            android:gravity="center"
-            android:layout_below="@+id/dateend"
-            android:id="@+id/timedangtin"
-            android:weightSum="2"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:orientation="horizontal">
-            <TextView
-                android:gravity="center|start"
-                android:layout_weight="1"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:text="Thời gian đăng tin"
-                android:textSize="18dp"
-                android:textColor="@color/black"/>
-            <TextView
-                android:layout_weight="1"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:text="30 ngày"
-                android:textSize="18dp"
+                android:layout_below="@+id/dongia"
+                android:id="@+id/datestart"
+                android:weightSum="2"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:orientation="horizontal">
+                <TextView
+                    android:gravity="center|start"
+                    android:layout_weight="1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="Ngày bắt đầu"
+                    android:textSize="18dp"
+                    android:textColor="@color/black"/>
+                <TextView
+                    android:id="@+id/startDate"
+                    android:gravity="center"
+                    android:layout_weight="1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:textSize="18dp"
+                    android:layout_gravity="center"
+                    android:textAlignment="center"
+                    android:drawableRight="@drawable/ic_baseline_date_range_24"
+                    android:textColor="@color/colorRed"/>
+            </LinearLayout>
+            <LinearLayout
                 android:gravity="center"
-                android:textAlignment="center"
-                android:textColor="@color/colorRed"/>
-        </LinearLayout>
-        <TextView
-            android:layout_marginTop="10dp"
-            android:text="Thành tiền"
-            android:id="@+id/thanhtien"
-            android:textColor="#EC0707"
-            android:layout_below="@+id/timedangtin"
-            android:layout_width="match_parent"
-            android:textSize="19dp"
-            android:layout_height="wrap_content">
-        </TextView>
-        <LinearLayout
-            android:gravity="center"
-            android:layout_below="@+id/thanhtien"
-            android:id="@+id/phivat"
-            android:weightSum="2"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:orientation="horizontal">
-            <TextView
-                android:gravity="center|start"
-                android:layout_weight="1"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:text="Phí 10 % VAT"
-                android:textSize="18dp"
-                android:textColor="@color/black"/>
-            <TextView
-                android:layout_weight="1"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:text="0 đ"
-                android:textSize="18dp"
+                android:layout_below="@+id/datestart"
+                android:id="@+id/dateend"
+                android:weightSum="2"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:orientation="horizontal">
+                <TextView
+                    android:gravity="center|start"
+                    android:layout_weight="1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="Ngày kết thúc"
+                    android:textSize="18dp"
+                    android:textColor="@color/black"/>
+                <TextView
+                    android:id="@+id/endDate"
+                    android:gravity="center"
+                    android:layout_weight="1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:textSize="18dp"
+                    android:layout_gravity="center"
+                    android:textAlignment="center"
+                    android:drawableRight="@drawable/ic_baseline_date_range_24"
+                    android:textColor="@color/colorRed"/>
+            </LinearLayout>
+            <LinearLayout
                 android:gravity="center"
-                android:textAlignment="center"
-                android:textColor="@color/colorRed"/>
-        </LinearLayout>
-        <LinearLayout
-            android:gravity="center"
-            android:layout_below="@+id/phivat"
-            android:id="@+id/taikhoan"
-            android:weightSum="2"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:orientation="horizontal">
+                android:layout_below="@+id/dateend"
+                android:id="@+id/timedangtin"
+                android:weightSum="2"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:orientation="horizontal">
+                <TextView
+                    android:gravity="center|start"
+                    android:layout_weight="1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="Thời gian đăng tin"
+                    android:textSize="18dp"
+                    android:textColor="@color/black"/>
+                <TextView
+                    android:layout_weight="1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="30 ngày"
+                    android:textSize="18dp"
+                    android:gravity="center"
+                    android:textAlignment="center"
+                    android:textColor="@color/colorRed"/>
+            </LinearLayout>
             <TextView
-                android:gravity="center|start"
-                android:layout_weight="1"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:text="Trừ vài tài khoản "
-                android:textSize="18dp"
-                android:textColor="@color/black"/>
-            <TextView
-                android:layout_weight="1"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:text="0 đ"
-                android:textSize="18dp"
+                android:layout_marginTop="10dp"
+                android:text="Thành tiền"
+                android:id="@+id/thanhtien"
+                android:textColor="#EC0707"
+                android:layout_below="@+id/timedangtin"
+                android:layout_width="match_parent"
+                android:textSize="19dp"
+                android:layout_height="wrap_content">
+            </TextView>
+            <LinearLayout
                 android:gravity="center"
-                android:textAlignment="center"
-                android:textColor="@color/colorRed"/>
-        </LinearLayout>
-        <LinearLayout
-            android:gravity="center"
-            android:layout_below="@+id/taikhoan"
-            android:id="@+id/tongtien"
-            android:weightSum="2"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:orientation="horizontal">
-            <TextView
-                android:gravity="center|start"
-                android:layout_weight="1"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:text="Tổng tiền (bao gồm VAT)"
-                android:textSize="18dp"
-                android:textColor="@color/black"/>
-            <TextView
-                android:layout_weight="1"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:text="0 đ"
-                android:textSize="18dp"
+                android:layout_below="@+id/thanhtien"
+                android:id="@+id/phivat"
+                android:weightSum="2"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:orientation="horizontal">
+                <TextView
+                    android:gravity="center|start"
+                    android:layout_weight="1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="Phí 10 % VAT"
+                    android:textSize="18dp"
+                    android:textColor="@color/black"/>
+                <TextView
+                    android:layout_weight="1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="0 đ"
+                    android:textSize="18dp"
+                    android:gravity="center"
+                    android:textAlignment="center"
+                    android:textColor="@color/colorRed"/>
+            </LinearLayout>
+            <LinearLayout
                 android:gravity="center"
-                android:textAlignment="center"
-                android:textColor="@color/colorRed"/>
-        </LinearLayout>
-        <Button
-            android:id="@+id/tindang"
-            android:layout_below="@id/tongtien"
-            android:text="XEM TRƯỚC TIN ĐĂNG"
-            android:background="@color/blue"
-            android:textColor="@color/white"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-        </Button>
-    </RelativeLayout>
-</androidx.constraintlayout.widget.ConstraintLayout>
+                android:layout_below="@+id/phivat"
+                android:id="@+id/taikhoan"
+                android:weightSum="2"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:orientation="horizontal">
+                <TextView
+                    android:gravity="center|start"
+                    android:layout_weight="1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="Trừ vài tài khoản "
+                    android:textSize="18dp"
+                    android:textColor="@color/black"/>
+                <TextView
+                    android:layout_weight="1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="0 đ"
+                    android:textSize="18dp"
+                    android:gravity="center"
+                    android:textAlignment="center"
+                    android:textColor="@color/colorRed"/>
+            </LinearLayout>
+            <LinearLayout
+                android:gravity="center"
+                android:layout_below="@+id/taikhoan"
+                android:id="@+id/tongtien"
+                android:weightSum="2"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:orientation="horizontal">
+                <TextView
+                    android:gravity="center|start"
+                    android:layout_weight="1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="Tổng tiền (bao gồm VAT)"
+                    android:textSize="18dp"
+                    android:textColor="@color/black"/>
+                <TextView
+                    android:layout_weight="1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="0 đ"
+                    android:textSize="18dp"
+                    android:gravity="center"
+                    android:textAlignment="center"
+                    android:textColor="@color/colorRed"/>
+            </LinearLayout>
+            <Button
+                android:id="@+id/tindang"
+                android:layout_below="@id/tongtien"
+                android:text="XEM TRƯỚC TIN ĐĂNG"
+                android:background="@color/blue"
+                android:textColor="@color/white"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+            </Button>
+        </RelativeLayout>
+    </ScrollView>
+</LinearLayout>

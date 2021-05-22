@@ -31,6 +31,9 @@ public class Listing  implements Parcelable{
     @SerializedName("address")
     @Expose
     private String address;
+    @SerializedName("addressDetail")
+    @Expose
+    private String addressDetail;
     @SerializedName("image")
     @Expose
     private String image;
@@ -64,6 +67,9 @@ public class Listing  implements Parcelable{
     @SerializedName("phoneContact")
     @Expose
     private String phoneContact;
+    @SerializedName("emailContact")
+    @Expose
+    private String emailContact;
     @SerializedName("idUser")
     @Expose
     private String idUser;
@@ -73,9 +79,15 @@ public class Listing  implements Parcelable{
     @SerializedName("dateEnd")
     @Expose
     private String dateEnd;
-    @SerializedName("emailContact")
+    @SerializedName("trangthai")
     @Expose
-    private String emailContact;
+    private String trangthai;
+    @SerializedName("loaitin")
+    @Expose
+    private String loaitin;
+    @SerializedName("urlMap")
+    @Expose
+    private Object urlMap;
 
     protected Listing(Parcel in) {
         idListing = in.readString();
@@ -85,6 +97,7 @@ public class Listing  implements Parcelable{
         acreage = in.readString();
         price = in.readString();
         address = in.readString();
+        addressDetail = in.readString();
         image = in.readString();
         description = in.readString();
         floors = in.readString();
@@ -96,10 +109,12 @@ public class Listing  implements Parcelable{
         juridical = in.readString();
         nameContact = in.readString();
         phoneContact = in.readString();
+        emailContact = in.readString();
         idUser = in.readString();
         dateStart = in.readString();
         dateEnd = in.readString();
-        emailContact = in.readString();
+        trangthai = in.readString();
+        loaitin = in.readString();
     }
 
     public static final Creator<Listing> CREATOR = new Creator<Listing>() {
@@ -168,6 +183,14 @@ public class Listing  implements Parcelable{
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    public String getAddressDetail() {
+        return addressDetail;
+    }
+
+    public void setAddressDetail(String addressDetail) {
+        this.addressDetail = addressDetail;
     }
 
     public String getImage() {
@@ -258,6 +281,14 @@ public class Listing  implements Parcelable{
         this.phoneContact = phoneContact;
     }
 
+    public String getEmailContact() {
+        return emailContact;
+    }
+
+    public void setEmailContact(String emailContact) {
+        this.emailContact = emailContact;
+    }
+
     public String getIdUser() {
         return idUser;
     }
@@ -282,12 +313,28 @@ public class Listing  implements Parcelable{
         this.dateEnd = dateEnd;
     }
 
-    public String getEmailContact() {
-        return emailContact;
+    public String getTrangthai() {
+        return trangthai;
     }
 
-    public void setEmailContact(String emailContact) {
-        this.emailContact = emailContact;
+    public void setTrangthai(String trangthai) {
+        this.trangthai = trangthai;
+    }
+
+    public String getLoaitin() {
+        return loaitin;
+    }
+
+    public void setLoaitin(String loaitin) {
+        this.loaitin = loaitin;
+    }
+
+    public Object getUrlMap() {
+        return urlMap;
+    }
+
+    public void setUrlMap(Object urlMap) {
+        this.urlMap = urlMap;
     }
 
     @Override
@@ -304,6 +351,7 @@ public class Listing  implements Parcelable{
         parcel.writeString(acreage);
         parcel.writeString(price);
         parcel.writeString(address);
+        parcel.writeString(addressDetail);
         parcel.writeString(image);
         parcel.writeString(description);
         parcel.writeString(floors);
@@ -315,9 +363,11 @@ public class Listing  implements Parcelable{
         parcel.writeString(juridical);
         parcel.writeString(nameContact);
         parcel.writeString(phoneContact);
+        parcel.writeString(emailContact);
         parcel.writeString(idUser);
         parcel.writeString(dateStart);
         parcel.writeString(dateEnd);
-        parcel.writeString(emailContact);
+        parcel.writeString(trangthai);
+        parcel.writeString(loaitin);
     }
 }
