@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.text.InputFilter;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -47,7 +48,6 @@ public class ListingAdapter extends RecyclerView.Adapter<ListingAdapter.ItemHole
     public void onBindViewHolder(@NonNull ItemHoler holder, int position) {
 
         final Listing listing = arrayList.get(position);
-
 
         holder.title.setText(listing.getTitle());
         holder.phone.setText("0" + listing.getPhoneContact());

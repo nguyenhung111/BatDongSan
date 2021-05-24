@@ -2,25 +2,21 @@ package com.example.btngsn.Home;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.viewpager.widget.ViewPager;
+import androidx.fragment.app.Fragment;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.view.Menu;
 import android.view.MenuItem;
-import android.view.MotionEvent;
-import android.view.View;
-import android.widget.ImageButton;
 
-import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
-import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem;
-import com.example.btngsn.Adapter.SectionsPagerAdapter;
+
+import com.example.btngsn.Fragment.AccountFragment;
+import com.example.btngsn.Fragment.FavoriteFragment;
+import com.example.btngsn.Fragment.HomeFragment;
 import com.example.btngsn.R;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class HomePage extends AppCompatActivity {
-    private AHBottomNavigation bottomNavigation;
-    private SectionsPagerAdapter sectionsPagerAdapter;
-    private ViewPager viewpager;
+    private BottomNavigationView bottomNavigation;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,69 +24,27 @@ public class HomePage extends AppCompatActivity {
         setContentView(R.layout.activity_home_page);
 
         bottomNavigation = findViewById(R.id.bottom_navigation);
-        sectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
-        viewpager = findViewById(R.id.viewpager);
-        viewpager.setAdapter(sectionsPagerAdapter);
-
-        viewpager.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                return true;
-            }
-        });
-        createAhBottom();
+        bottomNavigation.setOnNavigationItemSelectedListener(naviListen);
+        getSupportFragmentManager().beginTransaction().replace(R.id.framelayout,new HomeFragment()).commit();
     }
-//    @Override
-//    public boolean onCreateOptionsMenu(Menu menu) {
-//        getMenuInflater().inflate(R.menu.menu,menu);
-//        return true;
-//    }
+    private BottomNavigationView.OnNavigationItemSelectedListener naviListen = new BottomNavigationView.OnNavigationItemSelectedListener() {
+        @Override
+        public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+            Fragment selectFrame = null;
 
-//    @Override
-//    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-//        switch (item.getItemId()){
-//            case R.id.menuGH:
-//                Intent intent = new Intent(getApplicationContext(),Giohang.class);
-//                startActivity(intent);
-//                break;
-//
-//        }
-//        return true;
-//    }
-
-    private void createAhBottom() {
-        AHBottomNavigationItem item1 = new AHBottomNavigationItem("Trang Chủ", R.drawable.ic_baseline_home_24);
-        AHBottomNavigationItem item2 = new AHBottomNavigationItem("Yêu Thích", R.drawable.ic_baseline_favorite_border_24);
-        AHBottomNavigationItem item3 = new AHBottomNavigationItem("Tài Khoản", R.drawable.ic_baseline_person_24);
-        // Add items
-        bottomNavigation.addItem(item1);
-        bottomNavigation.addItem(item2);
-        bottomNavigation.addItem(item3);
-        // Set background color
-        bottomNavigation.setDefaultBackgroundColor(getResources().getColor(R.color.white));
-
-        //mau khi chon tab
-        bottomNavigation.setAccentColor(getResources().getColor(R.color.colorRed));
-        //mau khi chua chon tab
-        bottomNavigation.setInactiveColor(getResources().getColor(R.color.colorBlack));
-
-        // layout mặc định
-        bottomNavigation.setCurrentItem(0);
-
-        // Set listeners
-        bottomNavigation.setOnTabSelectedListener(new AHBottomNavigation.OnTabSelectedListener() {
-            @Override
-            public boolean onTabSelected(int position, boolean wasSelected) {
-                // Do something cool here...
-                viewpager.setCurrentItem(position);
-                return true;
+            switch (menuItem.getItemId()) {
+                case R.id.nav_home:
+                    selectFrame = new HomeFragment();
+                    break;
+                case R.id.nav_favorite:
+                    selectFrame = new FavoriteFragment();
+                    break;
+                case R.id.nav_account:
+                    selectFrame = new AccountFragment();
+                    break;
             }
-        });
-        bottomNavigation.setOnNavigationPositionListener(new AHBottomNavigation.OnNavigationPositionListener() {
-            @Override
-            public void onPositionChange(int y) {
-                // Manage the new y position
-            }
-        });
-    }
+            getSupportFragmentManager().beginTransaction().replace(R.id.framelayout,selectFrame).commit();
+            return  true;
+        }
+    };
 }
