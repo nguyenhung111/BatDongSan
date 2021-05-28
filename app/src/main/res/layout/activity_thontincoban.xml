@@ -16,6 +16,9 @@
         android:layout_height="wrap_content"
         tools:ignore="MissingConstraints">
     </androidx.appcompat.widget.Toolbar>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
         <RelativeLayout
             android:padding="10dp"
             android:layout_width="match_parent"
@@ -127,7 +130,7 @@
                 android:layout_below="@+id/xaphuong"
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="50dp">
+                android:layout_height="80dp">
                 <TextView
                     android:layout_width="100dp"
                     android:layout_height="match_parent"
@@ -135,40 +138,38 @@
                     android:textColor="@color/black"
                     android:gravity="start|center"
                     android:textSize="20dp"/>
-               <EditText
-                   android:gravity="start|center"
-                   android:id="@+id/edtdiachi"
-                   android:layout_width="match_parent"
-                   android:layout_height="match_parent">
-               </EditText>
+                <EditText
+                    android:gravity="start|center"
+                    android:id="@+id/edtdiachi"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                </EditText>
             </LinearLayout>
             <LinearLayout
                 android:id="@+id/dcDetail"
                 android:layout_below="@+id/diachi"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/txtnoithat"
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@id/editaccount1"
-                        android:layout_marginTop="10dp"
-                        app:passwordToggleEnabled="true">
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/txtnoithat"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/editaccount1"
+                    android:layout_marginTop="10dp"
+                    app:passwordToggleEnabled="true">
 
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/editdiachi"
-                            app:counterMaxLength="200"
-                            android:maxLength="30"
-                            app:errorEnabled="true"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_below="@id/editaccount"
-                            android:layout_marginTop="10dp"
-                            android:hint="Địa chỉ chi tiết"
-                            android:textSize="20dp">
-                        </com.google.android.material.textfield.TextInputEditText>
-                    </com.google.android.material.textfield.TextInputLayout>
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/editdiachi"
+                        app:errorEnabled="true"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_below="@id/editaccount"
+                        android:layout_marginTop="10dp"
+                        android:hint="Địa chỉ chi tiết"
+                        android:textSize="20dp">
+                    </com.google.android.material.textfield.TextInputEditText>
+                </com.google.android.material.textfield.TextInputLayout>
             </LinearLayout>
             <LinearLayout
                 android:id="@+id/map"
@@ -186,8 +187,6 @@
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/edtUrlmap"
-                        app:counterMaxLength="200"
-                        android:maxLength="30"
                         app:errorEnabled="true"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
@@ -210,4 +209,6 @@
                 android:layout_height="wrap_content">
             </Button>
         </RelativeLayout>
+    </ScrollView>
+
 </LinearLayout>

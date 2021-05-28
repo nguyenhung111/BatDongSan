@@ -102,7 +102,7 @@
                 android:gravity="center"
                 android:layout_below="@+id/loaitin"
                 android:id="@+id/dongia"
-                android:weightSum="2"
+                android:weightSum="3"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:orientation="horizontal">
@@ -114,14 +114,22 @@
                     android:text="Đơn giá"
                     android:textSize="18dp"
                     android:textColor="@color/black"/>
+
+                <TextView
+                    android:id="@+id/txtdongia"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center|right"
+                    android:textColor="@color/colorRed"
+                    android:textSize="18dp" />
                 <TextView
                     android:layout_weight="1"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:text="2.000 đ/Ngày"
                     android:textSize="18dp"
-                    android:gravity="center"
-                    android:textAlignment="center"
+                    android:text=" đ/ngày"
+                    android:gravity="center|start"
                     android:textColor="@color/colorRed"/>
             </LinearLayout>
             <LinearLayout
@@ -184,7 +192,7 @@
                 android:gravity="center"
                 android:layout_below="@+id/dateend"
                 android:id="@+id/timedangtin"
-                android:weightSum="2"
+                android:weightSum="3"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:orientation="horizontal">
@@ -197,13 +205,20 @@
                     android:textSize="18dp"
                     android:textColor="@color/black"/>
                 <TextView
+                    android:id="@+id/ngaydang"
                     android:layout_weight="1"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:text="30 ngày"
                     android:textSize="18dp"
-                    android:gravity="center"
-                    android:textAlignment="center"
+                    android:textColor="@color/colorRed"
+                    android:gravity="center|right" />
+                <TextView
+                    android:layout_weight="1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:textSize="18dp"
+                    android:text=" ngày"
+                    android:gravity="start|center"
                     android:textColor="@color/colorRed"/>
             </LinearLayout>
             <TextView
@@ -233,6 +248,7 @@
                     android:textSize="18dp"
                     android:textColor="@color/black"/>
                 <TextView
+                    android:id="@+id/txtVat"
                     android:layout_weight="1"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
@@ -259,6 +275,7 @@
                     android:textSize="18dp"
                     android:textColor="@color/black"/>
                 <TextView
+                    android:id="@+id/txtMoney"
                     android:layout_weight="1"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
@@ -272,32 +289,40 @@
                 android:gravity="center"
                 android:layout_below="@+id/taikhoan"
                 android:id="@+id/tongtien"
-                android:weightSum="2"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:orientation="horizontal">
                 <TextView
                     android:gravity="center|start"
-                    android:layout_weight="1"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:text="Tổng tiền (bao gồm VAT)"
                     android:textSize="18dp"
                     android:textColor="@color/black"/>
+
                 <TextView
+                    android:id="@+id/txtSum"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center|right"
+                    android:text="0 đ"
+                    android:textColor="@color/colorRed"
+                    android:textSize="18dp" />
+                <TextView
+                    android:gravity="center|start"
+                    android:textColor="@color/colorRed"
+                    android:textSize="18dp"
                     android:layout_weight="1"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:text="0 đ"
-                    android:textSize="18dp"
-                    android:gravity="center"
-                    android:textAlignment="center"
-                    android:textColor="@color/colorRed"/>
+                    android:text=" Đồng">
+                </TextView>
             </LinearLayout>
             <Button
                 android:id="@+id/tindang"
                 android:layout_below="@id/tongtien"
-                android:text="XEM TRƯỚC TIN ĐĂNG"
+                android:text="ĐĂNG TIN"
                 android:background="@color/blue"
                 android:textColor="@color/white"
                 android:layout_width="match_parent"

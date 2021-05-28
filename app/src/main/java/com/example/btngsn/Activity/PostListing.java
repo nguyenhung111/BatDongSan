@@ -1,17 +1,20 @@
 package com.example.btngsn.Activity;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -27,19 +30,17 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.btngsn.Adapter.ListingAdapter;
+import com.bumptech.glide.Glide;
+import com.example.btngsn.Adapter.PhotoAdapter;
 import com.example.btngsn.Adapter.directionAdapter;
-import com.example.btngsn.Adapter.formAdapter;
-import com.example.btngsn.Adapter.speciesAdapter;
-import com.example.btngsn.Model.Listing;
+import com.example.btngsn.Model.InternetConnection;
 import com.example.btngsn.Model.viewDirection;
-import com.example.btngsn.Model.viewForm;
-import com.example.btngsn.Model.viewSpecies;
 import com.example.btngsn.R;
 import com.example.btngsn.Retrofit.APIUtils;
 import com.example.btngsn.Retrofit.DataClient;
+import com.example.btngsn.Retrofit.FileUtils;
+import com.google.android.material.snackbar.Snackbar;
 
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
@@ -49,20 +50,25 @@ import java.util.List;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class PostListing extends AppCompatActivity {
+
+
     private Button countine, trutang, truphong, trutoilet, congtang, congphong, congtoilet;
     private TextView valuestang, valuesphong, valuestoilet, txttongtien;
     private Spinner spnhuongnha, spnbancong, spndonvi;
-    private EditText edttieude, edtdientich, edtmota, edtnoithat, edtphaply,edtgiatien;
-    private ImageView imageView;
-    final int REQUEST_CHOOSE_PHOTO = 321;
+    private EditText edttieude, edtdientich, edtmota, edtnoithat, edtphaply, edtgiatien;
+    private ImageView imageView1;
     String realpath = "";
     String s = "";
-    Uri mUri;
+    final int REQUEST_CHOOSE_PHOTO = 321;
+    String hinhthuc, loai, diachi, diachichitiet, urlMap;
 
 
     ArrayList<viewDirection> directionArrayList;
@@ -70,11 +76,22 @@ public class PostListing extends AppCompatActivity {
     viewDirection viewDirectionIntent;
     viewDirection directionBalcony;
 
+    private final int REQUEST_CODE_PERMISSIONS = 1;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_post_listing);
         init();
+        Intent intent = getIntent();
+        Bundle bundle = intent.getExtras();
+        if (bundle != null) {
+            hinhthuc = bundle.getString("hinhthuc", "");
+            loai = bundle.getString("loai", "");
+            diachi = bundle.getString("diachi", "");
+            diachichitiet = bundle.getString("diachichitiet", "");
+            urlMap = bundle.getString("urlMap", "");
+        }
         EventSpiner();
         ChoosePhoto();
         getDirection();
@@ -108,7 +125,7 @@ public class PostListing extends AppCompatActivity {
         edtnoithat = (EditText) findViewById(R.id.edtnoithat);
         edtphaply = (EditText) findViewById(R.id.edtphaply);
 
-        imageView = (ImageView) findViewById(R.id.imageView);
+        imageView1 = (ImageView) findViewById(R.id.imageView1);
 
     }
 
@@ -116,41 +133,7 @@ public class PostListing extends AppCompatActivity {
         countine.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //ten file
-                Log.d("link", realpath);
-//                File file = new File(realpath);
-//
-//                //duong dan file
-//                String file_path = file.getAbsolutePath();
-//                String[] mangtenfile = file_path.split("\\.");
-//
-//                file_path = mangtenfile[0] + System.currentTimeMillis()+"."+mangtenfile[1];
-//
-//                RequestBody requestBody = RequestBody.create(MediaType.parse("multipart/form-data"), file);
-//                Log.d("requestBody", String.valueOf(requestBody));
-//
-//                MultipartBody.Part body = MultipartBody.Part.createFormData("uploaded_file", file_path, requestBody);
-//                Log.d("file_path", String.valueOf(body));
-//                //tao ket noi
-//                DataClient dataClient = APIUtils.getData();
-//
-//                retrofit2.Call<String> callback = dataClient.UpLoadImage(body);
-//                callback.enqueue(new Callback<String>() {
-//                    @Override
-//                    public void onResponse(Call<String> call, Response<String> response) {
-//                        if(response != null){
-//                            String massege = response.body();
-//                            Log.d("mess", massege);
-//                        }
-//                    }
-//                    @Override
-//                    public void onFailure(Call<String> call, Throwable t) {
-//                        Log.d("aa", t.getMessage());
-//                    }
-//                });
-//                Intent intent = new Intent(PostListing.this, ContactListing.class);
                 senddata();
-             //   startActivity(intent);
             }
         });
         congtang.setOnClickListener(new View.OnClickListener() {
@@ -205,13 +188,13 @@ public class PostListing extends AppCompatActivity {
 
 
     public void senddata() {
+
         String huongnha = viewDirectionIntent.getNameDirection();
         String bancong = directionBalcony.getNameDirection();
         String giatien = edtgiatien.getText().toString();
         String donvitinh = spndonvi.getSelectedItem().toString();
-        s= giatien.concat( donvitinh);
+        s = giatien.concat(donvitinh);
         txttongtien.setText(s);
-
         Intent myIntent = new Intent(PostListing.this, ContactListing.class);
         Bundle bundle = new Bundle();
         bundle.putString("tieude", edttieude.getText().toString().trim());
@@ -228,7 +211,12 @@ public class PostListing extends AppCompatActivity {
         bundle.putString("sotang", valuestang.getText().toString().trim());
         bundle.putString("sophong", valuesphong.getText().toString().trim());
         bundle.putString("sotoilet", valuestoilet.getText().toString().trim());
-        bundle.putString("hinhanh", realpath);
+        bundle.putString("hinhthuc", hinhthuc);
+        bundle.putString("loai", loai);
+        bundle.putString("diachi", diachi);
+        bundle.putString("diachichitiet", diachichitiet);
+        bundle.putString("urlMap", urlMap);
+        bundle.putString("image", realpath);
         //Đưa Bundle vào Intent
         myIntent.putExtras(bundle);
         //Mở Activity ResultActivity
@@ -237,30 +225,49 @@ public class PostListing extends AppCompatActivity {
 
 
     private void ChoosePhoto() {
-        Log.d("log", handlerPermission() + "");
-        imageView.setOnClickListener(new View.OnClickListener() {
+        imageView1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Intent.ACTION_PICK);
-                intent.setType("image/*");
-                startActivityForResult(intent, REQUEST_CHOOSE_PHOTO);
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    askForPermission();
+                } else {
+                    showChooser();
+                }
             }
+
         });
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == RESULT_OK) {
-            if (requestCode == REQUEST_CHOOSE_PHOTO && data != null) {
-                mUri = data.getData();
-                realpath = getRealPathFromURI(mUri);
 
+    private void EventSpiner() {
+        String[] donvi = new String[]{"Thỏa thuân", "Triệu", "Tỷ", "Trăm nghìn/m2", "Triệu/m2"};
+        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, donvi);
+        spndonvi.setAdapter(arrayAdapter);
+    }
+
+    //    private void showChooser() {
+//        Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+//        intent.setType("image/*");
+//        intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
+//        intent.addCategory(Intent.CATEGORY_OPENABLE);
+//        startActivityForResult(intent, REQUEST_CODE_READ_STORAGE);
+//    }
+    private void showChooser() {
+        Intent intent = new Intent(Intent.ACTION_PICK);
+        intent.setType("image/*");
+        startActivityForResult(intent, REQUEST_CHOOSE_PHOTO);
+    }
+
+    @SuppressLint("MissingSuperCall")
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        if (resultCode == RESULT_OK) {
+            if (requestCode == REQUEST_CHOOSE_PHOTO) {
                 try {
-                    InputStream is = (InputStream) getContentResolver().openInputStream(mUri);
+                    Uri imageUri = data.getData();
+                    realpath = getRealPathFromURI(imageUri);
+                    InputStream is = getContentResolver().openInputStream(imageUri);
                     Bitmap bitmap = BitmapFactory.decodeStream(is);
-                    imageView.setImageBitmap(bitmap);
-                    imageView.setBackground(null);
+                    Glide.with(PostListing.this).load(imageUri).centerCrop().into(imageView1);
                 } catch (FileNotFoundException e) {
                     e.printStackTrace();
                 }
@@ -268,13 +275,55 @@ public class PostListing extends AppCompatActivity {
         }
     }
 
-    private byte[] ArrayFromImageView(ImageView imgv) {
-        BitmapDrawable drawable = (BitmapDrawable) imgv.getDrawable();
-        Bitmap bitmap = drawable.getBitmap();
-        ByteArrayOutputStream stream = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.PNG, 0, stream);
-        byte[] byteArray = stream.toByteArray();
-        return byteArray;
+    /**
+     * Runtime Permission
+     */
+    private void askForPermission() {
+        if ((ContextCompat.checkSelfPermission(this,
+                Manifest.permission.READ_EXTERNAL_STORAGE) +
+                ContextCompat.checkSelfPermission(this,
+                        Manifest.permission.WRITE_EXTERNAL_STORAGE))
+                != PackageManager.PERMISSION_GRANTED) {
+            /* Ask for permission */
+            // need to request permission
+            if (ActivityCompat.shouldShowRequestPermissionRationale(this,
+                    Manifest.permission.READ_EXTERNAL_STORAGE) ||
+                    ActivityCompat.shouldShowRequestPermissionRationale(this,
+                            Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+
+                Snackbar.make(this.findViewById(android.R.id.content),
+                        "Please grant permissions to write data in sdcard",
+                        Snackbar.LENGTH_INDEFINITE).setAction("ENABLE",
+                        v -> ActivityCompat.requestPermissions(PostListing.this,
+                                new String[]{Manifest.permission.READ_EXTERNAL_STORAGE,
+                                        Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                                REQUEST_CODE_PERMISSIONS)).show();
+            } else {
+                /* Request for permission */
+                ActivityCompat.requestPermissions(PostListing.this,
+                        new String[]{Manifest.permission.READ_EXTERNAL_STORAGE,
+                                Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                        REQUEST_CODE_PERMISSIONS);
+            }
+
+        } else {
+            showChooser();
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        if (requestCode == REQUEST_CODE_PERMISSIONS) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                // Permission Granted
+                showChooser();
+            } else {
+                // Permission Denied
+                Toast.makeText(PostListing.this, "Permission Denied!", Toast.LENGTH_SHORT).show();
+            }
+        } else {
+            super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        }
     }
 
     public String getRealPathFromURI(Uri contentUri) {
@@ -286,41 +335,9 @@ public class PostListing extends AppCompatActivity {
             path = cursor.getString(column_index);
         }
         cursor.close();
+
         return path;
     }
-
-    private boolean handlerPermission() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            if (checkSelfPermission(android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                    == PackageManager.PERMISSION_GRANTED) {
-                Log.v("log", "Permission is granted");
-                return true;
-            } else {
-                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
-                return false;
-            }
-        } else { //permission is automatically granted on sdk<23 upon installation
-            Log.v("log", "Permission is granted");
-            return true;
-        }
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-            Log.v("log", "Permission: " + permissions[0] + "was " + grantResults[0]);
-            //resume tasks needing this permission
-        }
-    }
-
-    private void EventSpiner() {
-        String[] donvi = new String[]{"Thỏa thuân","Triệu", "Tỷ","Trăm nghìn/m2", "Triệu/m2"};
-        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_dropdown_item,donvi);
-        spndonvi.setAdapter(arrayAdapter);
-    }
-
-
 
 
     public void getDirection() {
@@ -344,6 +361,7 @@ public class PostListing extends AppCompatActivity {
 
         });
     }
+
     public void getBalconly() {
         directionArrayList = new ArrayList<>();
         DataClient getData = APIUtils.getData();

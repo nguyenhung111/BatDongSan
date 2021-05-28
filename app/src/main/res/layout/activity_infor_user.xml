@@ -1,242 +1,254 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".Activity.InforUser">
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        app:title="THAY ĐỔI THÔNG TIN CÁ NHÂN"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    </androidx.appcompat.widget.Toolbar>
 
-    <RelativeLayout
-        android:padding="10dp"
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar"
-            app:title="THAY ĐỔI THÔNG TIN CÁ NHÂN"
+        <RelativeLayout
+            android:padding="10dp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-        </androidx.appcompat.widget.Toolbar>
-        <TextView
-            android:id="@+id/thontincanhan"
-            android:layout_below="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Thông tin cá nhân"
-            android:textSize="24dp"
-            android:fontFamily="@font/artifika"
-            android:textColor="@color/blue"/>
-        <LinearLayout
-            android:layout_below="@+id/thontincanhan"
-            android:id="@+id/fullName"
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent">
             <TextView
-                android:gravity="center|start"
-                android:layout_width="120dp"
-                android:layout_height="match_parent"
-                android:text="Họ và tên"
-                android:textSize="20dp">
-            </TextView>
-            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/thontincanhan"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
-                <EditText
-                    android:id="@+id/edtHoten"
+                android:layout_height="wrap_content"
+                android:text="Thông tin cá nhân"
+                android:textSize="24dp"
+                android:fontFamily="@font/artifika"
+                android:textColor="@color/blue"/>
+            <LinearLayout
+                android:layout_below="@+id/thontincanhan"
+                android:id="@+id/fullName"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:gravity="center|start"
+                    android:layout_width="120dp"
+                    android:layout_height="match_parent"
+                    android:text="Họ và tên"
+                    android:textSize="20dp">
+                </TextView>
+                <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
-                </EditText>
-            </com.google.android.material.textfield.TextInputLayout>
-        </LinearLayout>
-        <LinearLayout
-            android:layout_below="@+id/fullName"
-            android:id="@+id/address"
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <TextView
-                android:gravity="center|start"
-                android:layout_width="120dp"
-                android:layout_height="match_parent"
-                android:text="Địa chỉ"
-                android:textSize="20dp">
-            </TextView>
-            <com.google.android.material.textfield.TextInputLayout
+                    <EditText
+                        android:id="@+id/edtHoten"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+                    </EditText>
+                </com.google.android.material.textfield.TextInputLayout>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_below="@+id/fullName"
+                android:id="@+id/address"
+                android:orientation="horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
-                <EditText
-                    android:id="@+id/edtdiachi"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:gravity="center|start"
+                    android:layout_width="120dp"
+                    android:layout_height="match_parent"
+                    android:text="Địa chỉ"
+                    android:textSize="20dp">
+                </TextView>
+                <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
-                </EditText>
-            </com.google.android.material.textfield.TextInputLayout>
-        </LinearLayout>
-        <LinearLayout
-            android:layout_below="@+id/address"
-            android:id="@+id/sexUser"
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <TextView
-                android:gravity="center|start"
-                android:layout_width="120dp"
-                android:layout_height="match_parent"
-                android:text="Giới tính"
-                android:textSize="20dp">
-            </TextView>
-            <RadioButton
-                android:id="@+id/checknam"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_marginRight="10dp"
-                android:text="Nam">
-            </RadioButton>
-            <RadioButton
-                android:id="@+id/checknu"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:text="Nữ">
-            </RadioButton>
-        </LinearLayout>
-        <TextView
-            android:id="@+id/thongtinlienhe"
-            android:layout_below="@+id/sexUser"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Thông tin liên hệ"
-            android:layout_marginTop="10dp"
-            android:textSize="24dp"
-            android:fontFamily="@font/artifika"
-            android:textColor="@color/blue"/>
-        <LinearLayout
-            android:layout_marginTop="10dp"
-            android:layout_below="@+id/thongtinlienhe"
-            android:id="@+id/sdtUser"
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <TextView
-                android:gravity="center|start"
-                android:layout_width="120dp"
-                android:layout_height="match_parent"
-                android:text="Số điện thoại chính"
-                android:textSize="20dp">
-            </TextView>
-            <com.google.android.material.textfield.TextInputLayout
+                    <EditText
+                        android:id="@+id/edtdiachi"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+                    </EditText>
+                </com.google.android.material.textfield.TextInputLayout>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_below="@+id/address"
+                android:id="@+id/sexUser"
+                android:orientation="horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
-                <EditText
-                    android:id="@+id/edtsdt"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:gravity="center|start"
+                    android:layout_width="120dp"
+                    android:layout_height="match_parent"
+                    android:text="Giới tính"
+                    android:textSize="20dp">
+                </TextView>
+                <RadioGroup
+                    android:id="@+id/radioGroup"
+                    android:orientation="horizontal"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
-                </EditText>
-            </com.google.android.material.textfield.TextInputLayout>
-        </LinearLayout>
-        <LinearLayout
-            android:layout_marginTop="10dp"
-            android:layout_below="@+id/sdtUser"
-            android:id="@+id/emailUser"
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+                        <RadioButton
+                            android:id="@+id/checknam"
+                            android:checked="false"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_marginRight="10dp"
+                            android:text="Nam">
+                        </RadioButton>
+                        <RadioButton
+                            android:checked="false"
+                            android:id="@+id/checknu"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:text="Nữ">
+                        </RadioButton>
+                </RadioGroup>
+            </LinearLayout>
             <TextView
-                android:gravity="center|start"
-                android:layout_width="120dp"
-                android:layout_height="match_parent"
-                android:text="Email"
-                android:textSize="20dp">
-            </TextView>
-            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/thongtinlienhe"
+                android:layout_below="@+id/sexUser"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
-                <EditText
-                    android:id="@+id/edtemail"
+                android:layout_height="wrap_content"
+                android:text="Thông tin liên hệ"
+                android:layout_marginTop="10dp"
+                android:textSize="24dp"
+                android:fontFamily="@font/artifika"
+                android:textColor="@color/blue"/>
+            <LinearLayout
+                android:layout_marginTop="10dp"
+                android:layout_below="@+id/thongtinlienhe"
+                android:id="@+id/sdtUser"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:gravity="center|start"
+                    android:layout_width="120dp"
+                    android:layout_height="match_parent"
+                    android:text="Số điện thoại chính"
+                    android:textSize="20dp">
+                </TextView>
+                <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
-                </EditText>
-            </com.google.android.material.textfield.TextInputLayout>
-        </LinearLayout>
-        <LinearLayout
-            android:layout_marginTop="10dp"
-            android:layout_below="@+id/emailUser"
-            android:id="@+id/CMND"
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <TextView
-                android:gravity="center|start"
-                android:layout_width="120dp"
-                android:layout_height="match_parent"
-                android:text="Mã số thuế/CMND"
-                android:textSize="20dp">
-            </TextView>
-            <com.google.android.material.textfield.TextInputLayout
+                    <EditText
+                        android:id="@+id/edtsdt"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+                    </EditText>
+                </com.google.android.material.textfield.TextInputLayout>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_marginTop="10dp"
+                android:layout_below="@+id/sdtUser"
+                android:id="@+id/emailUser"
+                android:orientation="horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
-                <EditText
-                    android:id="@+id/edtcmnd"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:gravity="center|start"
+                    android:layout_width="120dp"
+                    android:layout_height="match_parent"
+                    android:text="Email"
+                    android:textSize="20dp">
+                </TextView>
+                <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
-                </EditText>
-            </com.google.android.material.textfield.TextInputLayout>
-        </LinearLayout>
-        <LinearLayout
-            android:layout_marginTop="10dp"
-            android:layout_below="@+id/CMND"
-            android:id="@+id/Face"
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <TextView
-                android:gravity="center|start"
-                android:layout_width="120dp"
-                android:layout_height="match_parent"
-                android:text="Facebook"
-                android:textSize="20dp">
-            </TextView>
-            <com.google.android.material.textfield.TextInputLayout
+                    <EditText
+                        android:id="@+id/edtemail"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+                    </EditText>
+                </com.google.android.material.textfield.TextInputLayout>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_marginTop="10dp"
+                android:layout_below="@+id/emailUser"
+                android:id="@+id/CMND"
+                android:orientation="horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
-                <EditText
-                    android:id="@+id/edtFace"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:gravity="center|start"
+                    android:layout_width="120dp"
+                    android:layout_height="match_parent"
+                    android:text="Mã số thuế/CMND"
+                    android:textSize="20dp">
+                </TextView>
+                <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
-                </EditText>
-            </com.google.android.material.textfield.TextInputLayout>
-        </LinearLayout>
-        <LinearLayout
-            android:layout_marginTop="10dp"
-            android:layout_below="@+id/Face"
-            android:id="@+id/linkWeb"
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <TextView
-                android:gravity="center|start"
-                android:layout_width="120dp"
-                android:layout_height="match_parent"
-                android:text="Website"
-                android:textSize="20dp">
-            </TextView>
-            <com.google.android.material.textfield.TextInputLayout
+                    <EditText
+                        android:id="@+id/edtcmnd"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+                    </EditText>
+                </com.google.android.material.textfield.TextInputLayout>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_marginTop="10dp"
+                android:layout_below="@+id/CMND"
+                android:id="@+id/Face"
+                android:orientation="horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
-                <EditText
-                    android:id="@+id/edtWeb"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:gravity="center|start"
+                    android:layout_width="120dp"
+                    android:layout_height="match_parent"
+                    android:text="Facebook"
+                    android:textSize="20dp">
+                </TextView>
+                <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
-                </EditText>
-            </com.google.android.material.textfield.TextInputLayout>
-        </LinearLayout>
-        <Button
-            android:textColor="@color/white"
-            android:background="#1478E3"
-            android:layout_below="@+id/linkWeb"
-            android:id="@+id/btnLuulai"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Lưu lại">
+                    <EditText
+                        android:id="@+id/edtFace"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+                    </EditText>
+                </com.google.android.material.textfield.TextInputLayout>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_marginTop="10dp"
+                android:layout_below="@+id/Face"
+                android:id="@+id/linkWeb"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:gravity="center|start"
+                    android:layout_width="120dp"
+                    android:layout_height="match_parent"
+                    android:text="Website"
+                    android:textSize="20dp">
+                </TextView>
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                    <EditText
+                        android:id="@+id/edtWeb"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+                    </EditText>
+                </com.google.android.material.textfield.TextInputLayout>
+            </LinearLayout>
+            <Button
+                android:textColor="@color/white"
+                android:background="#1478E3"
+                android:layout_below="@+id/linkWeb"
+                android:id="@+id/btnLuulai"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Lưu lại">
 
-        </Button>
-    </RelativeLayout>
-</androidx.constraintlayout.widget.ConstraintLayout>
+            </Button>
+        </RelativeLayout>
+    </ScrollView>
+</LinearLayout>

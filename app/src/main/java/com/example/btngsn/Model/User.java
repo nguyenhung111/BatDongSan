@@ -63,6 +63,7 @@ public class User  implements Parcelable {
         linkFace = in.readString();
         linkWeb = in.readString();
         sodu = in.readString();
+        sex = in.readString();
     }
 
     public static final Creator<User> CREATOR = new Creator<User>() {
@@ -173,7 +174,7 @@ public class User  implements Parcelable {
         this.sodu = sodu;
     }
 
-    public Object getSex() {
+    public String getSex() {
         return sex;
     }
 
@@ -200,5 +201,6 @@ public class User  implements Parcelable {
         parcel.writeString(linkFace);
         parcel.writeString(linkWeb);
         parcel.writeString(sodu);
+        parcel.writeString(sex);
     }
 }

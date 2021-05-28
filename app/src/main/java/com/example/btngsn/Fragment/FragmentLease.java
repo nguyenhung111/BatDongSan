@@ -3,6 +3,7 @@ package com.example.btngsn.Fragment;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -42,11 +43,14 @@ public class FragmentLease extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_lease, container, false);
         recyviewthuehome = (RecyclerView) view.findViewById(R.id.recyviewthuehome);
+
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 1);
+        recyviewthuehome.setLayoutManager(gridLayoutManager);
         getDataTwo();
         return  view;
     }
     public void getDataTwo(){
-        String idForm = "2";
+        String idForm = "3";
         DataClient getData = APIUtils.getData();
         Call<List<Listing>> callback = getData.getListing(idForm);
         callback.enqueue(new Callback<List<Listing>>() {
@@ -55,11 +59,8 @@ public class FragmentLease extends Fragment {
                 arrayList =  (ArrayList<Listing>) response.body();
                 if(arrayList.size() > 0 ){
                     listingAdapter = new ListingAdapter(getContext(),arrayList);
-                    recyviewthuehome.setHasFixedSize(true);
                     recyviewthuehome.setAdapter(listingAdapter);
-                    LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
-                    layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-                    recyviewthuehome.setLayoutManager(layoutManager);
+                    listingAdapter.notifyDataSetChanged();
                 }
             }
 

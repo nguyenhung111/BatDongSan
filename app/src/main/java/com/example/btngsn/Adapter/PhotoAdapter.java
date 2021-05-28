@@ -7,29 +7,30 @@ import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.btngsn.R;
+import com.example.btngsn.Retrofit.FileUtils;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class PhotoAdapter extends RecyclerView.Adapter<PhotoAdapter.PhotoViewHoler> {
     private Context context;
-    private List<Uri> uriList;
+    private ArrayList<Uri> uriList;
 
-    public PhotoAdapter(Context context, List<Uri> uriList) {
+    public PhotoAdapter(Context context, ArrayList<Uri> uriList) {
         this.context = context;
         this.uriList = uriList;
     }
 
-    public void setData(List<Uri> list){
-        this.uriList = list;
-        notifyDataSetChanged();
-    }
 
     @NonNull
     @Override
@@ -42,19 +43,10 @@ public class PhotoAdapter extends RecyclerView.Adapter<PhotoAdapter.PhotoViewHol
 
     @Override
     public void onBindViewHolder(@NonNull PhotoViewHoler holder, int position) {
-        Uri uri = uriList.get(position);
-        if(uri == null){
-            return;
-        }
+        Glide.with(context)
+                .load(uriList.get(position))
+                .into(holder.imageView);
 
-        try {
-            Bitmap bitmap = MediaStore.Images.Media.getBitmap(context.getContentResolver(), uri);
-            if(bitmap != null){
-                holder.imageView.setImageBitmap(bitmap);
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 
     @Override

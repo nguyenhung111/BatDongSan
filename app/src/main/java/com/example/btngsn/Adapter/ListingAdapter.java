@@ -56,14 +56,17 @@ public class ListingAdapter extends RecyclerView.Adapter<ListingAdapter.ItemHole
         holder.address.setText(listing.getAddress());
 
         holder.dateStart.setText(listing.getDateStart());
-        Glide.with(context).load(listing.getImage()).placeholder(R.drawable.ic_baseline_hide_image_24)
-                .error(R.drawable.ic_baseline_error_24).centerCrop().into(holder.imageView);
+        Glide.with(context).load(listing.getImage()).centerCrop().placeholder(R.drawable.ic_baseline_hide_image_24)
+                .error(R.drawable.ic_baseline_error_24).into(holder.imageView);
 
     }
 
     @Override
     public int getItemCount() {
-        return arrayList.size();
+        if(arrayList != null) {
+            return arrayList.size();
+        }
+        return  0;
     }
 
     public class ItemHoler extends RecyclerView.ViewHolder {

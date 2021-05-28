@@ -185,7 +185,7 @@ public class Login extends AppCompatActivity {
                         String linkFace = userArrayList.get(0).getLinkFace();
                         String linkWeb = userArrayList.get(0).getLinkWeb();
                         String sodu = userArrayList.get(0).getSodu();
-                        String sex = (String) userArrayList.get(0).getSex();
+                        String sex = userArrayList.get(0).getSex();
 
                         updateCaced(getApplicationContext(), idUser, fullName, userName, pasWord, numberPhone, Email,
                                 idspUser, CMND,address,linkFace,linkWeb,sodu,sex);
@@ -209,7 +209,7 @@ public class Login extends AppCompatActivity {
     }
 
 
-    public void updateCaced(Context context, String idUser, String fullName, String userName, String passWord, String numberPhone, String Email, String idspUser, String CMND,String address,
+    public static void updateCaced(Context context, String idUser, String fullName, String userName, String passWord, String numberPhone, String Email, String idspUser, String CMND,String address,
                             String linkFace, String linkWeb, String sodu, String sex) {
         SharedPreferences cachedangnhap = context.getSharedPreferences("datalogin", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = cachedangnhap.edit();

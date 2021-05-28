@@ -3,6 +3,7 @@ package com.example.btngsn.Fragment;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -39,14 +40,15 @@ public class FragmentSell extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_sell, container, false);
         recyviewsellhome = (RecyclerView) view.findViewById(R.id.recyviewsellhome);
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 1);
+        recyviewsellhome.setLayoutManager(gridLayoutManager);
         getDataOne();
         return  view;
     }
     public void getDataOne(){
-        String idForm = "1";
+        String idForm = "2";
         DataClient getData = APIUtils.getData();
         Call<List<Listing>> callback = getData.getListing(idForm);
         callback.enqueue(new Callback<List<Listing>>() {
@@ -55,12 +57,8 @@ public class FragmentSell extends Fragment {
                 listingArrayList =  (ArrayList<Listing>) response.body();
                 if(listingArrayList.size() > 0 ){
                     adapterSell = new ListingAdapter(getContext(),listingArrayList);
-                    recyviewsellhome.setHasFixedSize(true);
                     recyviewsellhome.setAdapter(adapterSell);
-                    LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
-                    layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-
-                    recyviewsellhome.setLayoutManager(layoutManager);
+                    adapterSell.notifyDataSetChanged();
                 }
             }
 

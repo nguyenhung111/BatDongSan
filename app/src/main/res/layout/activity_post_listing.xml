@@ -133,22 +133,21 @@
                 android:id="@+id/hinhanh"
                 android:layout_below="@+id/tongtien"
                 android:layout_width="match_parent"
-                android:orientation="vertical"
-                android:layout_height="130dp">
+                android:layout_height="200dp"
+                android:orientation="vertical">
                 <TextView
                     android:layout_width="match_parent"
-                    android:layout_height="30dp"
+                    android:layout_height="wrap_content"
                     android:text="Hình ảnh :"
                     android:textColor="@color/black"
                     android:textSize="20dp"/>
                 <ImageView
-                    android:id="@+id/imageView"
-                    android:gravity="top"
-                    android:layout_gravity="center|top"
-                    android:background="@drawable/ic_baseline_add_photo_alternate_24"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    />
+                    android:id="@+id/imageView1"
+                    android:src="@drawable/ic_baseline_add_photo_alternate_24"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                </ImageView>
             </LinearLayout>
             <LinearLayout
                 android:id="@+id/motanoidung"

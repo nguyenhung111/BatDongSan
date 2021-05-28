@@ -4,12 +4,13 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.fragment.app.FragmentStatePagerAdapter;
 
 import com.example.btngsn.Fragment.FragmentLease;
 import com.example.btngsn.Fragment.FragmentSell;
 
-public class ViewAdapterHome extends FragmentPagerAdapter {
-    public ViewAdapterHome(@NonNull FragmentManager fm) {
+public class ViewAdapterHome extends FragmentStatePagerAdapter {
+    public ViewAdapterHome(@NonNull FragmentManager fm, int behaviorResumeOnlyCurrentFragment) {
         super(fm);
     }
 
@@ -17,13 +18,12 @@ public class ViewAdapterHome extends FragmentPagerAdapter {
     public Fragment getItem(int position) {
         switch (position){
             case 0:
-                FragmentSell fragmentSell = new FragmentSell();
-                return fragmentSell;
+                return new FragmentSell();
             case 1:
-                FragmentLease FragmentLease = new FragmentLease();
-                return FragmentLease;
+                return new FragmentLease();
+            default:
+                return new FragmentSell();
         }
-        return null;
     }
 
     @Override
@@ -33,12 +33,15 @@ public class ViewAdapterHome extends FragmentPagerAdapter {
 
     @Override
     public CharSequence getPageTitle(int position) {
+        String titile = "";
         switch (position){
             case 0:
-                return "Mua Bán";
+                titile = "Mua Bán";
+                break;
             case 1:
-                return "Cho Thuê";
+                titile =  "Cho Thuê";
+                break;
         }
-        return null;
+        return titile;
     }
 }
