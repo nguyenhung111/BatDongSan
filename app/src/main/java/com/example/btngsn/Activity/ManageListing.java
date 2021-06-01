@@ -41,9 +41,9 @@ public class ManageListing extends AppCompatActivity {
         arrayList = new ArrayList<>();
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getApplicationContext(), 1);
         recyclerView.setLayoutManager(gridLayoutManager);
-        getData();
-        initShare();
 
+        initShare();
+        getData();
     }
 
     public void initShare(){
@@ -70,8 +70,6 @@ public class ManageListing extends AppCompatActivity {
 
                 @Override
                 public void onFailure(Call<List<Listing>> call, Throwable t) {
-                    Log.d("mes", t.getMessage());
-                    Toast.makeText(getApplication(), "Không có sản phẩm nào", Toast.LENGTH_SHORT).show();
                 }
             });
         } else {
@@ -90,8 +88,6 @@ public class ManageListing extends AppCompatActivity {
 
                 @Override
                 public void onFailure(Call<List<Listing>> call, Throwable t) {
-                    Log.d("mes", t.getMessage());
-                    Toast.makeText(getApplication(), "Không có sản phẩm nào", Toast.LENGTH_SHORT).show();
                 }
             });
         }

@@ -7,6 +7,7 @@ import androidx.viewpager.widget.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 
 import com.example.btngsn.Adapter.ViewAdapterHome;
 
@@ -18,9 +19,9 @@ import com.google.android.material.tabs.TabLayout;
 
 public class HomeFragment extends Fragment {
 
-
     TabLayout tabLayout;
     ViewPager viewPager;
+    private RelativeLayout relatSearch;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -31,6 +32,8 @@ public class HomeFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view =  inflater.inflate(R.layout.fragment_home, container, false);
+
+
         tabLayout = (TabLayout) view.findViewById(R.id.tabDN);
         viewPager = (ViewPager) view.findViewById(R.id.viewPaper);
         ViewAdapterHome viewAdapterHome = new ViewAdapterHome(getActivity().getSupportFragmentManager(), FragmentStatePagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
@@ -38,6 +41,13 @@ public class HomeFragment extends Fragment {
         tabLayout.setupWithViewPager(viewPager);
 
 
+        relatSearch = (RelativeLayout) view.findViewById(R.id.relatSearch);
+        relatSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
         return view;
     }
 

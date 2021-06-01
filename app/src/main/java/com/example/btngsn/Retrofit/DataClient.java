@@ -1,5 +1,6 @@
 package com.example.btngsn.Retrofit;
 
+import com.example.btngsn.Model.Favorite;
 import com.example.btngsn.Model.Listing;
 import com.example.btngsn.Model.User;
 import com.example.btngsn.Model.viewDirection;
@@ -33,6 +34,19 @@ public interface DataClient {
             @Part List<MultipartBody.Part> files);
 
 
+    @FormUrlEncoded
+    @POST("postFavorite.php")
+    Call<String> PostFavorit(@Field("idUser") String idUser,
+                             @Field("idListing") String idListing
+    );
+
+    @GET("deleteFavorite.php")
+    Call<String> deleteFavorite (@Query("idListing") String idListing,
+                                @Query("idUser") String idUser);
+    @FormUrlEncoded
+    @POST("getFavorite.php")
+    Call<List<Favorite>> getFavorite(@Field("idUser") String idUser,
+                                     @Field("idListing") String idListing);
     @FormUrlEncoded
     @POST("registration.php")
     Call<String> Registration(@Field("fullName") String fullName,
@@ -82,8 +96,8 @@ public interface DataClient {
     @POST("getListingForId.php")
     Call<List<Listing>> getListingForId(@Field("idUser") String idUser);
 
-    @FormUrlEncoded
-    @POST("getListingForAdmin.php")
+
+    @GET("getListingForAdmin.php")
     Call<List<Listing>> getListingForAdmin();
 
     @GET("updateStatus.php")

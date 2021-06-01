@@ -77,6 +77,7 @@ public class PostListing extends AppCompatActivity {
     viewDirection directionBalcony;
 
     private final int REQUEST_CODE_PERMISSIONS = 1;
+    private final int REQUEST_CODE_READ_STORAGE = 2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -245,18 +246,18 @@ public class PostListing extends AppCompatActivity {
         spndonvi.setAdapter(arrayAdapter);
     }
 
-    //    private void showChooser() {
-//        Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-//        intent.setType("image/*");
-//        intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
-//        intent.addCategory(Intent.CATEGORY_OPENABLE);
-//        startActivityForResult(intent, REQUEST_CODE_READ_STORAGE);
-//    }
-    private void showChooser() {
-        Intent intent = new Intent(Intent.ACTION_PICK);
+        private void showChooser() {
+        Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
         intent.setType("image/*");
-        startActivityForResult(intent, REQUEST_CHOOSE_PHOTO);
+        intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
+        intent.addCategory(Intent.CATEGORY_OPENABLE);
+        startActivityForResult(intent, REQUEST_CODE_READ_STORAGE);
     }
+//    private void showChooser() {
+//        Intent intent = new Intent(Intent.ACTION_PICK);
+//        intent.setType("image/*");
+//        startActivityForResult(intent, REQUEST_CHOOSE_PHOTO);
+//    }
 
     @SuppressLint("MissingSuperCall")
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
@@ -265,6 +266,7 @@ public class PostListing extends AppCompatActivity {
                 try {
                     Uri imageUri = data.getData();
                     realpath = getRealPathFromURI(imageUri);
+                    Log.d("realpath", realpath);
                     InputStream is = getContentResolver().openInputStream(imageUri);
                     Bitmap bitmap = BitmapFactory.decodeStream(is);
                     Glide.with(PostListing.this).load(imageUri).centerCrop().into(imageView1);

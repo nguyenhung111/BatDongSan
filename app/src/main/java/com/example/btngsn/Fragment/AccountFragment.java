@@ -32,11 +32,11 @@ import org.simple.eventbus.Subscriber;
 
 public class AccountFragment extends Fragment {
     public Button login, registration, btnlogout, btnNaptien;
-    public TextView postlisting, fullName, sdt,managerinfor,changepass,managerlisting;
+    public TextView postlisting, fullName, sdt, managerinfor, changepass, managerlisting;
     public ImageView imgAva;
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
-    LinearLayout linearDX,btnLiner;
+    LinearLayout linearDX, btnLiner;
     String idspUser;
     String fullname;
 
@@ -114,53 +114,64 @@ public class AccountFragment extends Fragment {
             }
         });
 
-        if(!TextUtils.isEmpty(fullname)) {
-            btnlogout.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    getContext().getSharedPreferences("datalogin", 0).edit().clear().apply();
-                    if (!fullName.equals("")) {
-                        fullName.setText("Tên khách hàng");
-                        sdt.setText("Số điện thoại");
-                        Toast.makeText(getContext(), " Bạn đã đăng xuất tài khoản", Toast.LENGTH_LONG).show();
-                        btnLiner.setVisibility(View.VISIBLE);
-                        linearDX.setVisibility(View.GONE);
-                    }
+        btnlogout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getContext().getSharedPreferences("datalogin", 0).edit().clear().apply();
+                if (!fullName.equals("")) {
+                    fullName.setText("Tên khách hàng");
+                    sdt.setText("Số điện thoại");
+                    Toast.makeText(getContext(), " Bạn đã đăng xuất tài khoản", Toast.LENGTH_LONG).show();
+                    btnLiner.setVisibility(View.VISIBLE);
+                    linearDX.setVisibility(View.GONE);
                 }
-            });
-            postlisting.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
+            }
+        });
+        postlisting.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!TextUtils.isEmpty(fullname)) {
                     Intent intent = new Intent(getContext(), Thongtincoban.class);
                     startActivity(intent);
+                } else {
+                    Toast.makeText(getActivity(), "Bạn vui lòng đăng nhập để sử dụng chức năng", Toast.LENGTH_LONG).show();
                 }
-            });
+            }
+        });
 
-            managerinfor.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
+        managerinfor.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (!TextUtils.isEmpty(fullname)) {
                     Intent intent = new Intent(getContext(), InforUser.class);
                     startActivity(intent);
+                } else {
+                    Toast.makeText(getActivity(), "Bạn vui lòng đăng nhập để sử dụng chức năng", Toast.LENGTH_LONG).show();
                 }
-            });
-            changepass.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
+            }
+        });
+        changepass.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (!TextUtils.isEmpty(fullname)) {
                     Intent intent = new Intent(getContext(), ChangePass.class);
                     startActivity(intent);
+                } else {
+                    Toast.makeText(getActivity(), "Bạn vui lòng đăng nhập để sử dụng chức năng", Toast.LENGTH_LONG).show();
                 }
-            });
-            managerlisting.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
+            }
+        });
+        managerlisting.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (!TextUtils.isEmpty(fullname)) {
                     Intent intent = new Intent(getContext(), ManageListing.class);
                     startActivity(intent);
+                } else {
+                    Toast.makeText(getActivity(), "Bạn vui lòng đăng nhập để sử dụng chức năng", Toast.LENGTH_LONG).show();
                 }
-            });
-        }
-        else {
-            Toast.makeText(getActivity(), "Bạn vui lòng đăng nhập hoặc đăng ký để sử dụng chức năng", Toast.LENGTH_LONG).show();
-        }
-    }
 
+            }
+        });
+    }
 }

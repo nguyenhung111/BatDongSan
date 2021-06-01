@@ -59,14 +59,14 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemHoler> {
         holder.title.setText(listing.getTitle());
         holder.idListing.setText("Mã tin rao : " + listing.getIdListing());
         holder.dateStart.setText("Ngày đăng : " + listing.getDateStart());
-        holder.dateEnd.setText("Ngày kết thúc : " +listing.getDateEnd());
+        holder.dateEnd.setText("Ngày kết thúc : " + listing.getDateEnd());
         String status = listing.getTrangthai();
-        if(status.equals("1")){
-            holder.status.setText("Trạng thái tin đăng : " + "Chờ xác nhận");
-        }else if(status.equals("2")){
-            holder.status.setText("Trạng thái tin đăng : " + "Đã đăng tin");
+        if (status.equals("1")) {
+            holder.status.setText("Trạng thái: " + "Chờ xác nhận");
+        } else if (status.equals("2")) {
+            holder.status.setText("Trạng thái: " + "Đã đăng tin");
         } else {
-            holder.status.setText("Trạng thái tin đăng : " + "Đã hạ tin");
+            holder.status.setText("Trạng thái: " + "Đã hạ tin");
         }
         Glide.with(context).load(listing.getImage()).centerCrop().placeholder(R.drawable.ic_baseline_hide_image_24)
                 .error(R.drawable.ic_baseline_error_24).into(holder.imageView);
@@ -77,6 +77,7 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemHoler> {
     public int getItemCount() {
         return arrayList.size();
     }
+
     public class ItemHoler extends RecyclerView.ViewHolder {
         private ImageView imageView;
         private TextView title, idListing, dateStart, dateEnd, status;
@@ -104,7 +105,7 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemHoler> {
                 }
             });
             String idspUser = sharedPreferences.getString("idspUser", "");
-            if(idspUser.equals("1")){
+            if (idspUser.equals("1")) {
                 itemView.setOnLongClickListener(new View.OnLongClickListener() {
                     @Override
                     public boolean onLongClick(View view) {
@@ -121,8 +122,9 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemHoler> {
                                         String idListing = arrayList.get(getPosition()).getIdListing();
                                         String image = arrayList.get(getPosition()).getImage();
                                         image = image.substring(image.lastIndexOf("/"));
+                                        Log.d("image", image);
+                                        Log.d("image", idListing);
                                         Delete(idListing, image);
-                                        arrayList.remove(getPosition());
                                     }
                                 });
                                 dialogXoa.setNegativeButton("Không", new DialogInterface.OnClickListener() {
@@ -144,7 +146,8 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemHoler> {
                                     public void onClick(DialogInterface dialog, int i) {
                                         String idListing = arrayList.get(getPosition()).getIdListing();
                                         String trangthai = "2";
-                                        Update(idListing, trangthai);
+                                        Log.d("bb", String.valueOf(getPosition()));
+                                        UpdateAdmin(idListing, trangthai, getPosition());
                                     }
                                 });
                                 dialogXoa.setNegativeButton("Không", new DialogInterface.OnClickListener() {
@@ -160,7 +163,7 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemHoler> {
                         return false;
                     }
                 });
-            }else {
+            } else {
                 itemView.setOnLongClickListener(new View.OnLongClickListener() {
                     @Override
                     public boolean onLongClick(View view) {
@@ -191,7 +194,7 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemHoler> {
                             }
                         });
                         int status = Integer.parseInt(arrayList.get(getPosition()).getTrangthai());
-                        if(status == 2) {
+                        if (status == 2) {
                             dialog.setNegativeButton("Hạ tin rao", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int i) {
@@ -214,7 +217,7 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemHoler> {
                                     dialogXoa.show();
                                 }
                             });
-                        } else if( status == 3){
+                        } else if (status == 3) {
                             dialog.setNegativeButton("Đăng lại tin rao", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int i) {
@@ -245,7 +248,8 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemHoler> {
             }
         }
     }
-    public void Update(String idListing, String trangthai ){
+
+    public void Update(String idListing, String trangthai) {
         DataClient updateStatus = APIUtils.getData();
         retrofit2.Call<String> callback = updateStatus.updaeStatus(idListing, trangthai);
         callback.enqueue(new Callback<String>() {
@@ -260,6 +264,7 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemHoler> {
                     }
                 }
             }
+
             @Override
             public void onFailure(Call<String> call, Throwable t) {
                 Log.d("loi", t.getMessage());
@@ -267,21 +272,47 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemHoler> {
         });
     }
 
-    public void Delete(String idListing, String image){
-        DataClient deleteListing = APIUtils.getData();
-        retrofit2.Call<String> callback = deleteListing.deleteListing(idListing, image);
+    public void UpdateAdmin(String idListing, String trangthai, int position) {
+        DataClient updateStatus = APIUtils.getData();
+        retrofit2.Call<String> callback = updateStatus.updaeStatus(idListing, trangthai);
         callback.enqueue(new Callback<String>() {
             @Override
             public void onResponse(Call<String> call, Response<String> response) {
                 if (response != null) {
                     int result = Integer.parseInt(response.body());
                     if (result == 1) {
-                        Toast.makeText(context, "Xóa thành công", Toast.LENGTH_SHORT).show();
+                        arrayList.remove(position);
+                        Toast.makeText(context, "Thay đổi thành công", Toast.LENGTH_SHORT).show();
                     } else if (result == 0) {
+                        Toast.makeText(context, "Thất bại mời thử lại", Toast.LENGTH_LONG).show();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<String> call, Throwable t) {
+                Log.d("loi", t.getMessage());
+            }
+        });
+    }
+
+    public void Delete(String idListing, String image) {
+        DataClient deleteListing = APIUtils.getData();
+        retrofit2.Call<String> callback = deleteListing.deleteListing(idListing, image);
+        callback.enqueue(new Callback<String>() {
+            @Override
+            public void onResponse(Call<String> call, Response<String> response) {
+                if (response != null) {
+                    String result = response.body();
+                    Log.d("result", response.body());
+                    if (result.equals("1")) {
+                        Toast.makeText(context, "Xóa thành công", Toast.LENGTH_SHORT).show();
+                    } else if (result.equals("2")) {
                         Toast.makeText(context, "Xóa thất bại ! mời thử lại", Toast.LENGTH_LONG).show();
                     }
                 }
             }
+
             @Override
             public void onFailure(Call<String> call, Throwable t) {
                 Log.d("loi", t.getMessage());

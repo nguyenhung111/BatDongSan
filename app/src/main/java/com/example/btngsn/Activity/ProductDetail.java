@@ -7,13 +7,18 @@ import androidx.core.app.ActivityCompat;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -21,33 +26,50 @@ import android.widget.Toast;
 
 
 import com.bumptech.glide.Glide;
+import com.example.btngsn.Adapter.formAdapter;
+import com.example.btngsn.Model.Favorite;
 import com.example.btngsn.Model.Listing;
+import com.example.btngsn.Model.viewForm;
 import com.example.btngsn.R;
+import com.example.btngsn.Retrofit.APIUtils;
+import com.example.btngsn.Retrofit.DataClient;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.squareup.picasso.Picasso;
 
 import java.text.DecimalFormat;
+import java.util.ArrayList;
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class ProductDetail extends AppCompatActivity {
     public Toolbar toolbar;
-    ImageView imageView;
+    ImageView imageView, imageViewFavorite;
     FloatingActionButton fab;
     TextView titileName, price, inforDescription, Acreage, address, Species, directionHouse, NumberBed, NumberToilet, DatePost, phaply;
     TextView nameUser, phoneUser, emailUser;
     private static final int MY_PERMISSION_REQUEST_CODE_CALL_PHONE = 555;
+    String idListing = "";
+    String idUser = "";
+    ArrayList<Favorite> arrayList;
+    SharedPreferences sharedPreferences;
+    SharedPreferences.Editor editor;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product_detail);
 
         init();
-        ActionTool();
+        initShare();
         GetInfor();
+        getFavortie();
         Event();
     }
 
     public void init() {
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
 
         titileName = (TextView) findViewById(R.id.titileName);
         price = (TextView) findViewById(R.id.price);
@@ -65,18 +87,24 @@ public class ProductDetail extends AppCompatActivity {
         emailUser = (TextView) findViewById(R.id.emailUser);
 
         imageView = (ImageView) findViewById(R.id.imageView);
+        imageViewFavorite = (ImageView) findViewById(R.id.imageViewFavorite);
         fab = (FloatingActionButton) findViewById(R.id.fab);
 
 
+    }
+
+    public void initShare() {
+        sharedPreferences = getSharedPreferences("datalogin", Context.MODE_PRIVATE);
+        editor = sharedPreferences.edit();
     }
 
     public void GetInfor() {
         Intent intent = (Intent) getIntent();
         Listing listing = (Listing) intent.getParcelableExtra("thongtinchitiet");
 
+        idListing = listing.getIdListing();
         titileName.setText(listing.getTitle());
         price.setText(listing.getPrice());
-
         inforDescription.setText(listing.getDescription());
         Acreage.setText(listing.getAcreage() + " M2 ");
         address.setText(listing.getAddress());
@@ -87,7 +115,7 @@ public class ProductDetail extends AppCompatActivity {
         DatePost.setText(listing.getDateStart());
         phaply.setText(listing.getJuridical());
         nameUser.setText(listing.getNameContact());
-        phoneUser.setText("0"+listing.getPhoneContact());
+        phoneUser.setText("0" + listing.getPhoneContact());
         emailUser.setText(listing.getEmailContact());
 
         titileName.setMaxLines(3);
@@ -96,19 +124,6 @@ public class ProductDetail extends AppCompatActivity {
         Glide.with(getApplicationContext()).load(listing.getImage()).placeholder(R.drawable.ic_baseline_hide_image_24).error(R.drawable.ic_baseline_error_24).centerCrop().into(imageView);
     }
 
-    private void ActionTool() {
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowTitleEnabled(false);
-        getSupportActionBar().setHomeAsUpIndicator( getResources().getDrawable(R.drawable.ic_baseline_arrow_back_ios_24) );
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
-
-    }
     private void askPermissionAndCall() {
 
         // With Android Level >= 23, you have to ask the user
@@ -138,20 +153,23 @@ public class ProductDetail extends AppCompatActivity {
         try {
             this.startActivity(callIntent);
         } catch (Exception ex) {
-            Toast.makeText(getApplicationContext(),"Your call failed... " + ex.getMessage(),
+            Toast.makeText(getApplicationContext(), "Your call failed... " + ex.getMessage(),
                     Toast.LENGTH_LONG).show();
             ex.printStackTrace();
         }
     }
-    public void Event(){
+
+    public void Event() {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 ShowDailog();
             }
         });
+
     }
-    public void ShowDailog(){
+
+    public void ShowDailog() {
         Dialog callDialog = new Dialog(ProductDetail.this);
         callDialog.setContentView(R.layout.custom_layout_call);
         callDialog.setCancelable(true);
@@ -175,5 +193,86 @@ public class ProductDetail extends AppCompatActivity {
             }
         });
         callDialog.show();
+    }
+
+    public void getFavortie() {
+        idUser = sharedPreferences.getString("idUser", "");
+        arrayList = new ArrayList<>();
+        DataClient getData = APIUtils.getData();
+        Call<List<Favorite>> callback = getData.getFavorite(idUser, idListing);
+        callback.enqueue(new Callback<List<Favorite>>() {
+            @Override
+            public void onResponse(Call<List<Favorite>> call, Response<List<Favorite>> response) {
+                arrayList = (ArrayList<Favorite>) response.body();
+                if (arrayList.size() > 0) {
+                    imageViewFavorite.setImageResource(R.drawable.favorite_red);
+                    delete();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Favorite>> call, Throwable t) {
+                Fravorit();
+            }
+        });
+    }
+
+    public void Fravorit() {
+        idUser = sharedPreferences.getString("idUser", "");
+        imageViewFavorite.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (!TextUtils.isEmpty(idUser)) {
+                    DataClient dataClient = APIUtils.getData();
+                    retrofit2.Call<String> call = dataClient.PostFavorit(idUser, idListing);
+                    call.enqueue(new Callback<String>() {
+                        @Override
+                        public void onResponse(Call<String> call, Response<String> response) {
+                            String result = response.body();
+                            if (result.equals("1")) {
+                                Toast.makeText(ProductDetail.this, "Đã yêu thích", Toast.LENGTH_SHORT).show();
+                                getFavortie();
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Call<String> call, Throwable t) {
+
+                        }
+                    });
+                } else {
+                    Toast.makeText(ProductDetail.this, "Đăng nhập để sử dụng chức năng này", Toast.LENGTH_LONG).show();
+                }
+            }
+        });
+    }
+
+    public void delete() {
+        idUser = sharedPreferences.getString("idUser", "");
+        imageViewFavorite.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DataClient deleteListing = APIUtils.getData();
+                retrofit2.Call<String> callback = deleteListing.deleteFavorite(idListing, idUser);
+                callback.enqueue(new Callback<String>() {
+                    @Override
+                    public void onResponse(Call<String> call, Response<String> response) {
+                        if (response != null) {
+                            int result = Integer.parseInt(response.body());
+                            if (result == 1) {
+                                imageViewFavorite.setImageResource(R.drawable.ic_baseline_favorite_24);
+                                Toast.makeText(getApplicationContext(), "Bỏ yêu thích", Toast.LENGTH_SHORT).show();
+                                getFavortie();
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<String> call, Throwable t) {
+                        Log.d("loi", t.getMessage());
+                    }
+                });
+            }
+        });
     }
 }

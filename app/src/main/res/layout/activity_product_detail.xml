@@ -5,23 +5,30 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Activity.ProductDetail">
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar"
+    <androidx.cardview.widget.CardView
+        android:padding="10dp"
+        app:cardCornerRadius="10dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        tools:ignore="MissingConstraints">
-    </androidx.appcompat.widget.Toolbar>
-
-    <ImageView
-        android:paddingRight="35dp"
-        android:paddingLeft="35dp"
-        android:id="@+id/imageView"
-        android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:src="@drawable/home"
-        tools:ignore="MissingConstraints">
-    </ImageView>
-
+        android:layout_height="200dp">
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:ignore="MissingConstraints">
+            </ImageView>
+            <ImageView
+                android:id="@+id/imageViewFavorite"
+                android:layout_gravity="right|bottom"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_weight="1"
+                android:src="@drawable/ic_baseline_favorite_24">
+            </ImageView>
+        </FrameLayout>
+    </androidx.cardview.widget.CardView>
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -313,6 +320,7 @@
             </TextView>
         </RelativeLayout>
     </ScrollView>
+
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab"

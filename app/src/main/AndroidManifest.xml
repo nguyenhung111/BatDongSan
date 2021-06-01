@@ -12,7 +12,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.BấtĐộngSản"
         android:usesCleartextTraffic="true">
-        <activity android:name=".Activity.ManageListing"></activity>
+        <activity android:name=".Activity.Search"></activity>
+        <activity android:name=".Activity.ManageListing" />
         <activity android:name=".Activity.Thongtincoban" />
         <activity android:name=".Activity.ChangePass" />
         <activity android:name=".Activity.InforUser" />
@@ -56,14 +57,14 @@
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
     </application>
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
-
     <uses-permission android:name="android.permission.CALL_PHONE" />
+
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
 </manifest>
