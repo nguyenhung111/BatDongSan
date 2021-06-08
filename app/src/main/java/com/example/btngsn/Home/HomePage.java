@@ -12,6 +12,7 @@ import android.view.MenuItem;
 import com.example.btngsn.Fragment.AccountFragment;
 import com.example.btngsn.Fragment.FavoriteFragment;
 import com.example.btngsn.Fragment.HomeFragment;
+import com.example.btngsn.Fragment.mua_thue;
 import com.example.btngsn.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -40,6 +41,9 @@ public class HomePage extends AppCompatActivity {
             switch (menuItem.getItemId()) {
                 case R.id.nav_home:
                     selectFrame = new HomeFragment();
+                    break;
+                case R.id.nav_mua_thue:
+                    selectFrame = new mua_thue();
                     break;
                 case R.id.nav_favorite:
                     selectFrame = new FavoriteFragment();

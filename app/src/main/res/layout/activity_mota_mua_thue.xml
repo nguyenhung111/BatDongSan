@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".Activity.mota_mua_thue">
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/blue"
+        app:title="Mô tả"
+        app:titleTextColor="@color/white"
+        tools:ignore="MissingConstraints">
+
+    </androidx.appcompat.widget.Toolbar>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="10dp">
+
+            <LinearLayout
+                android:id="@+id/tieude"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="100dp"
+                    android:layout_height="match_parent"
+                    android:gravity="start|center"
+                    android:text="Tiêu đề"
+                    android:textColor="@color/black"
+                    android:textSize="20dp" />
+                <ScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/edttieude"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="10dp"
+                        android:maxLength="30"
+                        app:counterMaxLength="1000"
+                        app:errorEnabled="true">
+                    </com.google.android.material.textfield.TextInputEditText>
+                </ScrollView>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/dientich"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_below="@+id/tieude"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="100dp"
+                    android:layout_height="match_parent"
+                    android:gravity="start|center"
+                    android:text="Diện tích"
+                    android:textColor="@color/black"
+                    android:textSize="20dp" />
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edtdientich"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="10dp"></com.google.android.material.textfield.TextInputEditText>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/giatien"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_below="@+id/dientich"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="100dp"
+                    android:layout_height="match_parent"
+                    android:gravity="start|center"
+                    android:text="Giá tiền"
+                    android:textColor="@color/black"
+                    android:textSize="20dp" />
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edtgiatien"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="10dp">
+
+                </com.google.android.material.textfield.TextInputEditText>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/loaitien"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_below="@+id/giatien"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="100dp"
+                    android:layout_height="match_parent"
+                    android:gravity="start|center"
+                    android:text="Đơn vị"
+                    android:textColor="@color/black"
+                    android:textSize="20dp" />
+                <Spinner
+                    android:id="@+id/spnloaitien"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="10dp"
+                    android:spinnerMode="dropdown" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/tongtien"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_below="@+id/loaitien"
+                android:orientation="horizontal"
+                android:visibility="gone">
+
+                <TextView
+                    android:layout_width="100dp"
+                    android:layout_height="match_parent"
+                    android:gravity="start|center"
+                    android:text="Tổng tiền"
+                    android:textColor="@color/black"
+                    android:textSize="20dp" />
+
+                <TextView
+                    android:id="@+id/txttongtien"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                </TextView>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/hinhanh"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_below="@+id/tongtien"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_weight="1"
+                    android:maxLines="2"
+                    android:text="Hình ảnh"
+                    android:textColor="@color/black"
+                    android:textSize="20dp" />
+                <ImageView
+                    android:id="@+id/imageView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:src="@drawable/ic_baseline_add_photo_alternate_24">
+                </ImageView>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/motanoidung"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/hinhanh">
+
+                <ScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/editpass1"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/editaccount1"
+                        android:layout_marginTop="10dp"
+                        app:passwordToggleEnabled="true">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/edtmota"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_below="@id/editaccount"
+                            android:layout_marginTop="10dp"
+                            android:hint="Nội dung mô tả "
+                            android:maxLength="30"
+                            android:textSize="20dp"
+                            app:counterMaxLength="3000"
+                            app:errorEnabled="true">
+
+                        </com.google.android.material.textfield.TextInputEditText>
+                    </com.google.android.material.textfield.TextInputLayout>
+                </ScrollView>
+            </LinearLayout>
+            <Button
+                android:layout_marginTop="15dp"
+                android:layout_below="@+id/motanoidung"
+                android:id="@+id/countine"
+                android:text="TIẾP TỤC"
+                android:textColor="@color/white"
+                android:textSize="24dp"
+                android:background="@color/blue"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+            </Button>
+        </RelativeLayout>
+    </ScrollView>
+
+</LinearLayout>

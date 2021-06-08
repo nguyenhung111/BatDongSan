@@ -21,6 +21,7 @@ import com.example.btngsn.Activity.ManageListing;
 import com.example.btngsn.Activity.ProductDetail;
 import com.example.btngsn.Model.CheckConnection;
 import com.example.btngsn.Model.Listing;
+import com.example.btngsn.Model.User;
 import com.example.btngsn.R;
 import com.example.btngsn.Retrofit.APIUtils;
 import com.example.btngsn.Retrofit.DataClient;
@@ -32,13 +33,13 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemHoler> {
-    ManageListing context;
+    private Context context;
     ArrayList<Listing> arrayList;
 
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
 
-    public ItemAdapter(ManageListing context, ArrayList<Listing> arrayList) {
+    public ItemAdapter(Context context, ArrayList<Listing> arrayList) {
         this.context = context;
         this.arrayList = arrayList;
     }
@@ -70,6 +71,160 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemHoler> {
         }
         Glide.with(context).load(listing.getImage()).centerCrop().placeholder(R.drawable.ic_baseline_hide_image_24)
                 .error(R.drawable.ic_baseline_error_24).into(holder.imageView);
+
+
+        String idspUser = sharedPreferences.getString("idspUser", "");
+        if (idspUser.equals("1")) {
+            holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View view) {
+                    final AlertDialog.Builder dialog = new AlertDialog.Builder(context);
+                    dialog.setMessage("Chọn chức năng bạn muốn");
+                    dialog.setPositiveButton("Xóa tin", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int i) {
+                            AlertDialog.Builder dialogXoa = new AlertDialog.Builder(context);
+                            dialogXoa.setMessage("Bạn xác nhận xóa tin này không ?");
+                            dialogXoa.setPositiveButton("Có", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int i) {
+                                    String idListing = listing.getIdListing();
+                                    String image = listing.getImage();
+                                    image = image.substring(image.lastIndexOf("/"));
+                                    Delete(idListing, image);
+                                    arrayList.remove(position);
+                                    notifyDataSetChanged();
+                                }
+                            });
+                            dialogXoa.setNegativeButton("Không", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int i) {
+
+                                }
+                            });
+                            dialogXoa.show();
+                        }
+                    });
+                    dialog.setNegativeButton("Đăng tin", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int i) {
+                            AlertDialog.Builder dialogXoa = new AlertDialog.Builder(context);
+                            dialogXoa.setMessage("Bạn chắc muốn đăng tin này không ?");
+                            dialogXoa.setPositiveButton("Có", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int i) {
+                                    String idListing = listing.getIdListing();
+                                    String idUser = listing.getIdUser();
+                                    int sodu = Integer.parseInt(listing.getSodu());
+                                        String trangthai = "2";
+                                        UpdateAdmin(idListing, trangthai, idUser, sodu);
+                                        Log.d("remover", String.valueOf(position));
+                                        Log.d("remover", String.valueOf(arrayList.size()));
+                                        arrayList.remove(position);
+                                        notifyDataSetChanged();
+                                }
+                            });
+                            dialogXoa.setNegativeButton("Không", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int i) {
+
+                                }
+                            });
+                            dialogXoa.show();
+                        }
+                    });
+                    dialog.show();
+                    return false;
+                }
+            });
+        } else {
+            holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View view) {
+                    AlertDialog.Builder dialog = new AlertDialog.Builder(context);
+                    dialog.setMessage("Chọn chức năng bạn muốn");
+                    dialog.setPositiveButton("Xóa tin", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int i) {
+                            AlertDialog.Builder dialogXoa = new AlertDialog.Builder(context);
+                            dialogXoa.setMessage("Bạn xác nhận xóa tin này không ?");
+                            dialogXoa.setPositiveButton("Có", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int i) {
+                                    String idListing = listing.getIdListing();
+                                    String image = listing.getImage();
+                                    image = image.substring(image.lastIndexOf("/"));
+                                    Delete(idListing, image);
+                                    arrayList.remove(position);
+                                    notifyDataSetChanged();
+                                }
+                            });
+                            dialogXoa.setNegativeButton("Không", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int i) {
+
+                                }
+                            });
+                            dialogXoa.show();
+                        }
+                    });
+                    int status = Integer.parseInt(listing.getTrangthai());
+                    if (status == 2) {
+                        dialog.setNegativeButton("Hạ tin rao", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int i) {
+                                AlertDialog.Builder dialogXoa = new AlertDialog.Builder(context);
+                                dialogXoa.setMessage("Bạn xác nhận hạ tin này không ?");
+                                dialogXoa.setPositiveButton("Có", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int i) {
+                                        String idListing = listing.getIdListing();
+                                        String trangthai = "3";
+                                        Update(idListing, trangthai);
+                                        holder.status.setText("Trạng thái: Đã hạ tin");
+                                        notifyDataSetChanged();
+                                    }
+                                });
+                                dialogXoa.setNegativeButton("Không", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int i) {
+
+                                    }
+                                });
+                                dialogXoa.show();
+                            }
+                        });
+                    } else if (status == 3) {
+                        dialog.setNegativeButton("Đăng lại tin rao", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int i) {
+                                AlertDialog.Builder dialogXoa = new AlertDialog.Builder(context);
+                                dialogXoa.setMessage("Bạn xác nhận đăng tin này không ?");
+                                dialogXoa.setPositiveButton("Có", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int i) {
+                                        String idListing = listing.getIdListing();
+                                        String trangthai = "2";
+                                        Update(idListing, trangthai);
+                                        holder.status.setText("Trạng thái: " + "Đã đăng tin");
+                                        notifyDataSetChanged();
+                                    }
+                                });
+                                dialogXoa.setNegativeButton("Không", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int i) {
+
+                                    }
+                                });
+                                dialogXoa.show();
+                            }
+                        });
+                    }
+                    dialog.show();
+                    return true;
+                }
+            });
+        }
     }
 
 
@@ -104,148 +259,6 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemHoler> {
                     context.startActivity(intent);
                 }
             });
-            String idspUser = sharedPreferences.getString("idspUser", "");
-            if (idspUser.equals("1")) {
-                itemView.setOnLongClickListener(new View.OnLongClickListener() {
-                    @Override
-                    public boolean onLongClick(View view) {
-                        final AlertDialog.Builder dialog = new AlertDialog.Builder(context);
-                        dialog.setMessage("Chọn chức năng bạn muốn");
-                        dialog.setPositiveButton("Xóa tin", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int i) {
-                                AlertDialog.Builder dialogXoa = new AlertDialog.Builder(context);
-                                dialogXoa.setMessage("Bạn xác nhận xóa tin này không ?");
-                                dialogXoa.setPositiveButton("Có", new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialog, int i) {
-                                        String idListing = arrayList.get(getPosition()).getIdListing();
-                                        String image = arrayList.get(getPosition()).getImage();
-                                        image = image.substring(image.lastIndexOf("/"));
-                                        Log.d("image", image);
-                                        Log.d("image", idListing);
-                                        Delete(idListing, image);
-                                    }
-                                });
-                                dialogXoa.setNegativeButton("Không", new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialog, int i) {
-
-                                    }
-                                });
-                                dialogXoa.show();
-                            }
-                        });
-                        dialog.setNegativeButton("Đăng tin", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int i) {
-                                AlertDialog.Builder dialogXoa = new AlertDialog.Builder(context);
-                                dialogXoa.setMessage("Bạn chắc muốn đăng tin này không ?");
-                                dialogXoa.setPositiveButton("Có", new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialog, int i) {
-                                        String idListing = arrayList.get(getPosition()).getIdListing();
-                                        String trangthai = "2";
-                                        Log.d("bb", String.valueOf(getPosition()));
-                                        UpdateAdmin(idListing, trangthai, getPosition());
-                                    }
-                                });
-                                dialogXoa.setNegativeButton("Không", new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialog, int i) {
-
-                                    }
-                                });
-                                dialogXoa.show();
-                            }
-                        });
-                        dialog.show();
-                        return false;
-                    }
-                });
-            } else {
-                itemView.setOnLongClickListener(new View.OnLongClickListener() {
-                    @Override
-                    public boolean onLongClick(View view) {
-                        AlertDialog.Builder dialog = new AlertDialog.Builder(context);
-                        dialog.setMessage("Chọn chức năng bạn muốn");
-                        dialog.setPositiveButton("Xóa tin", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int i) {
-                                AlertDialog.Builder dialogXoa = new AlertDialog.Builder(context);
-                                dialogXoa.setMessage("Bạn xác nhận xóa tin này không ?");
-                                dialogXoa.setPositiveButton("Có", new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialog, int i) {
-                                        String idListing = arrayList.get(getPosition()).getIdListing();
-                                        String image = arrayList.get(getPosition()).getImage();
-                                        image = image.substring(image.lastIndexOf("/"));
-                                        Delete(idListing, image);
-                                        arrayList.remove(getPosition());
-                                    }
-                                });
-                                dialogXoa.setNegativeButton("Không", new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialog, int i) {
-
-                                    }
-                                });
-                                dialogXoa.show();
-                            }
-                        });
-                        int status = Integer.parseInt(arrayList.get(getPosition()).getTrangthai());
-                        if (status == 2) {
-                            dialog.setNegativeButton("Hạ tin rao", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int i) {
-                                    AlertDialog.Builder dialogXoa = new AlertDialog.Builder(context);
-                                    dialogXoa.setMessage("Bạn xác nhận hạ tin này không ?");
-                                    dialogXoa.setPositiveButton("Có", new DialogInterface.OnClickListener() {
-                                        @Override
-                                        public void onClick(DialogInterface dialog, int i) {
-                                            String idListing = arrayList.get(getPosition()).getIdListing();
-                                            String trangthai = "3";
-                                            Update(idListing, trangthai);
-                                        }
-                                    });
-                                    dialogXoa.setNegativeButton("Không", new DialogInterface.OnClickListener() {
-                                        @Override
-                                        public void onClick(DialogInterface dialog, int i) {
-
-                                        }
-                                    });
-                                    dialogXoa.show();
-                                }
-                            });
-                        } else if (status == 3) {
-                            dialog.setNegativeButton("Đăng lại tin rao", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int i) {
-                                    AlertDialog.Builder dialogXoa = new AlertDialog.Builder(context);
-                                    dialogXoa.setMessage("Bạn xác nhận đăngtin này không ?");
-                                    dialogXoa.setPositiveButton("Có", new DialogInterface.OnClickListener() {
-                                        @Override
-                                        public void onClick(DialogInterface dialog, int i) {
-                                            String idListing = arrayList.get(getPosition()).getIdListing();
-                                            String trangthai = "2";
-                                            Update(idListing, trangthai);
-                                        }
-                                    });
-                                    dialogXoa.setNegativeButton("Không", new DialogInterface.OnClickListener() {
-                                        @Override
-                                        public void onClick(DialogInterface dialog, int i) {
-
-                                        }
-                                    });
-                                    dialogXoa.show();
-                                }
-                            });
-                        }
-                        dialog.show();
-                        return true;
-                    }
-                });
-            }
         }
     }
 
@@ -272,7 +285,7 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemHoler> {
         });
     }
 
-    public void UpdateAdmin(String idListing, String trangthai, int position) {
+    public void UpdateAdmin(String idListing, String trangthai,String idUser, int sodu) {
         DataClient updateStatus = APIUtils.getData();
         retrofit2.Call<String> callback = updateStatus.updaeStatus(idListing, trangthai);
         callback.enqueue(new Callback<String>() {
@@ -281,8 +294,7 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemHoler> {
                 if (response != null) {
                     int result = Integer.parseInt(response.body());
                     if (result == 1) {
-                        arrayList.remove(position);
-                        Toast.makeText(context, "Thay đổi thành công", Toast.LENGTH_SHORT).show();
+                        UpDateSodu(idUser,sodu);
                     } else if (result == 0) {
                         Toast.makeText(context, "Thất bại mời thử lại", Toast.LENGTH_LONG).show();
                     }
@@ -320,4 +332,28 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemHoler> {
         });
     }
 
+
+    public void UpDateSodu(String idUser,int sodu) {
+        DataClient updateStatus = APIUtils.getData();
+        retrofit2.Call<String> callback = updateStatus.updateSodu(idUser, sodu);
+        callback.enqueue(new Callback<String>() {
+            @Override
+            public void onResponse(Call<String> call, Response<String> response) {
+               Log.d("respone", response.body());
+                if (response != null) {
+                    int result = Integer.parseInt(response.body());
+                    if (result == 1) {
+                        Toast.makeText(context, "Thay đổi thành công", Toast.LENGTH_SHORT).show();
+                    } else if (result == 0) {
+                        Toast.makeText(context, "Thất bại mời thử lại", Toast.LENGTH_LONG).show();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<String> call, Throwable t) {
+                Log.d("loi", t.getMessage());
+            }
+        });
+    }
 }

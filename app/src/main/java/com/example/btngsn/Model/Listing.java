@@ -87,7 +87,10 @@ public class Listing  implements Parcelable{
     private String loaitin;
     @SerializedName("urlMap")
     @Expose
-    private Object urlMap;
+    private String urlMap;
+    @SerializedName("sodu")
+    @Expose
+    private String sodu;
 
     protected Listing(Parcel in) {
         idListing = in.readString();
@@ -115,6 +118,8 @@ public class Listing  implements Parcelable{
         dateEnd = in.readString();
         trangthai = in.readString();
         loaitin = in.readString();
+        urlMap = in.readString();
+        sodu = in.readString();
     }
 
     public static final Creator<Listing> CREATOR = new Creator<Listing>() {
@@ -329,12 +334,20 @@ public class Listing  implements Parcelable{
         this.loaitin = loaitin;
     }
 
-    public Object getUrlMap() {
+    public String  getUrlMap() {
         return urlMap;
     }
 
-    public void setUrlMap(Object urlMap) {
+    public void setUrlMap(String urlMap) {
         this.urlMap = urlMap;
+    }
+
+    public String getSodu() {
+        return sodu;
+    }
+
+    public void setSodu(String sodu) {
+        this.sodu = sodu;
     }
 
     @Override
@@ -369,5 +382,7 @@ public class Listing  implements Parcelable{
         parcel.writeString(dateEnd);
         parcel.writeString(trangthai);
         parcel.writeString(loaitin);
+        parcel.writeString(urlMap);
+        parcel.writeString(sodu);
     }
 }

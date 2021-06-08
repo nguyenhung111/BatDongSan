@@ -59,13 +59,14 @@ public class FragmentSell extends Fragment {
                     adapterSell = new ListingAdapter(getContext(),listingArrayList);
                     recyviewsellhome.setAdapter(adapterSell);
                     adapterSell.notifyDataSetChanged();
+                }else {
+                    Toast.makeText(getContext(), "Không có tin nào", Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<List<Listing>> call, Throwable t) {
-                Log.d("mes", t.getMessage());
-                Toast.makeText(getContext(), "Không có sản phẩm nào", Toast.LENGTH_SHORT).show();
+
             }
         });
     }

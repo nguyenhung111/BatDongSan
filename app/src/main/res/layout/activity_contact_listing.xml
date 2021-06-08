@@ -32,6 +32,7 @@
                 android:layout_height="wrap_content">
             </TextView>
             <EditText
+                android:drawableRight="@drawable/ic_baseline_star_rate_24"
                 android:id="@+id/edtnamecontact"
                 android:layout_below="@+id/thongtinlienhe"
                 android:hint="Tên liên hệ"
@@ -48,6 +49,7 @@
                 android:layout_height="wrap_content">
             </EditText>
             <EditText
+                android:drawableRight="@drawable/ic_baseline_star_rate_24"
                 android:id="@+id/phonecontact"
                 android:layout_below="@id/addresscontact"
                 android:hint="Phone"

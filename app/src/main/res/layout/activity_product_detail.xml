@@ -13,12 +13,12 @@
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-            <ImageView
-                android:id="@+id/imageView"
+            <androidx.viewpager.widget.ViewPager
+                android:id="@+id/viewpager"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 tools:ignore="MissingConstraints">
-            </ImageView>
+            </androidx.viewpager.widget.ViewPager>
             <ImageView
                 android:id="@+id/imageViewFavorite"
                 android:layout_gravity="right|bottom"

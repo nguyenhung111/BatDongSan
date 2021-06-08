@@ -29,6 +29,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="50dp">
                 <TextView
+                    android:drawableRight="@drawable/ic_baseline_star_rate_24"
                     android:layout_width="100dp"
                     android:layout_height="match_parent"
                     android:text="Tiêu đề"
@@ -56,6 +57,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="50dp">
                 <TextView
+                    android:drawableRight="@drawable/ic_baseline_star_rate_24"
                     android:layout_width="100dp"
                     android:layout_height="match_parent"
                     android:text="Diện tích"
@@ -76,6 +78,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="50dp">
                 <TextView
+                    android:drawableRight="@drawable/ic_baseline_star_rate_24"
                     android:layout_width="100dp"
                     android:layout_height="match_parent"
                     android:text="Giá tiền"
@@ -96,6 +99,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="50dp">
                 <TextView
+                    android:drawableRight="@drawable/ic_baseline_star_rate_24"
                     android:layout_width="100dp"
                     android:layout_height="match_parent"
                     android:text="Đơn vị"
@@ -135,19 +139,35 @@
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
                 android:orientation="vertical">
-                <TextView
+                <LinearLayout
+                    android:weightSum="2"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Hình ảnh :"
-                    android:textColor="@color/black"
-                    android:textSize="20dp"/>
-                <ImageView
-                    android:id="@+id/imageView1"
-                    android:src="@drawable/ic_baseline_add_photo_alternate_24"
+                    android:layout_height="40dp"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:drawableEnd="@drawable/ic_baseline_star_rate_24"
+                        android:layout_weight="1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:maxLines="2"
+                        android:text="Hình ảnh (ảnh đầu là ảnh đại diện)"
+                        android:textColor="@color/black"
+                        android:textSize="18dp"/>
+                    <ImageView
+                        android:id="@+id/imageView"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:src="@drawable/ic_baseline_add_photo_alternate_24">
+                    </ImageView>
+                </LinearLayout>
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recyviews"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="180dp">
 
-                </ImageView>
+                </androidx.recyclerview.widget.RecyclerView>
             </LinearLayout>
             <LinearLayout
                 android:id="@+id/motanoidung"
@@ -167,6 +187,7 @@
                         app:passwordToggleEnabled="true">
 
                     <com.google.android.material.textfield.TextInputEditText
+                        android:drawableRight="@drawable/ic_baseline_star_rate_24"
                         app:counterMaxLength="3000"
                         android:maxLength="30"
                         app:errorEnabled="true"

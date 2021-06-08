@@ -20,19 +20,32 @@ import android.widget.Toast;
 import com.example.btngsn.Activity.ChangePass;
 import com.example.btngsn.Activity.ContactListing;
 import com.example.btngsn.Activity.InforUser;
+import com.example.btngsn.Activity.Infor_mua_thue;
 import com.example.btngsn.Activity.ManageListing;
 import com.example.btngsn.Activity.PostListing;
 import com.example.btngsn.Activity.Thongtincoban;
+import com.example.btngsn.Home.HomePage;
 import com.example.btngsn.Login.Login;
 import com.example.btngsn.Login.Registration;
+import com.example.btngsn.Model.User;
 import com.example.btngsn.R;
+import com.example.btngsn.Retrofit.APIUtils;
+import com.example.btngsn.Retrofit.DataClient;
 
 import org.simple.eventbus.EventBus;
 import org.simple.eventbus.Subscriber;
 
+import java.text.DecimalFormat;
+import java.util.ArrayList;
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 public class AccountFragment extends Fragment {
     public Button login, registration, btnlogout, btnNaptien;
-    public TextView postlisting, fullName, sdt, managerinfor, changepass, managerlisting;
+    public TextView postlisting, fullName, sdt, managerinfor, changepass, managerlisting, post_mua_thue, sodu;
     public ImageView imgAva;
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
@@ -59,6 +72,8 @@ public class AccountFragment extends Fragment {
         sdt = (TextView) view.findViewById(R.id.sdt);
         managerlisting = (TextView) view.findViewById(R.id.managerlisting);
         changepass = (TextView) view.findViewById(R.id.changepass);
+        post_mua_thue = (TextView) view.findViewById(R.id.post_mua_thue);
+        sodu = (TextView) view.findViewById(R.id.sodu);
 
         imgAva = (ImageView) view.findViewById(R.id.imgAva);
 
@@ -71,6 +86,7 @@ public class AccountFragment extends Fragment {
         initShare();
         checkData();
         Event();
+        getData();
         return view;
     }
 
@@ -83,6 +99,7 @@ public class AccountFragment extends Fragment {
     public void loginSuccess(boolean b) {
         Event();
         checkData();
+        getData();
     }
 
 
@@ -121,6 +138,7 @@ public class AccountFragment extends Fragment {
                 if (!fullName.equals("")) {
                     fullName.setText("Tên khách hàng");
                     sdt.setText("Số điện thoại");
+                    sodu.setText("Số dư");
                     Toast.makeText(getContext(), " Bạn đã đăng xuất tài khoản", Toast.LENGTH_LONG).show();
                     btnLiner.setVisibility(View.VISIBLE);
                     linearDX.setVisibility(View.GONE);
@@ -173,5 +191,39 @@ public class AccountFragment extends Fragment {
 
             }
         });
+
+        post_mua_thue.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getContext(), Infor_mua_thue.class);
+                startActivity(intent);
+            }
+        });
+    }
+
+    public void getData() {
+        if (!TextUtils.isEmpty(fullname)) {
+            String username = sharedPreferences.getString("userName", "");
+            String password = sharedPreferences.getString("passWord", "");
+            if (!username.equals("") && !password.equals("")) {
+                DataClient loginData = APIUtils.getData();
+                Call<List<User>> callback = loginData.Login(username, password);
+                callback.enqueue(new Callback<List<User>>() {
+                    @Override
+                    public void onResponse(Call<List<User>> call, Response<List<User>> response) {
+                        ArrayList<User> userArrayList = (ArrayList<User>) response.body();
+                        if (userArrayList.size() > 0) {
+                            DecimalFormat decimalFormat = new DecimalFormat("###,###,###");
+                            int taikhoan = Integer.parseInt(userArrayList.get(0).getSodu());
+                            sodu.setText("Số dư : " + decimalFormat.format(taikhoan) + " Đ");
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<List<User>> call, Throwable t) {
+                    }
+                });
+            }
+        }
     }
 }

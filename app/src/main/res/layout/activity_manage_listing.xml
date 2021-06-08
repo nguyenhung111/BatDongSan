@@ -5,10 +5,23 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Activity.ManageListing">
-    <androidx.recyclerview.widget.RecyclerView
-        android:padding="10dp"
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tabDN"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/recyviews">
-    </androidx.recyclerview.widget.RecyclerView>
+        android:layout_height="wrap_content"
+        app:tabIndicatorColor="#0A8DF3"
+        app:tabMode="fixed"
+        app:tabSelectedTextColor="#0A8DF3"
+        app:tabTextColor="@android:color/black"
+        tools:ignore="MissingConstraints">
+    </com.google.android.material.tabs.TabLayout>
+
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/viewPaper"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        app:layout_constraintTop_toBottomOf="@+id/tabDN">
+
+    </androidx.viewpager.widget.ViewPager>
 </androidx.constraintlayout.widget.ConstraintLayout>

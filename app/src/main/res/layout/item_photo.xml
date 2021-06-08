@@ -7,7 +7,7 @@
     <ImageView
         android:id="@+id/imd_photo"
         android:layout_width="200dp"
-        android:layout_height="100dp"
+        android:layout_height="match_parent"
         android:scaleType="centerCrop">
     </ImageView>
 </androidx.cardview.widget.CardView>

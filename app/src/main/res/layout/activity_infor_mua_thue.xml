@@ -1,17 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".Activity.Thongtincoban">
+    tools:context=".Activity.Infor_mua_thue">
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         app:titleTextColor="@color/white"
         android:background="@color/blue"
-        app:title="Đăng tin rao bán/cho thuê"
+        app:title="Đăng tin rao mua / cần thuê"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         tools:ignore="MissingConstraints">
@@ -29,8 +28,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="50dp">
                 <TextView
-                    android:drawableRight="@drawable/ic_baseline_star_rate_24"
-                    android:layout_width="120dp"
+                    android:layout_width="100dp"
                     android:layout_height="match_parent"
                     android:text="Hình thức"
                     android:textColor="@color/black"
@@ -50,8 +48,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="70dp">
                 <TextView
-                    android:drawableRight="@drawable/ic_baseline_star_rate_24"
-                    android:layout_width="120dp"
+                    android:layout_width="100dp"
                     android:layout_height="match_parent"
                     android:text="Loại"
                     android:textColor="@color/black"
@@ -71,10 +68,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="70dp">
                 <TextView
-                    android:drawableRight="@drawable/ic_baseline_star_rate_24"
-                    android:layout_width="160dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:text="Tỉnh thành phố  "
+                    android:text="Tỉnh thành phố"
                     android:textColor="@color/black"
                     android:gravity="center|start"
                     android:textSize="20dp"/>
@@ -93,8 +89,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="70dp">
                 <TextView
-                    android:drawableRight="@drawable/ic_baseline_star_rate_24"
-                    android:layout_width="130dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:text="Quận huyện"
                     android:textColor="@color/black"
@@ -149,61 +144,9 @@
                     android:layout_height="match_parent">
                 </EditText>
             </LinearLayout>
-            <LinearLayout
-                android:id="@+id/dcDetail"
-                android:layout_below="@+id/diachi"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/txtnoithat"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/editaccount1"
-                    android:layout_marginTop="10dp"
-                    app:passwordToggleEnabled="true">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/editdiachi"
-                        app:errorEnabled="true"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_below="@id/editaccount"
-                        android:layout_marginTop="10dp"
-                        android:hint="Địa chỉ chi tiết"
-                        android:textSize="20dp">
-                    </com.google.android.material.textfield.TextInputEditText>
-                </com.google.android.material.textfield.TextInputLayout>
-            </LinearLayout>
-            <LinearLayout
-                android:id="@+id/map"
-                android:layout_below="@+id/dcDetail"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/txtmap"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/editaccount1"
-                    android:layout_marginTop="10dp"
-                    app:passwordToggleEnabled="true">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/edtUrlmap"
-                        app:errorEnabled="true"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_below="@id/editaccount"
-                        android:layout_marginTop="10dp"
-                        android:hint="Đường dẫn Google Map"
-                        android:textSize="20dp">
-                    </com.google.android.material.textfield.TextInputEditText>
-                </com.google.android.material.textfield.TextInputLayout>
-            </LinearLayout>
             <Button
                 android:layout_marginTop="15dp"
-                android:layout_below="@+id/map"
+                android:layout_below="@+id/diachi"
                 android:id="@+id/countine"
                 android:text="TIẾP TỤC"
                 android:textColor="@color/white"

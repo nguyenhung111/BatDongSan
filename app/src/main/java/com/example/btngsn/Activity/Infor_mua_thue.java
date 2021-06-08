@@ -7,10 +7,10 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.Toast;
 
 import com.androidnetworking.AndroidNetworking;
 import com.androidnetworking.error.ANError;
@@ -41,16 +41,14 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class Thongtincoban extends AppCompatActivity {
+public class Infor_mua_thue extends AppCompatActivity {
     private Spinner spnhinhthuc, spnloai, spnCity, spnDistrict, spnWard;
-    private EditText edtdiachi, editdiachi, edtUrlmap;
+    private EditText edtdiachi;
     private Button countine;
-    ArrayList<viewForm> arrayListForm;
-    formAdapter adapterForm;
-    viewForm viewFormIntent;
+
 
     ArrayList<viewSpecies> arrayListSpecies;
-    speciesAdapter speciesAdapter;
+    com.example.btngsn.Adapter.speciesAdapter speciesAdapter;
     viewSpecies viewSpeciesIntent;
 
     private WardSpinnerAdapter wardSpinnerAdapter;
@@ -72,14 +70,14 @@ public class Thongtincoban extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_thontincoban);
+        setContentView(R.layout.activity_infor_mua_thue);
 
         init();
-        getForm();
         getSpecies();
         spinnerCity();
         chooseSpinnerCity();
         chooseSpinnerWard();
+        EventSpiner();
         clickonitem();
     }
 
@@ -92,42 +90,15 @@ public class Thongtincoban extends AppCompatActivity {
         spnWard = (Spinner) findViewById(R.id.spnxaphuong);
 
         edtdiachi = (EditText) findViewById(R.id.edtdiachi);
-        editdiachi = (EditText) findViewById(R.id.editdiachi);
-        edtUrlmap = (EditText) findViewById(R.id.edtUrlmap);
-
-        countine= (Button) findViewById(R.id.countine);
+        countine = (Button) findViewById(R.id.countine);
     }
 
-    public void getForm() {
-        arrayListForm = new ArrayList<>();
-        DataClient getData = APIUtils.getData();
-        Call<List<viewForm>> callback = getData.getForm();
-        callback.enqueue(new Callback<List<viewForm>>() {
-            @Override
-            public void onResponse(Call<List<viewForm>> call, Response<List<viewForm>> response) {
-                arrayListForm = (ArrayList<viewForm>) response.body();
-                if (arrayListForm.size() > 0) {
-                    adapterForm = new formAdapter(Thongtincoban.this, arrayListForm);
-                    spnhinhthuc.setAdapter(adapterForm);
-                    spnhinhthuc.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                        @Override
-                        public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                            viewFormIntent = new viewForm(arrayListForm.get(position).getIdForm(), arrayListForm.get(position).getNameForm());
-                        }
 
-                        @Override
-                        public void onNothingSelected(AdapterView<?> parent) {
+    private void EventSpiner() {
+        String[] donvi = new String[]{"Cần Mua", "Cần Thuê"};
+        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, donvi);
+        spnhinhthuc.setAdapter(arrayAdapter);
 
-                        }
-                    });
-                }
-            }
-
-            @Override
-            public void onFailure(Call<List<viewForm>> call, Throwable t) {
-
-            }
-        });
     }
 
     public void getSpecies() {
@@ -139,7 +110,7 @@ public class Thongtincoban extends AppCompatActivity {
             public void onResponse(Call<List<viewSpecies>> call, Response<List<viewSpecies>> response) {
                 arrayListSpecies = (ArrayList<viewSpecies>) response.body();
                 if (arrayListSpecies.size() > 0) {
-                    speciesAdapter = new speciesAdapter(Thongtincoban.this, arrayListSpecies);
+                    speciesAdapter = new speciesAdapter(Infor_mua_thue.this, arrayListSpecies);
                     spnloai.setAdapter(speciesAdapter);
                     spnloai.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                         @Override
@@ -188,7 +159,7 @@ public class Thongtincoban extends AppCompatActivity {
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
-                        spinnerAdapter = new CitySpinnerAdapter(cityList, Thongtincoban.this);
+                        spinnerAdapter = new CitySpinnerAdapter(cityList, Infor_mua_thue.this);
                         spnCity.setAdapter(spinnerAdapter);
                     }
 
@@ -223,7 +194,7 @@ public class Thongtincoban extends AppCompatActivity {
                                         e.printStackTrace();
                                     }
                                 }
-                                districtSpinnerAdapter = new DistrictSpinnerAdapter(districtList, Thongtincoban.this);
+                                districtSpinnerAdapter = new DistrictSpinnerAdapter(districtList, Infor_mua_thue.this);
                                 spnDistrict.setAdapter(districtSpinnerAdapter);
                             }
 
@@ -265,7 +236,7 @@ public class Thongtincoban extends AppCompatActivity {
                                     }
 
                                 }
-                                wardSpinnerAdapter = new WardSpinnerAdapter(dataWardList, Thongtincoban.this);
+                                wardSpinnerAdapter = new WardSpinnerAdapter(dataWardList, Infor_mua_thue.this);
                                 spnWard.setAdapter(wardSpinnerAdapter);
                             }
 
@@ -280,9 +251,8 @@ public class Thongtincoban extends AppCompatActivity {
                     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                         dataWard = dataWardList.get(position);
                         ward = dataWard.getTitle();
-                        String address = ward.concat(" "+ district.concat(" "+city));
+                        String address = ward.concat(" " + district.concat(" " + city));
                         edtdiachi.setText(address);
-                        Log.d("address", address);
                     }
 
                     @Override
@@ -300,25 +270,22 @@ public class Thongtincoban extends AppCompatActivity {
     }
 
     public void Sendata() {
-        String hinhthuc = viewFormIntent.getIdForm();
-        String loai = viewSpeciesIntent.getNameSpecies();
-        String diachi = edtdiachi.getText().toString().trim();
-        String diachichitiet = editdiachi.getText().toString().trim();
-        String urlMap = edtUrlmap.getText().toString().trim();
-        //!taikhoan.isEmpty() || !matkhau.isEmpty()
-        if(!hinhthuc.isEmpty() || !loai.isEmpty() || !diachi.isEmpty()){
-            Intent myIntent = new Intent(Thongtincoban.this, PostListing.class);
-            Bundle bundle = new Bundle();
-            bundle.putString("hinhthuc", hinhthuc);
-            bundle.putString("loai", loai);
-            bundle.putString("diachi", edtdiachi.getText().toString().trim());
-            bundle.putString("diachichitiet", editdiachi.getText().toString().trim());
-            bundle.putString("urlMap", edtUrlmap.getText().toString().trim());
-            myIntent.putExtras(bundle);
-            //Mở Activity ResultActivity
-            startActivity(myIntent);
-        } else {
-            Toast.makeText(this, "Bạn vui lòng nhập đủ thông tin bắt buộc", Toast.LENGTH_SHORT).show();
+        String hinhthuc = "";
+        if(spnhinhthuc.getSelectedItem().toString().equals("Cần Mua")){
+            hinhthuc = "1";
+        } else  if(spnhinhthuc.getSelectedItem().toString().equals("Cần Thuê")){
+            hinhthuc = "2";
         }
+        String loai = viewSpeciesIntent.getNameSpecies();
+        Intent myIntent = new Intent(Infor_mua_thue.this, mota_mua_thue.class);
+        Bundle bundle = new Bundle();
+        bundle.putString("hinhthuc", hinhthuc);
+        bundle.putString("loai", loai);
+        bundle.putString("diachi", edtdiachi.getText().toString().trim());
+        myIntent.putExtras(bundle);
+        //Mở Activity ResultActivity
+        startActivity(myIntent);
     }
+
+
 }

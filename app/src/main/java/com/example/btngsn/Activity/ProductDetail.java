@@ -3,6 +3,7 @@ package com.example.btngsn.Activity;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
+import androidx.viewpager.widget.ViewPager;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
@@ -27,7 +28,9 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.btngsn.Adapter.formAdapter;
+import com.example.btngsn.Adapter.viewPaperImage;
 import com.example.btngsn.Model.Favorite;
+import com.example.btngsn.Model.Image;
 import com.example.btngsn.Model.Listing;
 import com.example.btngsn.Model.viewForm;
 import com.example.btngsn.R;
@@ -57,6 +60,9 @@ public class ProductDetail extends AppCompatActivity {
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
 
+    private ViewPager viewPager;
+    private ArrayList<Image> list;
+    private viewPaperImage adapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -86,11 +92,11 @@ public class ProductDetail extends AppCompatActivity {
         phoneUser = (TextView) findViewById(R.id.phoneUser);
         emailUser = (TextView) findViewById(R.id.emailUser);
 
-        imageView = (ImageView) findViewById(R.id.imageView);
+        viewPager = (ViewPager) findViewById(R.id.viewpager);
+        viewPager.addOnPageChangeListener(viewListener);
+
         imageViewFavorite = (ImageView) findViewById(R.id.imageViewFavorite);
         fab = (FloatingActionButton) findViewById(R.id.fab);
-
-
     }
 
     public void initShare() {
@@ -121,7 +127,24 @@ public class ProductDetail extends AppCompatActivity {
         titileName.setMaxLines(3);
         titileName.setEllipsize(TextUtils.TruncateAt.END);
 
-        Glide.with(getApplicationContext()).load(listing.getImage()).placeholder(R.drawable.ic_baseline_hide_image_24).error(R.drawable.ic_baseline_error_24).centerCrop().into(imageView);
+        DataClient getData = APIUtils.getData();
+        Call<List<Image>> callback = getData.getImage(listing.getIdListing());
+        callback.enqueue(new Callback<List<Image>>() {
+            @Override
+            public void onResponse(Call<List<Image>> call, Response<List<Image>> response) {
+                list =  (ArrayList<Image>) response.body();
+                Log.d("list", String.valueOf(list.size()));
+                if(list.size() > 0 ){
+                    adapter = new viewPaperImage(list,ProductDetail.this );
+                    viewPager.setAdapter(adapter);
+                    adapter.notifyDataSetChanged();
+                }
+            }
+            @Override
+            public void onFailure(Call<List<Image>> call, Throwable t) {
+                Log.d("mes", t.getMessage());
+            }
+        });
     }
 
     private void askPermissionAndCall() {
@@ -168,6 +191,25 @@ public class ProductDetail extends AppCompatActivity {
         });
 
     }
+
+
+    ViewPager.OnPageChangeListener viewListener = new ViewPager.OnPageChangeListener() {
+        @Override
+        public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+        }
+
+        @Override
+        public void onPageSelected(int position) {
+
+        }
+
+        @Override
+        public void onPageScrollStateChanged(int state) {
+
+        }
+    };
+
 
     public void ShowDailog() {
         Dialog callDialog = new Dialog(ProductDetail.this);

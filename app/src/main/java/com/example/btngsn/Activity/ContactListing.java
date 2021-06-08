@@ -65,7 +65,7 @@ public class ContactListing extends AppCompatActivity {
             bedroom, toilet, directionHouse, directionBancoly, furniture, juridical, nameContact, phoneContact, idUser, dateStart, dateEnd;
     String image, addressDetai, urlmap, emailcontact;
     public EditText edtnamecontact, addresscontact, phonecontact, editEmail;
-    public TextView startDate, endDate,txtdongia,ngaydang,txtVat,txtMoney,txtSum;
+    public TextView startDate, endDate, txtdongia, ngaydang, txtVat, txtMoney, txtSum;
     public Button tindang;
     Spinner spnloaitin;
     String currentDate, date;
@@ -73,11 +73,13 @@ public class ContactListing extends AppCompatActivity {
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
 
+    private ArrayList<Uri> arrayList;
     DateFormat df;
     long getDaysDiff;
     Date date1 = null;
     Date date2 = null;
     SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy");
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -86,6 +88,7 @@ public class ContactListing extends AppCompatActivity {
         EventBus.getDefault().register(this);
 
         init();
+        arrayList = new ArrayList<>();
         Chonngay();
         df = new SimpleDateFormat("dd-MM-yyyy");
         currentDate = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date());
@@ -138,7 +141,11 @@ public class ContactListing extends AppCompatActivity {
         tindang.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                PostListing();
+                if(!nameContact.isEmpty() || !phoneContact.isEmpty()) {
+                    PostListing();
+                }else {
+                    Toast.makeText(ContactListing.this, "Vui lòng nhập đầy đủ tên và số điện thoại", Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }
@@ -148,6 +155,7 @@ public class ContactListing extends AppCompatActivity {
         getData();
         PostListing();
     }
+
     private void EventSpiner() {
         ArrayList<String> donvi = new ArrayList<>();
         donvi.add("Tin thường");
@@ -161,22 +169,22 @@ public class ContactListing extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 String loai = donvi.get(i);
-                if(loai.equals("Tin thường")){
+                if (loai.equals("Tin thường")) {
                     txtdongia.setText("2000");
                     int ngay = Integer.parseInt(String.valueOf(getDaysDiff));
                     int tien = (int) (2000 * ngay);
                     vat = String.valueOf(tien * 10 / 100);
                     txtVat.setText(vat + " Đồng");
                     txtMoney.setText(String.valueOf(tien) + " Đồng");
-                    int gia = tien + ( tien * 10/100);
+                    int gia = tien + (tien * 10 / 100);
                     txtSum.setText(String.valueOf(gia));
-                } else if(loai.equals("Tin vip")){
+                } else if (loai.equals("Tin vip")) {
                     txtdongia.setText("3000");
                     int tien = (int) (3000 * getDaysDiff);
                     vat = String.valueOf(tien * 10 / 100);
                     txtVat.setText(vat + " Đồng");
                     txtMoney.setText(String.valueOf(tien) + " Đồng");
-                    int gia = tien + ( tien * 10/100);
+                    int gia = tien + (tien * 10 / 100);
                     txtSum.setText(String.valueOf(gia));
                 } else {
                     txtdongia.setText("2500");
@@ -184,7 +192,7 @@ public class ContactListing extends AppCompatActivity {
                     vat = String.valueOf(tien * 10 / 100);
                     txtVat.setText(vat + " Đồng");
                     txtMoney.setText(String.valueOf(tien) + " Đồng");
-                    int gia = tien + ( tien * 10/100);
+                    int gia = tien + (tien * 10 / 100);
                     txtSum.setText(String.valueOf(gia));
                 }
             }
@@ -195,6 +203,7 @@ public class ContactListing extends AppCompatActivity {
             }
         });
     }
+
     public void getData() {
         ngaydang.setText(String.valueOf(getDaysDiff));
         Intent intent = getIntent();
@@ -217,20 +226,22 @@ public class ContactListing extends AppCompatActivity {
             furniture = bundle.getString("noithat", "");
             juridical = bundle.getString("phaply", "");
             urlmap = bundle.getString("urlMap", "");
-            image = bundle.getString("image", "");
+            arrayList = bundle.getParcelableArrayList("image");
+            Log.d("arrayList", String.valueOf(arrayList.size()));
         }
 
     }
 
 
     private void PostListing() {
+
+        File file = new File(FileUtils.getPath(ContactListing.this, arrayList.get(0)));
+        String  file_path = file.getAbsolutePath();
         nameContact = edtnamecontact.getText().toString();
         phoneContact = phonecontact.getText().toString();
         emailcontact = editEmail.getText().toString();
         idUser = sharedPreferences.getString("idUser", "");
-        File file = new File(image);
         //duong dan file
-        String file_path = file.getAbsolutePath();
         String[] mangtenfile = file_path.split("\\.");
 
         file_path = mangtenfile[0] + System.currentTimeMillis() + "." + mangtenfile[1];
@@ -254,12 +265,49 @@ public class ContactListing extends AppCompatActivity {
                     callback.enqueue(new Callback<String>() {
                         @Override
                         public void onResponse(Call<String> call, Response<String> response) {
-                            int result = Integer.parseInt(response.body());
-                            if (result == 1) {
-                                Toast.makeText(ContactListing.this, "Thêm thành công", Toast.LENGTH_SHORT).show();
-                                finish();
-                                Intent intent = new Intent(ContactListing.this, HomePage.class);
-                                startActivity(intent);
+                            String idListing = response.body();
+                            if (Integer.parseInt(idListing) > 0) {
+                                if (arrayList != null) {
+                                    for (int i = 0; i < arrayList.size(); i++) {
+                                        File file = new File(FileUtils.getPath(ContactListing.this, arrayList.get(i)));
+                                        String file_path = file.getAbsolutePath();
+                                        String[] mangtenfile = file_path.split("\\.");
+                                        Log.d("mangtenfile", String.valueOf(file));
+                                        file_path = mangtenfile[0] + System.currentTimeMillis() + "." + mangtenfile[1];
+                                        RequestBody requestBody = RequestBody.create(MediaType.parse("multipart/form-data"), file);
+                                        MultipartBody.Part body = MultipartBody.Part.createFormData("uploaded_file", file_path, requestBody);
+                                        DataClient dataClient = APIUtils.getData();
+                                        retrofit2.Call<String> callback = dataClient.UpLoadImage(body);
+                                        callback.enqueue(new Callback<String>() {
+                                            @Override
+                                            public void onResponse(Call<String> call, Response<String> response) {
+                                                if (response != null) {
+                                                    String massege = response.body();
+                                                    DataClient post = APIUtils.getData();
+                                                    retrofit2.Call<String> postImage = post.postImage(APIUtils.Base_Url + "image/" + massege, idListing);
+                                                    postImage.enqueue(new Callback<String>() {
+                                                        @Override
+                                                        public void onResponse(Call<String> call, Response<String> response) {
+                                                            String result = response.body();
+                                                            if (result.equals("1")) {
+                                                                Toast.makeText(ContactListing.this, "Thành công", Toast.LENGTH_SHORT).show();
+                                                            }
+                                                        }
+
+                                                        @Override
+                                                        public void onFailure(Call<String> call, Throwable t) {
+                                                        }
+                                                    });
+                                                }
+                                            }
+
+                                            @Override
+                                            public void onFailure(Call<String> call, Throwable t) {
+
+                                            }
+                                        });
+                                    }
+                                }
                             }
                         }
 
@@ -278,7 +326,7 @@ public class ContactListing extends AppCompatActivity {
         });
     }
 
-    public void Chonngay(){
+    public void Chonngay() {
         Calendar calendar = Calendar.getInstance();
         long getdate = calendar.getTimeInMillis();
         int day = calendar.get(Calendar.DATE);
@@ -290,12 +338,12 @@ public class ContactListing extends AppCompatActivity {
                 DatePickerDialog datePickerDialog = new DatePickerDialog(ContactListing.this, new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
-                        calendar.set(i,i1,i2);
+                        calendar.set(i, i1, i2);
                         startDate.setText(simpleDateFormat.format(calendar.getTime()));
                         endDate.setText(date);
                         tinhngay();
                     }
-                },year,month,day);
+                }, year, month, day);
                 datePickerDialog.getDatePicker().setMinDate(getdate);
                 datePickerDialog.show();
             }
@@ -306,19 +354,19 @@ public class ContactListing extends AppCompatActivity {
                 DatePickerDialog datePickerDialog = new DatePickerDialog(ContactListing.this, new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
-                        calendar.set(i,i1,i2);
+                        calendar.set(i, i1, i2);
                         endDate.setText(simpleDateFormat.format(calendar.getTime()));
                         startDate.setText(currentDate);
                         tinhngay();
                     }
-                },year,month,day);
+                }, year, month, day);
                 datePickerDialog.getDatePicker().setMinDate(getdate);
                 datePickerDialog.show();
             }
         });
     }
 
-    public void tinhngay(){
+    public void tinhngay() {
         String hientai = startDate.getText().toString();
         String ketthuc = endDate.getText().toString();
         try {
@@ -333,7 +381,7 @@ public class ContactListing extends AppCompatActivity {
             vat = String.valueOf(tien * 10 / 100);
             txtVat.setText(vat + " Đồng");
             txtMoney.setText(String.valueOf(tien) + " Đồng");
-            int gia = tien + ( tien * 10/100);
+            int gia = tien + (tien * 10 / 100);
             txtSum.setText(String.valueOf(gia));
         } catch (ParseException e) {
             e.printStackTrace();

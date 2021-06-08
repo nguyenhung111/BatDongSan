@@ -76,7 +76,7 @@ public class FileUtils {
         return new File(path);
     }
 
-    static String getPath(Context context, Uri uri) {
+    public static String getPath(Context context, Uri uri) {
         // DocumentProvider
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             if (DocumentsContract.isDocumentUri(context, uri)) {

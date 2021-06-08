@@ -27,6 +27,7 @@
             android:layout_height="match_parent"
             android:layout_gravity="start"
             android:layout_weight="1"
+            android:weightSum="3"
             android:gravity="start"
             android:orientation="vertical">
 
@@ -40,7 +41,9 @@
                 android:text="Họ tên"
                 android:textColor="@color/white"
                 android:textSize="22dp"
-                android:visibility="visible"></TextView>
+                android:visibility="visible">
+
+            </TextView>
 
             <TextView
                 android:id="@+id/sdt"
@@ -52,182 +55,220 @@
                 android:text="Số điện thoại"
                 android:textColor="@color/white"
                 android:textSize="22dp"
-                android:visibility="visible"></TextView>
+                android:visibility="visible">
+
+            </TextView>
+            <TextView
+                android:id="@+id/sodu"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="Số dư"
+                android:textColor="@color/white"
+                android:textSize="22dp"
+                android:visibility="visible">
+
+            </TextView>
         </LinearLayout>
     </LinearLayout>
 
-    <RelativeLayout
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="100dp"
-        android:padding="10dp">
-
-        <LinearLayout
-            android:id="@+id/linerInforPerSon"
+        android:layout_marginTop="100dp">
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="130dp"
-            android:orientation="vertical">
+            android:layout_height="match_parent"
+            android:padding="10dp">
 
-            <TextView
+            <LinearLayout
+                android:id="@+id/linerInforPerSon"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:background="#D5CFCF"
-                android:gravity="center|start"
-                android:padding="10dp"
-                android:text="Quản lý thông tin cá nhân"
-                android:textColor="@color/black"
-                android:textSize="22dp" />
+                android:layout_height="130dp"
+                android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/managerinfor"
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:background="#D5CFCF"
+                    android:gravity="center|start"
+                    android:padding="10dp"
+                    android:text="Quản lý thông tin cá nhân"
+                    android:textColor="@color/black"
+                    android:textSize="22dp" />
+
+                <TextView
+                    android:id="@+id/managerinfor"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:gravity="center|start"
+                    android:padding="10dp"
+                    android:text="Quản lý thông tin cá nhân"
+                    android:textColor="#7C7373"
+                    android:textSize="16dp" />
+
+                <TextView
+                    android:id="@+id/changepass"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:gravity="center|start"
+                    android:padding="10dp"
+                    android:text="Thay đổi mật khẩu"
+                    android:textColor="#7C7373"
+                    android:textSize="16dp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/LinerListing"
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:gravity="center|start"
-                android:padding="10dp"
-                android:text="Quản lý thông tin cá nhân"
-                android:textColor="#7C7373"
-                android:textSize="16dp" />
-
-            <TextView
-                android:id="@+id/changepass"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:gravity="center|start"
-                android:padding="10dp"
-                android:text="Thay đổi mật khẩu"
-                android:textColor="#7C7373"
-                android:textSize="16dp" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/LinerListing"
-            android:layout_width="match_parent"
-            android:layout_height="130dp"
-            android:layout_below="@+id/linerInforPerSon"
-            android:orientation="vertical">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:background="#D5CFCF"
-                android:gravity="center|start"
-                android:padding="10dp"
-                android:text="Quản lý tin rao"
-                android:textColor="@color/black"
-                android:textSize="22dp" />
-
-            <TextView
-                android:id="@+id/managerlisting"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:gravity="center|start"
-                android:padding="10dp"
-                android:text="Quản lý tin rao bán/cho thuê"
-                android:textColor="#7C7373"
-                android:textSize="16dp" />
-
-            <TextView
-                android:id="@+id/postlisting"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:gravity="center|start"
-                android:padding="10dp"
-                android:text="Đăng tin rao bán/cho thuê"
-                android:textColor="#7C7373"
-                android:textSize="16dp" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/linerMoney"
-            android:layout_width="match_parent"
-            android:layout_height="130dp"
-            android:layout_below="@+id/LinerListing"
-            android:orientation="vertical">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:background="#D5CFCF"
-                android:gravity="center|start"
-                android:padding="10dp"
-                android:text="Quản lý tài chính"
-                android:textColor="@color/black"
-                android:textSize="22dp" />
-
-            <TextView
-                android:id="@+id/informoney"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:gravity="center|start"
-                android:padding="10dp"
-                android:text="Thông tin số dư"
-                android:textColor="#7C7373"
-                android:textSize="16dp" />
-
-            <TextView
-                android:id="@+id/historydeal"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:gravity="center|start"
-                android:padding="10dp"
-                android:text="Lịch sử giao dịch"
-                android:textColor="#7C7373"
-                android:textSize="16dp" />
-        </LinearLayout>
-        <LinearLayout
-            android:id="@+id/btnLiner"
-            android:weightSum="2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/linerMoney"
-            android:orientation="horizontal"
-            android:padding="20dp">
-
-            <Button
-                android:id="@+id/loginAcc"
-                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:background="@drawable/radiusbutton"
-                android:text="Đăng nhập"></Button>
+                android:layout_below="@+id/linerInforPerSon"
+                android:orientation="vertical">
 
-            <Button
-                android:layout_marginLeft="20dp"
-                android:id="@+id/registrationAcc"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:background="@drawable/radiusbutton"
-                android:text="Đăng ký">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:background="#D5CFCF"
+                    android:gravity="center|start"
+                    android:padding="10dp"
+                    android:text="Quản lý tin rao"
+                    android:textColor="@color/black"
+                    android:textSize="22dp" />
 
-            </Button>
-        </LinearLayout>
-        <LinearLayout
-            android:weightSum="2"
-            android:padding="20dp"
-            android:visibility="gone"
-            android:id="@+id/linearDX"
-            android:layout_below="@+id/btnLiner"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-            <Button
-                android:id="@+id/btnNaptien"
-                android:layout_width="wrap_content"
+                <TextView
+                    android:id="@+id/managerlisting"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:gravity="center|start"
+                    android:padding="10dp"
+                    android:text="Quản lý tin rao bán /  thuê"
+                    android:textColor="#7C7373"
+                    android:textSize="16dp" />
+
+                <TextView
+                    android:id="@+id/postlisting"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:gravity="center|start"
+                    android:padding="10dp"
+                    android:text="Đăng tin rao bán / cho thuê"
+                    android:textColor="#7C7373"
+                    android:textSize="16dp" />
+                <TextView
+                    android:id="@+id/manger_mua_thue"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:gravity="center|start"
+                    android:padding="10dp"
+                    android:text="Quản lý tin rao mua / cần thuê"
+                    android:textColor="#7C7373"
+                    android:textSize="16dp" />
+
+                <TextView
+                    android:id="@+id/post_mua_thue"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:gravity="center|start"
+                    android:padding="10dp"
+                    android:text="Đăng tin rao mua / cần thuê"
+                    android:textColor="#7C7373"
+                    android:textSize="16dp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/linerMoney"
+                android:layout_width="match_parent"
+                android:layout_height="130dp"
+                android:layout_below="@+id/LinerListing"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:background="#D5CFCF"
+                    android:gravity="center|start"
+                    android:padding="10dp"
+                    android:text="Quản lý tài chính"
+                    android:textColor="@color/black"
+                    android:textSize="22dp" />
+
+                <TextView
+                    android:id="@+id/informoney"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:gravity="center|start"
+                    android:padding="10dp"
+                    android:text="Thông tin số dư"
+                    android:textColor="#7C7373"
+                    android:textSize="16dp" />
+
+                <TextView
+                    android:id="@+id/historydeal"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:gravity="center|start"
+                    android:padding="10dp"
+                    android:text="Lịch sử giao dịch"
+                    android:textColor="#7C7373"
+                    android:textSize="16dp" />
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/btnLiner"
+                android:weightSum="2"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:background="@drawable/radiusbutton"
-                android:text="Nạp tiền">
-            </Button>
-            <Button
-                android:layout_marginLeft="20dp"
-                android:id="@+id/btnlogout"
-                android:layout_width="wrap_content"
+                android:layout_below="@+id/linerMoney"
+                android:orientation="horizontal"
+                android:padding="20dp">
+
+                <Button
+                    android:id="@+id/loginAcc"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/radiusbutton"
+                    android:text="Đăng nhập"></Button>
+
+                <Button
+                    android:layout_marginLeft="20dp"
+                    android:id="@+id/registrationAcc"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/radiusbutton"
+                    android:text="Đăng ký">
+
+                </Button>
+            </LinearLayout>
+            <LinearLayout
+                android:weightSum="2"
+                android:padding="20dp"
+                android:visibility="gone"
+                android:id="@+id/linearDX"
+                android:layout_below="@+id/btnLiner"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:background="@drawable/radiusbutton"
-                android:text="Đăng xuất">
-            </Button>
-        </LinearLayout>
-    </RelativeLayout>
+                android:orientation="horizontal">
+                <Button
+                    android:id="@+id/btnNaptien"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/radiusbutton"
+                    android:text="Nạp tiền">
+                </Button>
+                <Button
+                    android:layout_marginLeft="20dp"
+                    android:id="@+id/btnlogout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/radiusbutton"
+                    android:text="Đăng xuất">
+                </Button>
+            </LinearLayout>
+        </RelativeLayout>
+    </ScrollView>
 </FrameLayout>

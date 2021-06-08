@@ -64,7 +64,8 @@ public class PostListing extends AppCompatActivity {
     private TextView valuestang, valuesphong, valuestoilet, txttongtien;
     private Spinner spnhuongnha, spnbancong, spndonvi;
     private EditText edttieude, edtdientich, edtmota, edtnoithat, edtphaply, edtgiatien;
-    private ImageView imageView1;
+    private ImageView imageView;
+    private RecyclerView recyclerView;
     String realpath = "";
     String s = "";
     final int REQUEST_CHOOSE_PHOTO = 321;
@@ -78,12 +79,14 @@ public class PostListing extends AppCompatActivity {
 
     private final int REQUEST_CODE_PERMISSIONS = 1;
     private final int REQUEST_CODE_READ_STORAGE = 2;
-
+    private ArrayList<Uri> arrayList;
+    private static final String TAG = PostListing.class.getSimpleName();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_post_listing);
         init();
+        arrayList = new ArrayList<>();
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
         if (bundle != null) {
@@ -126,8 +129,10 @@ public class PostListing extends AppCompatActivity {
         edtnoithat = (EditText) findViewById(R.id.edtnoithat);
         edtphaply = (EditText) findViewById(R.id.edtphaply);
 
-        imageView1 = (ImageView) findViewById(R.id.imageView1);
-
+        imageView = (ImageView) findViewById(R.id.imageView);
+        recyclerView = (RecyclerView) findViewById(R.id.recyviews);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
+        recyclerView.setLayoutManager(linearLayoutManager);
     }
 
     public void event() {
@@ -196,37 +201,45 @@ public class PostListing extends AppCompatActivity {
         String donvitinh = spndonvi.getSelectedItem().toString();
         s = giatien.concat(donvitinh);
         txttongtien.setText(s);
-        Intent myIntent = new Intent(PostListing.this, ContactListing.class);
-        Bundle bundle = new Bundle();
-        bundle.putString("tieude", edttieude.getText().toString().trim());
-        bundle.putString("dientich", edtdientich.getText().toString().trim());
-        bundle.putString("giatien", txttongtien.getText().toString().trim());
-        bundle.putString("mota", edtmota.getText().toString().trim());
-        bundle.putString("sotang", valuestang.getText().toString().trim());
-        bundle.putString("sophongngu", valuesphong.getText().toString().trim());
-        bundle.putString("sotoilet", valuestoilet.getText().toString().trim());
-        bundle.putString("huongnha", huongnha);
-        bundle.putString("bancong", bancong);
-        bundle.putString("noithat", edtnoithat.getText().toString().trim());
-        bundle.putString("phaply", edtphaply.getText().toString().trim());
-        bundle.putString("sotang", valuestang.getText().toString().trim());
-        bundle.putString("sophong", valuesphong.getText().toString().trim());
-        bundle.putString("sotoilet", valuestoilet.getText().toString().trim());
-        bundle.putString("hinhthuc", hinhthuc);
-        bundle.putString("loai", loai);
-        bundle.putString("diachi", diachi);
-        bundle.putString("diachichitiet", diachichitiet);
-        bundle.putString("urlMap", urlMap);
-        bundle.putString("image", realpath);
-        //Đưa Bundle vào Intent
-        myIntent.putExtras(bundle);
-        //Mở Activity ResultActivity
-        startActivity(myIntent);
+        String tieude  = edttieude.getText().toString().trim();
+        if(!(tieude.length() < 30) || !edtdientich.getText().toString().isEmpty() || !giatien.isEmpty() || !donvitinh.isEmpty()
+                || !edtmota.getText().toString().isEmpty() || arrayList.size() > 0 ) {
+            Intent myIntent = new Intent(PostListing.this, ContactListing.class);
+            Bundle bundle = new Bundle();
+            bundle.putString("tieude", edttieude.getText().toString().trim());
+            bundle.putString("dientich", edtdientich.getText().toString().trim());
+            bundle.putString("giatien", txttongtien.getText().toString().trim());
+            bundle.putString("mota", edtmota.getText().toString().trim());
+            bundle.putString("sotang", valuestang.getText().toString().trim());
+            bundle.putString("sophongngu", valuesphong.getText().toString().trim());
+            bundle.putString("sotoilet", valuestoilet.getText().toString().trim());
+            bundle.putString("huongnha", huongnha);
+            bundle.putString("bancong", bancong);
+            bundle.putString("noithat", edtnoithat.getText().toString().trim());
+            bundle.putString("phaply", edtphaply.getText().toString().trim());
+            bundle.putString("sotang", valuestang.getText().toString().trim());
+            bundle.putString("sophong", valuesphong.getText().toString().trim());
+            bundle.putString("sotoilet", valuestoilet.getText().toString().trim());
+            bundle.putString("hinhthuc", hinhthuc);
+            bundle.putString("loai", loai);
+            bundle.putString("diachi", diachi);
+            bundle.putString("diachichitiet", diachichitiet);
+            bundle.putString("urlMap", urlMap);
+            // bundle.putString("image", realpath);
+            bundle.putParcelableArrayList("image", arrayList);
+            //Đưa Bundle vào Intent
+            myIntent.putExtras(bundle);
+            //Mở Activity ResultActivity
+            startActivity(myIntent);
+        } else {
+            Toast.makeText(this, "Vui lòng nhập đầy đủ thông tin bắt buộc", Toast.LENGTH_SHORT).show();
+        }
+
     }
 
 
     private void ChoosePhoto() {
-        imageView1.setOnClickListener(new View.OnClickListener() {
+        imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -259,23 +272,67 @@ public class PostListing extends AppCompatActivity {
 //        startActivityForResult(intent, REQUEST_CHOOSE_PHOTO);
 //    }
 
-    @SuppressLint("MissingSuperCall")
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+//    @SuppressLint("MissingSuperCall")
+//    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+//        if (resultCode == RESULT_OK) {
+//            if (requestCode == REQUEST_CHOOSE_PHOTO) {
+//                try {
+//                    Uri imageUri = data.getData();
+//                    realpath = getRealPathFromURI(imageUri);
+//                    Log.d("realpath", realpath);
+//                    InputStream is = getContentResolver().openInputStream(imageUri);
+//                    Bitmap bitmap = BitmapFactory.decodeStream(is);
+//                    Glide.with(PostListing.this).load(imageUri).centerCrop().into(imageView1);
+//                } catch (FileNotFoundException e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//        }
+//    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent resultData) {
+        super.onActivityResult(requestCode, resultCode, resultData);
         if (resultCode == RESULT_OK) {
-            if (requestCode == REQUEST_CHOOSE_PHOTO) {
-                try {
-                    Uri imageUri = data.getData();
-                    realpath = getRealPathFromURI(imageUri);
-                    Log.d("realpath", realpath);
-                    InputStream is = getContentResolver().openInputStream(imageUri);
-                    Bitmap bitmap = BitmapFactory.decodeStream(is);
-                    Glide.with(PostListing.this).load(imageUri).centerCrop().into(imageView1);
-                } catch (FileNotFoundException e) {
-                    e.printStackTrace();
+            if (requestCode == REQUEST_CODE_READ_STORAGE) {
+                if (resultData != null) {
+                    if (resultData.getClipData() != null) {
+                        int count = resultData.getClipData().getItemCount();
+                        int currentItem = 0;
+                        while (currentItem < count) {
+                            Uri imageUri = resultData.getClipData().getItemAt(currentItem).getUri();
+                            currentItem = currentItem + 1;
+
+                            Log.d("Uri Selected", imageUri.toString());
+
+                            try {
+                                arrayList.add(imageUri);
+                                PhotoAdapter mAdapter = new PhotoAdapter(PostListing.this, arrayList);
+                                recyclerView.setAdapter(mAdapter);
+
+                            } catch (Exception e) {
+                                Log.e(TAG, "File select error", e);
+                            }
+                        }
+                    } else if (resultData.getData() != null) {
+
+                        final Uri uri = resultData.getData();
+                        Log.i(TAG, "Uri = " + uri.toString());
+
+                        try {
+                            arrayList.add(uri);
+                            PhotoAdapter mAdapter = new PhotoAdapter(PostListing.this, arrayList);
+                            recyclerView.setAdapter(mAdapter);
+
+                        } catch (Exception e) {
+                            Log.e(TAG, "File select error", e);
+                        }
+                    }
                 }
             }
         }
     }
+
 
     /**
      * Runtime Permission

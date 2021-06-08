@@ -1,6 +1,8 @@
 package com.example.btngsn.Retrofit;
 
+import com.example.btngsn.Model.BuyRent;
 import com.example.btngsn.Model.Favorite;
+import com.example.btngsn.Model.Image;
 import com.example.btngsn.Model.Listing;
 import com.example.btngsn.Model.User;
 import com.example.btngsn.Model.viewDirection;
@@ -27,11 +29,14 @@ public interface DataClient {
     @POST("uploadimage.php")
     Call<String> UpLoadImage(@Part MultipartBody.Part image);
 
-    @Multipart
-    @POST("postimage.php")
-    Call<ResponseBody> uploadMultiple(
-            @Part("size") RequestBody size,
-            @Part List<MultipartBody.Part> files);
+    @FormUrlEncoded
+    @POST("UPImage.php")
+    Call<String> postImage(@Field("hinhanh") String hinhanh,
+                           @Field("idListing") String idListing);
+
+    @FormUrlEncoded
+    @POST("getImage.php")
+    Call<List<Image>> getImage(@Field("idListing") String idListing);
 
 
     @FormUrlEncoded
@@ -41,12 +46,14 @@ public interface DataClient {
     );
 
     @GET("deleteFavorite.php")
-    Call<String> deleteFavorite (@Query("idListing") String idListing,
+    Call<String> deleteFavorite(@Query("idListing") String idListing,
                                 @Query("idUser") String idUser);
+
     @FormUrlEncoded
     @POST("getFavorite.php")
     Call<List<Favorite>> getFavorite(@Field("idUser") String idUser,
                                      @Field("idListing") String idListing);
+
     @FormUrlEncoded
     @POST("registration.php")
     Call<String> Registration(@Field("fullName") String fullName,
@@ -59,6 +66,10 @@ public interface DataClient {
     );
 
     @FormUrlEncoded
+    @POST("getFavoriteHome.php")
+    Call<List<Listing>> getFavoriteHome(@Field("idUser") String idUser);
+
+    @FormUrlEncoded
     @POST("login.php")
     Call<List<User>> Login(@Field("userName") String userName,
                            @Field("passWord") String passWord
@@ -66,27 +77,31 @@ public interface DataClient {
 
 
     @GET("updatePass.php")
-    Call<String> updatePass (@Query("userName") String userName,
-                                @Query("passWord") String passWord,
-                                @Query("pass") String pass
+    Call<String> updatePass(@Query("userName") String userName,
+                            @Query("passWord") String passWord,
+                            @Query("pass") String pass
     );
 
     @GET("updateInfor.php")
-    Call<String> updateInfor (@Query("idUser") String idUser,
+    Call<String> updateInfor(@Query("idUser") String idUser,
                              @Query("fullName") String fullName,
                              @Query("numberPhone") String numberPhone,
-                              @Query("Email") String Email,
-                              @Query("CMND") String CMND,
-                              @Query("address") String address,
-                              @Query("linkFace") String linkFace,
-                              @Query("linkWeb") String linkWeb,
-                              @Query("sex") int sex
+                             @Query("Email") String Email,
+                             @Query("CMND") String CMND,
+                             @Query("address") String address,
+                             @Query("linkFace") String linkFace,
+                             @Query("linkWeb") String linkWeb,
+                             @Query("sex") int sex
     );
 
+    @GET("updateSodu.php")
+    Call<String> updateSodu(@Query("idUser") String idUser,
+                            @Query("sodu") int sodu
+    );
 
     @GET("deleteListing.php")
-    Call<String> deleteListing (@Query("idListing") String idListing,
-                              @Query("image") String image);
+    Call<String> deleteListing(@Query("idListing") String idListing,
+                               @Query("image") String image);
 
     @FormUrlEncoded
     @POST("getListing.php")
@@ -94,15 +109,18 @@ public interface DataClient {
 
     @FormUrlEncoded
     @POST("getListingForId.php")
-    Call<List<Listing>> getListingForId(@Field("idUser") String idUser);
+    Call<List<Listing>> getListingForId(@Field("idUser") String idUser,
+                                        @Field("trangthai") String trangthai,
+                                        @Field("status") String status);
 
-
-    @GET("getListingForAdmin.php")
-    Call<List<Listing>> getListingForAdmin();
+    @FormUrlEncoded
+    @POST("getListingForAdmin.php")
+    Call<List<Listing>> getListingForAdmin(@Field("trangthai") String trangthai,
+                                           @Field("status") String status);
 
     @GET("updateStatus.php")
-    Call<String> updaeStatus (@Query("idListing") String idListing,
-                              @Query("trangthai") String trangthai);
+    Call<String> updaeStatus(@Query("idListing") String idListing,
+                             @Query("trangthai") String trangthai);
 
     @GET("getForm.php")
     Call<List<viewForm>> getForm();
@@ -141,4 +159,29 @@ public interface DataClient {
                              @Field("urlMap") String urlMap
 
     );
+
+    @FormUrlEncoded
+    @POST("postTbl_mua_thue.php")
+    Call<String> postMuaThue(@Field("tieude") String tieude,
+                             @Field("noidung") String noidung,
+                             @Field("hinhanh") String hinhanh,
+                             @Field("hinhthuc") String hinhthuc,
+                             @Field("loaidat") String loaidat,
+                             @Field("diachi") String diachi,
+                             @Field("dientich") String dientich,
+                             @Field("gia") String gia,
+                             @Field("tenlienhe") String tenlienhe,
+                             @Field("diachilienhe") String diachilienhe,
+                             @Field("dienthoai") String dienthoai,
+                             @Field("email") String email,
+                             @Field("idUser") String idUser,
+                             @Field("dateStart") String dateStart,
+                             @Field("dateEnd") String dateEnd,
+                             @Field("trangthai") int trangthai
+    );
+
+    @GET("get_Tbl_mua_thue.php")
+    Call<List<BuyRent>> getBuyRent();
+
+
 }

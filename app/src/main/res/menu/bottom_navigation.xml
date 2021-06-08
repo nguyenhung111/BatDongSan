@@ -3,16 +3,21 @@
     <item
         android:id="@+id/nav_home"
         android:icon="@drawable/ic_baseline_home_24"
-        android:title="Home">
+        android:title="Trang chủ">
+    </item>
+    <item
+        android:id="@+id/nav_mua_thue"
+        android:icon="@drawable/ic_baseline_landscape_24"
+        android:title="Mua / Thuê">
     </item>
     <item
         android:id="@+id/nav_favorite"
         android:icon="@drawable/ic_baseline_favorite_border_24"
-        android:title="Favorite">
+        android:title="Yêu Thích">
     </item>
     <item
         android:id="@+id/nav_account"
         android:icon="@drawable/ic_baseline_account_circle_24"
-        android:title="Account">
+        android:title="Tài khoản">
     </item>
 </menu>

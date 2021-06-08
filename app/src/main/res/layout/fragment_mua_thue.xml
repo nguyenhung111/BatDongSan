@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".Fragment.mua_thue">
+    <androidx.appcompat.widget.Toolbar
+        android:background="@color/blue"
+        app:titleTextColor="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        app:title="Danh sách tin rao">
+    </androidx.appcompat.widget.Toolbar>
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_marginTop="50dp"
+        android:padding="10dp"
+        android:id="@+id/recyviews"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    </androidx.recyclerview.widget.RecyclerView>
+</FrameLayout>

@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".Activity.lienhe_mua_thue">
+    <androidx.appcompat.widget.Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/blue"
+        android:gravity="center"
+        app:title="Liên hệ và thanh toán"
+        app:titleTextColor="@color/white"></androidx.appcompat.widget.Toolbar>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="10dp">
+            <TextView
+                android:id="@+id/thongtinlienhe"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="THÔNG TIN LIÊN HỆ"
+                android:textColor="@color/black"
+                android:textSize="20dp">
+
+            </TextView>
+
+            <EditText
+                android:id="@+id/edtnamecontact"
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:layout_below="@+id/thongtinlienhe"
+                android:hint="Tên liên hệ"
+                android:textColor="@color/black">
+
+            </EditText>
+
+            <EditText
+                android:id="@+id/addresscontact"
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:layout_below="@id/edtnamecontact"
+                android:hint="Địa chỉ"
+                android:textColor="@color/black">
+
+            </EditText>
+
+            <EditText
+                android:id="@+id/phonecontact"
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:layout_below="@id/addresscontact"
+                android:hint="Điện thoại"
+                android:inputType="phone"
+                android:textColor="@color/black">
+
+            </EditText>
+
+            <EditText
+                android:id="@+id/emailcontact"
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:layout_below="@id/phonecontact"
+                android:hint="Email"
+                android:textColor="@color/black">
+
+            </EditText>
+            <TextView
+                android:layout_marginTop="10dp"
+                android:id="@+id/thongtinthanhtoan"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/emailcontact"
+                android:text="THỜI GIAN ĐĂNG TIN"
+                android:textColor="@color/black"
+                android:textSize="20dp">
+
+            </TextView>
+
+            <LinearLayout
+                android:id="@+id/datestart"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_below="@+id/thongtinthanhtoan"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:weightSum="2">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center|start"
+                    android:text="Ngày bắt đầu"
+                    android:textColor="@color/black"
+                    android:textSize="18dp" />
+
+                <TextView
+                    android:id="@+id/startDate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:drawableRight="@drawable/ic_baseline_date_range_24"
+                    android:gravity="center"
+                    android:textAlignment="center"
+                    android:textColor="@color/colorRed"
+                    android:textSize="18dp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/dateend"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_below="@+id/datestart"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:weightSum="2">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center|start"
+                    android:text="Ngày kết thúc"
+                    android:textColor="@color/black"
+                    android:textSize="18dp" />
+
+                <TextView
+                    android:id="@+id/endDate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:drawableRight="@drawable/ic_baseline_date_range_24"
+                    android:gravity="center"
+                    android:textAlignment="center"
+                    android:textColor="@color/colorRed"
+                    android:textSize="18dp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/timedangtin"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_below="@+id/dateend"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:weightSum="3">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center|start"
+                    android:text="Thời gian đăng tin"
+                    android:textColor="@color/black"
+                    android:textSize="18dp" />
+
+                <TextView
+                    android:id="@+id/ngaydang"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center|right"
+                    android:textColor="@color/colorRed"
+                    android:textSize="18dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="start|center"
+                    android:text=" ngày"
+                    android:textColor="@color/colorRed"
+                    android:textSize="18dp" />
+            </LinearLayout>
+
+
+            <Button
+                android:layout_marginTop="10dp"
+                android:id="@+id/tindang"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/timedangtin"
+                android:background="@color/blue"
+                android:text="ĐĂNG TIN"
+                android:textColor="@color/white">
+
+            </Button>
+        </RelativeLayout>
+    </ScrollView>
+</LinearLayout>
