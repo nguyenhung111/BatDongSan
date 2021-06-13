@@ -13,6 +13,7 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -26,6 +27,7 @@ import android.widget.Toast;
 
 import com.example.btngsn.Home.HomePage;
 import com.example.btngsn.Model.InternetConnection;
+import com.example.btngsn.Model.User;
 import com.example.btngsn.R;
 import com.example.btngsn.Retrofit.APIUtils;
 import com.example.btngsn.Retrofit.DataClient;
@@ -40,6 +42,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.text.DateFormat;
+import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.DateTimeException;
@@ -61,7 +64,7 @@ import retrofit2.Response;
 
 public class ContactListing extends AppCompatActivity {
 
-    String titile, idForm, idSpecies, acreage, price, address, description, floors,
+    String titile, idForm, idSpecies, acreage, price, unit, address, description, floors,
             bedroom, toilet, directionHouse, directionBancoly, furniture, juridical, nameContact, phoneContact, idUser, dateStart, dateEnd;
     String image, addressDetai, urlmap, emailcontact;
     public EditText edtnamecontact, addresscontact, phonecontact, editEmail;
@@ -79,6 +82,7 @@ public class ContactListing extends AppCompatActivity {
     Date date1 = null;
     Date date2 = null;
     SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy");
+    int sodutaikhoan;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -113,6 +117,7 @@ public class ContactListing extends AppCompatActivity {
         initShare();
         EventSpiner();
         getData();
+        getSodu();
         Event();
     }
 
@@ -141,9 +146,9 @@ public class ContactListing extends AppCompatActivity {
         tindang.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(!nameContact.isEmpty() || !phoneContact.isEmpty()) {
+                if (!edtnamecontact.getText().toString().isEmpty() || !phonecontact.getText().toString().isEmpty()) {
                     PostListing();
-                }else {
+                } else {
                     Toast.makeText(ContactListing.this, "Vui lòng nhập đầy đủ tên và số điện thoại", Toast.LENGTH_SHORT).show();
                 }
             }
@@ -214,6 +219,7 @@ public class ContactListing extends AppCompatActivity {
             idSpecies = bundle.getString("loai", "");
             acreage = bundle.getString("dientich", "");
             price = bundle.getString("giatien", "");
+            unit = bundle.getString("donvitinh", "");
             address = bundle.getString("diachi", "");
             addressDetai = bundle.getString("diachichitiet", "");
             description = bundle.getString("mota", "");
@@ -227,103 +233,111 @@ public class ContactListing extends AppCompatActivity {
             juridical = bundle.getString("phaply", "");
             urlmap = bundle.getString("urlMap", "");
             arrayList = bundle.getParcelableArrayList("image");
-            Log.d("arrayList", String.valueOf(arrayList.size()));
         }
 
     }
 
 
     private void PostListing() {
+        int sodu = Integer.parseInt(txtSum.getText().toString());
 
-        File file = new File(FileUtils.getPath(ContactListing.this, arrayList.get(0)));
-        String  file_path = file.getAbsolutePath();
-        nameContact = edtnamecontact.getText().toString();
-        phoneContact = phonecontact.getText().toString();
-        emailcontact = editEmail.getText().toString();
-        idUser = sharedPreferences.getString("idUser", "");
-        //duong dan file
-        String[] mangtenfile = file_path.split("\\.");
+        if (sodutaikhoan >= sodu) {
+            nameContact = edtnamecontact.getText().toString();
+            phoneContact = phonecontact.getText().toString();
+            emailcontact = editEmail.getText().toString();
+            idUser = sharedPreferences.getString("idUser", "");
+            //duong dan file
+            File file = new File(FileUtils.getPath(ContactListing.this, arrayList.get(0)));
+            String file_path = file.getAbsolutePath();
+            String[] mangtenfile = file_path.split("\\.");
 
-        file_path = mangtenfile[0] + System.currentTimeMillis() + "." + mangtenfile[1];
+            file_path = mangtenfile[0] + System.currentTimeMillis() + "." + mangtenfile[1];
 
-        RequestBody requestBody = RequestBody.create(MediaType.parse("multipart/form-data"), file);
+            RequestBody requestBody = RequestBody.create(MediaType.parse("multipart/form-data"), file);
 
-        MultipartBody.Part body = MultipartBody.Part.createFormData("uploaded_file", file_path, requestBody);
-        //tao ket noi
-        DataClient dataClient = APIUtils.getData();
+            MultipartBody.Part body = MultipartBody.Part.createFormData("uploaded_file", file_path, requestBody);
+            //tao ket noi
+            DataClient dataClient = APIUtils.getData();
 
-        retrofit2.Call<String> callback = dataClient.UpLoadImage(body);
-        callback.enqueue(new Callback<String>() {
-            @Override
-            public void onResponse(Call<String> call, Response<String> response) {
-                if (response != null) {
-                    String massege = response.body();
-                    DataClient inserData = APIUtils.getData();
-                    retrofit2.Call<String> callback = inserData.PostListing(titile, idForm, idSpecies, acreage, price, address, addressDetai,
-                            APIUtils.Base_Url + "image/" + massege, description, floors, bedroom, toilet, directionHouse, directionBancoly, furniture, juridical,
-                            nameContact, phoneContact, emailcontact, idUser, currentDate, date, spnloaitin.getSelectedItem().toString(), urlmap);
-                    callback.enqueue(new Callback<String>() {
-                        @Override
-                        public void onResponse(Call<String> call, Response<String> response) {
-                            String idListing = response.body();
-                            if (Integer.parseInt(idListing) > 0) {
-                                if (arrayList != null) {
-                                    for (int i = 0; i < arrayList.size(); i++) {
-                                        File file = new File(FileUtils.getPath(ContactListing.this, arrayList.get(i)));
-                                        String file_path = file.getAbsolutePath();
-                                        String[] mangtenfile = file_path.split("\\.");
-                                        Log.d("mangtenfile", String.valueOf(file));
-                                        file_path = mangtenfile[0] + System.currentTimeMillis() + "." + mangtenfile[1];
-                                        RequestBody requestBody = RequestBody.create(MediaType.parse("multipart/form-data"), file);
-                                        MultipartBody.Part body = MultipartBody.Part.createFormData("uploaded_file", file_path, requestBody);
-                                        DataClient dataClient = APIUtils.getData();
-                                        retrofit2.Call<String> callback = dataClient.UpLoadImage(body);
-                                        callback.enqueue(new Callback<String>() {
-                                            @Override
-                                            public void onResponse(Call<String> call, Response<String> response) {
-                                                if (response != null) {
-                                                    String massege = response.body();
-                                                    DataClient post = APIUtils.getData();
-                                                    retrofit2.Call<String> postImage = post.postImage(APIUtils.Base_Url + "image/" + massege, idListing);
-                                                    postImage.enqueue(new Callback<String>() {
-                                                        @Override
-                                                        public void onResponse(Call<String> call, Response<String> response) {
-                                                            String result = response.body();
-                                                            if (result.equals("1")) {
-                                                                Toast.makeText(ContactListing.this, "Thành công", Toast.LENGTH_SHORT).show();
+            retrofit2.Call<String> callback = dataClient.UpLoadImage(body);
+            callback.enqueue(new Callback<String>() {
+                @Override
+                public void onResponse(Call<String> call, Response<String> response) {
+                    if (response != null) {
+                        String massege = response.body();
+                        DataClient inserData = APIUtils.getData();
+                        retrofit2.Call<String> callback = inserData.PostListing(titile, idForm, idSpecies, acreage, price, unit, address, addressDetai,
+                                APIUtils.Base_Url + "image/" + massege, description, floors, bedroom, toilet, directionHouse, directionBancoly, furniture, juridical,
+                                nameContact, phoneContact, emailcontact, idUser, currentDate, date, spnloaitin.getSelectedItem().toString(), urlmap, sodu);
+                        callback.enqueue(new Callback<String>() {
+                            @Override
+                            public void onResponse(Call<String> call, Response<String> response) {
+                                String idListing = response.body();
+                                if (Integer.parseInt(idListing) > 0) {
+                                    if (arrayList != null) {
+                                        for (int i = 0; i < arrayList.size(); i++) {
+                                            File file = new File(FileUtils.getPath(ContactListing.this, arrayList.get(i)));
+                                            String file_path = file.getAbsolutePath();
+                                            String[] mangtenfile = file_path.split("\\.");
+
+                                            file_path = mangtenfile[0] + System.currentTimeMillis() + "." + mangtenfile[1];
+
+                                            RequestBody requestBody = RequestBody.create(MediaType.parse("multipart/form-data"), file);
+
+                                            MultipartBody.Part body = MultipartBody.Part.createFormData("uploaded_file", file_path, requestBody);
+
+                                            DataClient dataClient = APIUtils.getData();
+                                            retrofit2.Call<String> callback = dataClient.UpLoadImage(body);
+                                            callback.enqueue(new Callback<String>() {
+                                                @Override
+                                                public void onResponse(Call<String> call, Response<String> response) {
+                                                    if (response != null) {
+                                                        String massege = response.body();
+                                                        Log.d("mass",massege);
+                                                        DataClient post = APIUtils.getData();
+                                                        retrofit2.Call<String> postImage = post.postImage(APIUtils.Base_Url + "image/" + massege, idListing);
+                                                        postImage.enqueue(new Callback<String>() {
+                                                            @Override
+                                                            public void onResponse(Call<String> call, Response<String> response) {
+                                                                String result = response.body();
+                                                                if (result.equals("1")) {
+                                                                    Toast.makeText(ContactListing.this, "Thành công", Toast.LENGTH_SHORT).show();
+                                                                }
                                                             }
-                                                        }
 
-                                                        @Override
-                                                        public void onFailure(Call<String> call, Throwable t) {
-                                                        }
-                                                    });
+                                                            @Override
+                                                            public void onFailure(Call<String> call, Throwable t) {
+                                                            }
+                                                        });
+                                                    }
                                                 }
-                                            }
 
-                                            @Override
-                                            public void onFailure(Call<String> call, Throwable t) {
+                                                @Override
+                                                public void onFailure(Call<String> call, Throwable t) {
 
-                                            }
-                                        });
+                                                }
+                                            });
+                                        }
                                     }
                                 }
                             }
-                        }
 
-                        @Override
-                        public void onFailure(Call<String> call, Throwable t) {
+                            @Override
+                            public void onFailure(Call<String> call, Throwable t) {
 
-                        }
-                    });
+                            }
+                        });
+                    }
                 }
-            }
 
-            @Override
-            public void onFailure(Call<String> call, Throwable t) {
-                Log.d("aa", t.getMessage());
-            }
-        });
+                @Override
+                public void onFailure(Call<String> call, Throwable t) {
+                    Log.d("aa", t.getMessage());
+                }
+            });
+        } else {
+            Toast.makeText(this, "Số dư của bạn không đủ để đăng tin", Toast.LENGTH_SHORT).show();
+        }
     }
 
     public void Chonngay() {
@@ -386,6 +400,29 @@ public class ContactListing extends AppCompatActivity {
         } catch (ParseException e) {
             e.printStackTrace();
         }
+    }
+
+    public void getSodu() {
+        String username = sharedPreferences.getString("userName", "");
+        String password = sharedPreferences.getString("passWord", "");
+        if (!username.equals("") && !password.equals("")) {
+            DataClient loginData = APIUtils.getData();
+            Call<List<User>> callback = loginData.Login(username, password);
+            callback.enqueue(new Callback<List<User>>() {
+                @Override
+                public void onResponse(Call<List<User>> call, Response<List<User>> response) {
+                    ArrayList<User> userArrayList = (ArrayList<User>) response.body();
+                    if (userArrayList.size() > 0) {
+                        sodutaikhoan = Integer.parseInt(userArrayList.get(0).getSodu());
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<List<User>> call, Throwable t) {
+                }
+            });
+        }
+
     }
 
 }

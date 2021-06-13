@@ -1,6 +1,6 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="AppTheme.NoActionBar" parent="Theme.MaterialComponents.Light.NoActionBar">
+    <style name="Theme.BấtĐộngSản.NoActionBar" parent="Theme.MaterialComponents.Light.NoActionBar">
             <!-- Customize your theme here. -->
             <item name="windowActionBar">false</item>
             <item name="windowNoTitle">true</item>

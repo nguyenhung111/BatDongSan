@@ -22,12 +22,12 @@
         <RelativeLayout
             android:padding="10dp"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content">
             <LinearLayout
                 android:id="@+id/tieude"
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="50dp">
+                android:layout_height="wrap_content">
                 <TextView
                     android:drawableRight="@drawable/ic_baseline_star_rate_24"
                     android:layout_width="100dp"
@@ -36,19 +36,37 @@
                     android:textColor="@color/black"
                     android:gravity="start|center"
                     android:textSize="20dp"/>
-                <ScrollView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/edttieude"
-                        app:counterMaxLength="1000"
-                        android:maxLength="30"
-                        app:errorEnabled="true"
-                        android:layout_marginLeft="10dp"
+                    <ScrollView
                         android:layout_width="match_parent"
                         android:layout_height="match_parent">
-                    </com.google.android.material.textfield.TextInputEditText>
-                </ScrollView>
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+                            <com.google.android.material.textfield.TextInputLayout
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+                                <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/edttieude"
+                                android:maxLength="1000"
+                                app:errorEnabled="true"
+                                android:layout_marginLeft="10dp"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_marginStart="10dp">
+                            </com.google.android.material.textfield.TextInputEditText>
+                        </com.google.android.material.textfield.TextInputLayout>
+                            <TextView
+                                android:gravity="end"
+                                android:textAlignment="textEnd"
+                                android:id="@+id/counttitile"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:textSize="16sp">
+                            </TextView>
+                        </LinearLayout>
+                    </ScrollView>
             </LinearLayout>
             <LinearLayout
                 android:id="@+id/dientich"
@@ -145,14 +163,14 @@
                     android:layout_height="40dp"
                     android:orientation="horizontal">
                     <TextView
-                        android:drawableEnd="@drawable/ic_baseline_star_rate_24"
                         android:layout_weight="1"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:maxLines="2"
                         android:text="Hình ảnh (ảnh đầu là ảnh đại diện)"
                         android:textColor="@color/black"
-                        android:textSize="18dp"/>
+                        android:textSize="18dp"
+                        android:drawableRight="@drawable/ic_baseline_star_rate_24" />
                     <ImageView
                         android:id="@+id/imageView"
                         android:layout_gravity="center"
@@ -177,29 +195,37 @@
                 <ScrollView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/editpass1"
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    <LinearLayout
+                        android:orientation="vertical"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@id/editaccount1"
-                        android:layout_marginTop="10dp"
-                        app:passwordToggleEnabled="true">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:drawableRight="@drawable/ic_baseline_star_rate_24"
-                        app:counterMaxLength="3000"
-                        android:maxLength="30"
-                        app:errorEnabled="true"
-                        android:id="@+id/edtmota"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_below="@id/editaccount"
-                        android:layout_marginTop="10dp"
-                        android:hint="Nội dung mô tả "
-                        android:textSize="20dp">
-                    </com.google.android.material.textfield.TextInputEditText>
-                    </com.google.android.material.textfield.TextInputLayout>
+                        android:layout_height="wrap_content">
+                        <com.google.android.material.textfield.TextInputLayout
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp">
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:drawableRight="@drawable/ic_baseline_star_rate_24"
+                                android:maxLength="3000"
+                                app:errorEnabled="true"
+                                android:id="@+id/edtmota"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_below="@id/editaccount"
+                                android:layout_marginTop="10dp"
+                                android:hint="Nội dung mô tả "
+                                android:textSize="20dp">
+                            </com.google.android.material.textfield.TextInputEditText>
+                        </com.google.android.material.textfield.TextInputLayout>
+                        <TextView
+                            android:gravity="end"
+                            android:textAlignment="textEnd"
+                            android:id="@+id/countmota"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textSize="16dp">
+                        </TextView>
+                    </LinearLayout>
                 </ScrollView>
             </LinearLayout>
            <TextView
@@ -415,8 +441,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_below="@id/editaccount1"
-                        android:layout_marginTop="10dp"
-                        app:passwordToggleEnabled="true">
+                        android:layout_marginTop="10dp">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/edtnoithat"
@@ -447,8 +472,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_below="@id/editaccount1"
-                        android:layout_marginTop="10dp"
-                        app:passwordToggleEnabled="true">
+                        android:layout_marginTop="10dp">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/edtphaply"

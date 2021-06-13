@@ -27,6 +27,14 @@
                 android:layout_weight="1"
                 android:src="@drawable/ic_baseline_favorite_24">
             </ImageView>
+            <LinearLayout
+                android:id="@+id/linear"
+                android:layout_gravity="bottom"
+                android:gravity="center_horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:orientation="horizontal">
+            </LinearLayout>
         </FrameLayout>
     </androidx.cardview.widget.CardView>
     <ScrollView
@@ -38,54 +46,80 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:padding="15dp">
+            <TextView
+                android:layout_marginTop="5dp"
+                android:id="@+id/price"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/titileName"
+                android:text="6,8 tỷ"
+                android:textColor="@color/blue"
+                android:textSize="18dp">
 
+            </TextView>
             <LinearLayout
+                android:layout_marginTop="5dp"
                 android:id="@+id/inforDes"
                 android:layout_width="match_parent"
-                android:layout_height="200dp"
+                android:layout_height="wrap_content"
                 android:layout_below="@+id/price"
                 android:orientation="vertical">
-
-                <ScrollView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <TextView
-                        android:id="@+id/inforDescription"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"></TextView>
-                </ScrollView>
-
                 <TextView
                     android:id="@+id/description"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Mô tả"
-                    android:textColor="@color/black"
-                    android:textSize="18dp">
+                    android:textColor="@color/colorRed"
+                    android:textSize="20dp">
 
                 </TextView>
+                <ScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:textSize="18dp"
+                        android:textColor="@color/black"
+                        android:id="@+id/inforDescription"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                    </TextView>
+                </ScrollView>
+
             </LinearLayout>
 
             <LinearLayout
+                android:layout_marginTop="10dp"
                 android:id="@+id/inforDetail"
                 android:layout_width="match_parent"
-                android:layout_height="300dp"
+                android:layout_height="wrap_content"
                 android:layout_below="@id/inforDes"
                 android:orientation="vertical">
-
+                <TextView
+                    android:background="@color/blue"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:paddingLeft="15dp"
+                    android:text="Thông tin chi tiết"
+                    android:textColor="@color/white"
+                    android:textSize="20dp">
+                </TextView>
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="30dp"
                     android:orientation="horizontal">
 
                     <TextView
+                        android:textColor="@color/blue"
+                        android:textSize="18dp"
                         android:layout_width="100dp"
                         android:layout_height="match_parent"
                         android:gravity="center|start"
                         android:text="Diện tích" />
 
                     <TextView
+                        android:textSize="18dp"
                         android:id="@+id/Acreage"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
@@ -94,16 +128,19 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="50dp"
+                    android:layout_height="wrap_content"
                     android:orientation="horizontal">
 
                     <TextView
+                        android:textColor="@color/blue"
+                        android:textSize="18dp"
                         android:layout_width="100dp"
                         android:layout_height="match_parent"
                         android:gravity="center|start"
                         android:text="Địa chỉ" />
 
                     <TextView
+                        android:textSize="18dp"
                         android:id="@+id/address"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
@@ -116,12 +153,15 @@
                     android:orientation="horizontal">
 
                     <TextView
+                        android:textColor="@color/blue"
+                        android:textSize="18dp"
                         android:layout_width="100dp"
                         android:layout_height="match_parent"
                         android:gravity="center|start"
                         android:text="Loại tin rao" />
 
                     <TextView
+                        android:textSize="18dp"
                         android:id="@+id/Species"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
@@ -134,12 +174,15 @@
                     android:orientation="horizontal">
 
                     <TextView
+                        android:textColor="@color/blue"
+                        android:textSize="18dp"
                         android:layout_width="100dp"
                         android:layout_height="match_parent"
                         android:gravity="center|start"
                         android:text="Hướng nhà" />
 
                     <TextView
+                        android:textSize="18dp"
                         android:id="@+id/directionHouse"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
@@ -162,12 +205,15 @@
                     android:orientation="horizontal">
 
                     <TextView
+                        android:textColor="@color/blue"
+                        android:textSize="18dp"
                         android:layout_width="100dp"
                         android:layout_height="match_parent"
                         android:gravity="center|start"
                         android:text="Số phòng ngủ" />
 
                     <TextView
+                        android:textSize="18dp"
                         android:id="@+id/NumberBed"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
@@ -180,12 +226,15 @@
                     android:orientation="horizontal">
 
                     <TextView
+                        android:textColor="@color/blue"
+                        android:textSize="18dp"
                         android:layout_width="100dp"
                         android:layout_height="match_parent"
                         android:gravity="center|start"
                         android:text="Số toilet" />
 
                     <TextView
+                        android:textSize="18dp"
                         android:id="@+id/NumberToilet"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
@@ -194,16 +243,19 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="30dp"
+                    android:layout_height="wrap_content"
                     android:orientation="horizontal">
 
                     <TextView
+                        android:textColor="@color/blue"
+                        android:textSize="18dp"
                         android:layout_width="100dp"
                         android:layout_height="match_parent"
                         android:gravity="center|start"
                         android:text="Pháp lý" />
 
                     <TextView
+                        android:textSize="18dp"
                         android:id="@+id/phaply"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
@@ -216,27 +268,40 @@
                     android:orientation="horizontal">
 
                     <TextView
+                        android:textColor="@color/blue"
+                        android:textSize="18dp"
                         android:layout_width="100dp"
                         android:layout_height="match_parent"
                         android:gravity="center|start"
                         android:text="Ngày đăng tin" />
 
                     <TextView
+                        android:textSize="18dp"
                         android:id="@+id/DatePost"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:gravity="center|start" />
                 </LinearLayout>
-
-                <TextView
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Thông tin chi tiết"
-                    android:textColor="@color/black"
-                    android:textSize="18dp">
+                    android:layout_height="30dp"
+                    android:orientation="horizontal">
 
-                </TextView>
+                    <TextView
+                        android:textColor="@color/blue"
+                        android:textSize="18dp"
+                        android:layout_width="100dp"
+                        android:layout_height="match_parent"
+                        android:gravity="center|start"
+                        android:text="Ngày hết hạn" />
 
+                    <TextView
+                        android:textSize="18dp"
+                        android:id="@+id/dateEnd"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center|start" />
+                </LinearLayout>
             </LinearLayout>
 
             <LinearLayout
@@ -260,6 +325,7 @@
                     android:orientation="vertical">
 
                     <TextView
+                        android:textColor="@color/colorRed"
                         android:id="@+id/nameUser"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
@@ -269,6 +335,7 @@
                         android:textSize="18dp" />
 
                     <TextView
+                        android:textColor="@color/blue"
                         android:id="@+id/phoneUser"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
@@ -278,6 +345,7 @@
                         android:textSize="18dp" />
 
                     <TextView
+                        android:textColor="@color/blue"
                         android:id="@+id/emailUser"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
@@ -289,33 +357,26 @@
             </LinearLayout>
 
             <TextView
-                android:id="@+id/price"
-                android:layout_width="378dp"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/titileName"
-                android:text="6,8 tỷ"
-                android:textColor="@color/blue"
-                android:textSize="18dp">
-
-            </TextView>
-
-            <TextView
+                android:background="@color/blue"
                 android:id="@+id/lienhe"
+                android:paddingLeft="15dp"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="30dp"
                 android:layout_below="@+id/inforDetail"
                 android:text="Thông tin liên hệ"
-                android:textColor="@color/black"
-                android:textSize="18dp">
+                android:textColor="@color/white"
+                android:textSize="20dp">
 
             </TextView>
 
             <TextView
+                android:drawableLeft="@drawable/ic_baseline_star_24"
+                android:textColor="@color/colorRed"
                 android:id="@+id/titileName"
                 android:layout_width="match_parent"
                 android:layout_height="70dp"
                 android:text="Giá cực sốc"
-                android:textSize="18dp">
+                android:textSize="20dp">
 
             </TextView>
         </RelativeLayout>

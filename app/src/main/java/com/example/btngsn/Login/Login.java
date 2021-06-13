@@ -165,7 +165,11 @@ public class Login extends AppCompatActivity {
         account = editaccount.getText().toString();
         password = editpass.getText().toString();
 
-        if (account.length() > 0 && password.length() > 0) {
+        if(account.isEmpty()){
+            editaccount.setError("Vui lòng nhập tài khoản");
+        } else if( password.isEmpty()){
+            editpass.setError("Vui lòng nhập mật khẩu");
+        } else {
             DataClient loginData = APIUtils.getData();
             Call<List<User>> callback = loginData.Login(account, password);
             callback.enqueue(new Callback<List<User>>() {
@@ -188,13 +192,13 @@ public class Login extends AppCompatActivity {
                         String sex = userArrayList.get(0).getSex();
 
                         updateCaced(getApplicationContext(), idUser, fullName, userName, pasWord, numberPhone, Email,
-                                idspUser, CMND,address,linkFace,linkWeb,sodu,sex);
+                                idspUser, CMND, address, linkFace, linkWeb, sodu, sex);
 
                         Intent intent = new Intent(getApplicationContext(), HomePage.class);
                         intent.putExtra("dataUser", userArrayList);
                         startActivity(intent);
 
-                        EventBus.getDefault().post(true,"loginSuccess");
+                        EventBus.getDefault().post(true, "loginSuccess");
                         finish();
                     }
                 }
@@ -205,7 +209,6 @@ public class Login extends AppCompatActivity {
                 }
             });
         }
-
     }
 
 

@@ -13,7 +13,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.btngsn.Activity.Detail_Buy_Rent;
-import com.example.btngsn.Activity.ProductDetail;
 import com.example.btngsn.Model.BuyRent;
 import com.example.btngsn.Model.CheckConnection;
 import com.example.btngsn.R;
@@ -80,7 +79,7 @@ public class BuyRentAdapter extends RecyclerView.Adapter<BuyRentAdapter.ItemHole
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(context, Detail_Buy_Rent.class);
-                    intent.putExtra("thongtinchitiet", arrayList.get(getPosition()));
+                    intent.putExtra("thongtinmuathue", arrayList.get(getPosition()));
                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     CheckConnection.ShowToast(context, arrayList.get(getPosition()).getTieude());
                     context.startActivity(intent);

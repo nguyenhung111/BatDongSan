@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -19,16 +20,10 @@ import com.androidnetworking.interfaces.JSONObjectRequestListener;
 import com.example.btngsn.Adapter.CitySpinnerAdapter;
 import com.example.btngsn.Adapter.DistrictSpinnerAdapter;
 import com.example.btngsn.Adapter.WardSpinnerAdapter;
-import com.example.btngsn.Adapter.formAdapter;
-import com.example.btngsn.Adapter.speciesAdapter;
 import com.example.btngsn.Model.DataCity;
 import com.example.btngsn.Model.DataDistrict;
 import com.example.btngsn.Model.DataWard;
-import com.example.btngsn.Model.viewForm;
-import com.example.btngsn.Model.viewSpecies;
 import com.example.btngsn.R;
-import com.example.btngsn.Retrofit.APIUtils;
-import com.example.btngsn.Retrofit.DataClient;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -37,21 +32,10 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-
 public class Thongtincoban extends AppCompatActivity {
     private Spinner spnhinhthuc, spnloai, spnCity, spnDistrict, spnWard;
     private EditText edtdiachi, editdiachi, edtUrlmap;
     private Button countine;
-    ArrayList<viewForm> arrayListForm;
-    formAdapter adapterForm;
-    viewForm viewFormIntent;
-
-    ArrayList<viewSpecies> arrayListSpecies;
-    speciesAdapter speciesAdapter;
-    viewSpecies viewSpeciesIntent;
 
     private WardSpinnerAdapter wardSpinnerAdapter;
     private CitySpinnerAdapter spinnerAdapter;
@@ -75,11 +59,10 @@ public class Thongtincoban extends AppCompatActivity {
         setContentView(R.layout.activity_thontincoban);
 
         init();
-        getForm();
-        getSpecies();
         spinnerCity();
         chooseSpinnerCity();
         chooseSpinnerWard();
+        EventSpinner();
         clickonitem();
     }
 
@@ -98,70 +81,6 @@ public class Thongtincoban extends AppCompatActivity {
         countine= (Button) findViewById(R.id.countine);
     }
 
-    public void getForm() {
-        arrayListForm = new ArrayList<>();
-        DataClient getData = APIUtils.getData();
-        Call<List<viewForm>> callback = getData.getForm();
-        callback.enqueue(new Callback<List<viewForm>>() {
-            @Override
-            public void onResponse(Call<List<viewForm>> call, Response<List<viewForm>> response) {
-                arrayListForm = (ArrayList<viewForm>) response.body();
-                if (arrayListForm.size() > 0) {
-                    adapterForm = new formAdapter(Thongtincoban.this, arrayListForm);
-                    spnhinhthuc.setAdapter(adapterForm);
-                    spnhinhthuc.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                        @Override
-                        public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                            viewFormIntent = new viewForm(arrayListForm.get(position).getIdForm(), arrayListForm.get(position).getNameForm());
-                        }
-
-                        @Override
-                        public void onNothingSelected(AdapterView<?> parent) {
-
-                        }
-                    });
-                }
-            }
-
-            @Override
-            public void onFailure(Call<List<viewForm>> call, Throwable t) {
-
-            }
-        });
-    }
-
-    public void getSpecies() {
-        arrayListSpecies = new ArrayList<>();
-        DataClient getData = APIUtils.getData();
-        Call<List<viewSpecies>> callback = getData.getSpecies();
-        callback.enqueue(new Callback<List<viewSpecies>>() {
-            @Override
-            public void onResponse(Call<List<viewSpecies>> call, Response<List<viewSpecies>> response) {
-                arrayListSpecies = (ArrayList<viewSpecies>) response.body();
-                if (arrayListSpecies.size() > 0) {
-                    speciesAdapter = new speciesAdapter(Thongtincoban.this, arrayListSpecies);
-                    spnloai.setAdapter(speciesAdapter);
-                    spnloai.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                        @Override
-                        public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                            viewSpeciesIntent = new viewSpecies(arrayListSpecies.get(position).getIdSpecies(), arrayListSpecies.get(position).getNameSpecies());
-                        }
-
-                        @Override
-                        public void onNothingSelected(AdapterView<?> parent) {
-
-                        }
-                    });
-                }
-            }
-
-            @Override
-            public void onFailure(Call<List<viewSpecies>> call, Throwable t) {
-
-            }
-        });
-
-    }
 
     public void clickonitem() {
         countine.setOnClickListener(new View.OnClickListener() {
@@ -282,7 +201,6 @@ public class Thongtincoban extends AppCompatActivity {
                         ward = dataWard.getTitle();
                         String address = ward.concat(" "+ district.concat(" "+city));
                         edtdiachi.setText(address);
-                        Log.d("address", address);
                     }
 
                     @Override
@@ -300,8 +218,13 @@ public class Thongtincoban extends AppCompatActivity {
     }
 
     public void Sendata() {
-        String hinhthuc = viewFormIntent.getIdForm();
-        String loai = viewSpeciesIntent.getNameSpecies();
+        String hinhthuc = "";
+        if(spnhinhthuc.getSelectedItem().toString().equals("Bán đất")){
+            hinhthuc = "2";
+        } else  if(spnhinhthuc.getSelectedItem().toString().equals("Cho thuê")){
+            hinhthuc = "3";
+        }
+        String loai = spnloai.getSelectedItem().toString().trim();
         String diachi = edtdiachi.getText().toString().trim();
         String diachichitiet = editdiachi.getText().toString().trim();
         String urlMap = edtUrlmap.getText().toString().trim();
@@ -311,14 +234,27 @@ public class Thongtincoban extends AppCompatActivity {
             Bundle bundle = new Bundle();
             bundle.putString("hinhthuc", hinhthuc);
             bundle.putString("loai", loai);
-            bundle.putString("diachi", edtdiachi.getText().toString().trim());
-            bundle.putString("diachichitiet", editdiachi.getText().toString().trim());
-            bundle.putString("urlMap", edtUrlmap.getText().toString().trim());
+            bundle.putString("diachi", diachi);
+            bundle.putString("diachichitiet", diachichitiet);
+            bundle.putString("urlMap", urlMap);
             myIntent.putExtras(bundle);
             //Mở Activity ResultActivity
             startActivity(myIntent);
         } else {
             Toast.makeText(this, "Bạn vui lòng nhập đủ thông tin bắt buộc", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    public void EventSpinner(){
+        String[] hinththuc = new String[]{"Bán đất", "Cho thuê"};
+        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, R.layout.my_select_item, hinththuc);
+        arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spnhinhthuc.setAdapter(arrayAdapter);
+
+        String[]loaitin = new String[]{"Căn hộ chung cư","Nhà riêng","Nhà biệt thự, liền kề","Nhà mặt phố","Đất nền dự án","Bán đất",
+                "Trang trại,khu nghỉ dưỡng","Kho,nhà xưởng","Loại bất động sản khác"};
+        ArrayAdapter<String> arrayLoaitin = new ArrayAdapter<String>(this, R.layout.my_select_item, loaitin);
+        arrayLoaitin.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spnloai.setAdapter(arrayLoaitin);
     }
 }

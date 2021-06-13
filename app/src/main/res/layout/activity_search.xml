@@ -8,18 +8,16 @@
     android:paddingRight="10dp"
     tools:context=".Activity.Search">
 
-    <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/appbarlayout"
-        android:layout_margin="10dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+    <LinearLayout
+        android:orientation="horizontal"
+        android:id="@+id/linear"
         android:weightSum="2"
-        android:gravity="center"
-        android:orientation="horizontal">
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
-            android:layout_weight="1"
             android:gravity="center"
+            android:layout_weight="1"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:minHeight="?attr/actionBarSize"
@@ -28,19 +26,20 @@
             app:title="Tìm kiếm">
         </androidx.appcompat.widget.Toolbar>
         <TextView
-            android:gravity="center|right"
+            android:id="@+id/timkiem"
             android:layout_weight="1"
-            android:textSize="18dp"
+            android:gravity="center|end"
+            android:textSize="18sp"
             android:textColor="@color/blue"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:text="TÌM">
         </TextView>
-    </com.google.android.material.appbar.AppBarLayout>
+    </LinearLayout>
     <EditText
-        android:layout_below="@+id/appbarlayout"
+        android:layout_below="@+id/linear"
         android:id="@+id/editSearch"
-        android:hint="Nhập nội dung tìm kiếm"
+        android:hint="Nhập địa điểm tìm kiếm"
         android:gravity="start"
         android:textColorHint="@color/blue"
         android:layout_width="match_parent"
@@ -50,23 +49,22 @@
         android:id="@+id/linear1"
         android:layout_below="@+id/editSearch"
         android:orientation="horizontal"
-        android:weightSum="2"
         android:layout_width="match_parent"
         android:layout_height="40dp">
         <TextView
-            android:layout_weight="1"
-            android:gravity="center"
+
+            android:gravity="center|start"
             android:text="Hoặc tìm kiếm theo tiêu chí"
             android:textSize="16dp"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent">
         </TextView>
         <TextView
-            android:layout_weight="1"
+            android:id="@+id/txtBoloc"
             android:text="Bỏ lọc"
             android:textSize="16dp"
             android:textColor="@color/blue"
-            android:layout_gravity="right"
+            android:layout_gravity="end"
             android:gravity="center|right"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
@@ -144,41 +142,6 @@
     </View>
     <LinearLayout
         android:layout_below="@+id/view3"
-        android:id="@+id/linear4"
-        android:weightSum="2"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:orientation="horizontal">
-        <TextView
-            android:layout_weight="1"
-            android:text="Địa điểm"
-            android:textSize="16dp"
-            android:gravity="center|start"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-        </TextView>
-        <TextView
-            android:layout_weight="1"
-            android:text="Chọn"
-            android:textSize="18dp"
-            android:drawableRight="@drawable/ic_baseline_keyboard_arrow_right_24"
-            android:textColor="@color/blue"
-            android:layout_gravity="right"
-            android:gravity="center|right"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-        </TextView>
-    </LinearLayout>
-    <View
-        android:id="@+id/view4"
-        android:layout_marginTop="10dp"
-        android:layout_below="@+id/linear4"
-        android:layout_width="match_parent"
-        android:background="#CCC3C3"
-        android:layout_height="1dp">
-    </View>
-    <LinearLayout
-        android:layout_below="@+id/view4"
         android:id="@+id/linear5"
         android:weightSum="2"
         android:layout_width="match_parent"
@@ -193,6 +156,7 @@
             android:layout_height="match_parent">
         </TextView>
         <Spinner
+
             android:id="@+id/spndirection"
             style="@style/SpinnerTheme"
             android:layout_weight="1"
@@ -216,6 +180,7 @@
         android:layout_height="50dp"
         android:orientation="vertical">
         <LinearLayout
+            android:layout_marginTop="10dp"
             android:layout_weight="1"
             android:weightSum="2"
             android:layout_width="match_parent"
@@ -230,6 +195,7 @@
                 android:layout_height="match_parent">
             </TextView>
             <TextView
+                android:id="@+id/txtKhoanggia"
                 android:layout_weight="1"
                 android:text="Tất cả"
                 android:textSize="18dp"
@@ -241,6 +207,7 @@
             </TextView>
         </LinearLayout>
         <SeekBar
+            android:id="@+id/khoanggia"
             android:layout_weight="1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -262,6 +229,7 @@
         android:layout_height="50dp"
         android:orientation="vertical">
         <LinearLayout
+            android:layout_marginTop="10dp"
             android:layout_weight="1"
             android:weightSum="2"
             android:layout_width="match_parent"
@@ -276,6 +244,7 @@
                 android:layout_height="match_parent">
             </TextView>
             <TextView
+                android:id="@+id/txtDientich"
                 android:layout_weight="1"
                 android:text="Tất cả"
                 android:textSize="18dp"
@@ -287,6 +256,7 @@
             </TextView>
         </LinearLayout>
         <SeekBar
+            android:id="@+id/dientich"
             android:layout_weight="1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -308,6 +278,7 @@
         android:layout_height="50dp"
         android:orientation="vertical">
         <LinearLayout
+            android:layout_marginTop="10dp"
             android:layout_weight="1"
             android:weightSum="2"
             android:layout_width="match_parent"
@@ -315,13 +286,14 @@
             android:layout_height="wrap_content">
             <TextView
                 android:layout_weight="1"
-                android:text="Số phòng"
+                android:text="Số phòng ngủ"
                 android:textSize="16dp"
                 android:gravity="center|start"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
             </TextView>
             <TextView
+                android:id="@+id/txtSophong"
                 android:layout_weight="1"
                 android:text="Tất cả"
                 android:textSize="18dp"
@@ -333,6 +305,7 @@
             </TextView>
         </LinearLayout>
         <SeekBar
+            android:id="@+id/sophong"
             android:layout_weight="1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">

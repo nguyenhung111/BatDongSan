@@ -1,5 +1,6 @@
 package com.example.btngsn.Fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentStatePagerAdapter;
@@ -9,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 
+import com.example.btngsn.Activity.Search;
 import com.example.btngsn.Adapter.ViewAdapterHome;
 
 import com.example.btngsn.R;
@@ -45,7 +47,8 @@ public class HomeFragment extends Fragment {
         relatSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                Intent intent = new Intent(getContext(), Search.class);
+                startActivity(intent);
             }
         });
         return view;

@@ -19,6 +19,8 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -38,24 +40,17 @@ import com.example.btngsn.Model.viewDirection;
 import com.example.btngsn.R;
 import com.example.btngsn.Retrofit.APIUtils;
 import com.example.btngsn.Retrofit.DataClient;
-import com.example.btngsn.Retrofit.FileUtils;
 import com.google.android.material.snackbar.Snackbar;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.InputStream;
+
 import java.util.ArrayList;
 import java.util.List;
 
-import okhttp3.MediaType;
-import okhttp3.MultipartBody;
-import okhttp3.RequestBody;
-import okhttp3.ResponseBody;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 public class PostListing extends AppCompatActivity {
 
@@ -66,11 +61,9 @@ public class PostListing extends AppCompatActivity {
     private EditText edttieude, edtdientich, edtmota, edtnoithat, edtphaply, edtgiatien;
     private ImageView imageView;
     private RecyclerView recyclerView;
-    String realpath = "";
-    String s = "";
-    final int REQUEST_CHOOSE_PHOTO = 321;
     String hinhthuc, loai, diachi, diachichitiet, urlMap;
 
+    TextView counttieude, countmota;
 
     ArrayList<viewDirection> directionArrayList;
     directionAdapter directionAdapter;
@@ -81,6 +74,7 @@ public class PostListing extends AppCompatActivity {
     private final int REQUEST_CODE_READ_STORAGE = 2;
     private ArrayList<Uri> arrayList;
     private static final String TAG = PostListing.class.getSimpleName();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -96,6 +90,38 @@ public class PostListing extends AppCompatActivity {
             diachichitiet = bundle.getString("diachichitiet", "");
             urlMap = bundle.getString("urlMap", "");
         }
+        edttieude.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                int length = edttieude.length();
+                String convert = String.valueOf(length);
+                counttieude.setText(convert + "/1000");
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+            }
+        });
+        edtmota.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                int length = edtmota.length();
+                String convert = String.valueOf(length);
+                countmota.setText(convert + "/3000");
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+            }
+        });
         EventSpiner();
         ChoosePhoto();
         getDirection();
@@ -117,6 +143,8 @@ public class PostListing extends AppCompatActivity {
         valuesphong = (TextView) findViewById(R.id.valuesphong);
         valuestoilet = (TextView) findViewById(R.id.valuestoilet);
         txttongtien = (TextView) findViewById(R.id.txttongtien);
+        counttieude = (TextView) findViewById(R.id.counttitile);
+        countmota = (TextView) findViewById(R.id.countmota);
 
         spnhuongnha = (Spinner) findViewById(R.id.spnhuongnha);
         spnbancong = (Spinner) findViewById(R.id.spnbancong);
@@ -139,7 +167,22 @@ public class PostListing extends AppCompatActivity {
         countine.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                senddata();
+                String tieude = edttieude.getText().toString();
+                String dientich = edtdientich.getText().toString();
+                String donvi = spndonvi.getSelectedItem().toString();
+                String mota = edtmota.getText().toString();
+                if (tieude.length() < 30) {
+                    edttieude.setError("Tiêu đề phải từ 30 đến 99 ký tự");
+                    Toast.makeText(PostListing.this, "Vui lòng kiểm tra tiêu đề", Toast.LENGTH_SHORT).show();
+                } else if (mota.length() < 30) {
+                    edtmota.setError("Nội dung mô tả từ 30 đến 3000 ký tự");
+                    Toast.makeText(PostListing.this, "Vui lòng kiểm tra nội dung", Toast.LENGTH_SHORT).show();
+                } else if (!dientich.isEmpty() && !donvi.isEmpty() && !mota.isEmpty()) {
+                    senddata();
+                } else {
+                    Toast.makeText(PostListing.this, "Bạn vui lòng nhập đầy đủ thông tin bắt buộc", Toast.LENGTH_SHORT).show();
+                }
+
             }
         });
         congtang.setOnClickListener(new View.OnClickListener() {
@@ -199,41 +242,35 @@ public class PostListing extends AppCompatActivity {
         String bancong = directionBalcony.getNameDirection();
         String giatien = edtgiatien.getText().toString();
         String donvitinh = spndonvi.getSelectedItem().toString();
-        s = giatien.concat(donvitinh);
-        txttongtien.setText(s);
-        String tieude  = edttieude.getText().toString().trim();
-        if(!(tieude.length() < 30) || !edtdientich.getText().toString().isEmpty() || !giatien.isEmpty() || !donvitinh.isEmpty()
-                || !edtmota.getText().toString().isEmpty() || arrayList.size() > 0 ) {
-            Intent myIntent = new Intent(PostListing.this, ContactListing.class);
-            Bundle bundle = new Bundle();
-            bundle.putString("tieude", edttieude.getText().toString().trim());
-            bundle.putString("dientich", edtdientich.getText().toString().trim());
-            bundle.putString("giatien", txttongtien.getText().toString().trim());
-            bundle.putString("mota", edtmota.getText().toString().trim());
-            bundle.putString("sotang", valuestang.getText().toString().trim());
-            bundle.putString("sophongngu", valuesphong.getText().toString().trim());
-            bundle.putString("sotoilet", valuestoilet.getText().toString().trim());
-            bundle.putString("huongnha", huongnha);
-            bundle.putString("bancong", bancong);
-            bundle.putString("noithat", edtnoithat.getText().toString().trim());
-            bundle.putString("phaply", edtphaply.getText().toString().trim());
-            bundle.putString("sotang", valuestang.getText().toString().trim());
-            bundle.putString("sophong", valuesphong.getText().toString().trim());
-            bundle.putString("sotoilet", valuestoilet.getText().toString().trim());
-            bundle.putString("hinhthuc", hinhthuc);
-            bundle.putString("loai", loai);
-            bundle.putString("diachi", diachi);
-            bundle.putString("diachichitiet", diachichitiet);
-            bundle.putString("urlMap", urlMap);
-            // bundle.putString("image", realpath);
-            bundle.putParcelableArrayList("image", arrayList);
-            //Đưa Bundle vào Intent
-            myIntent.putExtras(bundle);
-            //Mở Activity ResultActivity
-            startActivity(myIntent);
-        } else {
-            Toast.makeText(this, "Vui lòng nhập đầy đủ thông tin bắt buộc", Toast.LENGTH_SHORT).show();
-        }
+        txttongtien.setText(giatien.concat(donvitinh));
+        String tieude = edttieude.getText().toString().trim();
+        Intent myIntent = new Intent(PostListing.this, ContactListing.class);
+        Bundle bundle = new Bundle();
+        bundle.putString("tieude", tieude);
+        bundle.putString("dientich", edtdientich.getText().toString().trim());
+        bundle.putString("giatien", giatien);
+        bundle.putString("donvitinh", donvitinh);
+        bundle.putString("mota", edtmota.getText().toString().trim());
+        bundle.putString("sotang", valuestang.getText().toString().trim());
+        bundle.putString("sophongngu", valuesphong.getText().toString().trim());
+        bundle.putString("sotoilet", valuestoilet.getText().toString().trim());
+        bundle.putString("huongnha", huongnha);
+        bundle.putString("bancong", bancong);
+        bundle.putString("noithat", edtnoithat.getText().toString().trim());
+        bundle.putString("phaply", edtphaply.getText().toString().trim());
+        bundle.putString("sotang", valuestang.getText().toString().trim());
+        bundle.putString("sophong", valuesphong.getText().toString().trim());
+        bundle.putString("sotoilet", valuestoilet.getText().toString().trim());
+        bundle.putString("hinhthuc", hinhthuc);
+        bundle.putString("loai", loai);
+        bundle.putString("diachi", diachi);
+        bundle.putString("diachichitiet", diachichitiet);
+        bundle.putString("urlMap", urlMap);
+        bundle.putParcelableArrayList("image", arrayList);
+        //Đưa Bundle vào Intent
+        myIntent.putExtras(bundle);
+        //Mở Activity ResultActivity
+        startActivity(myIntent);
 
     }
 
@@ -259,36 +296,13 @@ public class PostListing extends AppCompatActivity {
         spndonvi.setAdapter(arrayAdapter);
     }
 
-        private void showChooser() {
+    private void showChooser() {
         Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
         intent.setType("image/*");
         intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
         intent.addCategory(Intent.CATEGORY_OPENABLE);
         startActivityForResult(intent, REQUEST_CODE_READ_STORAGE);
     }
-//    private void showChooser() {
-//        Intent intent = new Intent(Intent.ACTION_PICK);
-//        intent.setType("image/*");
-//        startActivityForResult(intent, REQUEST_CHOOSE_PHOTO);
-//    }
-
-//    @SuppressLint("MissingSuperCall")
-//    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-//        if (resultCode == RESULT_OK) {
-//            if (requestCode == REQUEST_CHOOSE_PHOTO) {
-//                try {
-//                    Uri imageUri = data.getData();
-//                    realpath = getRealPathFromURI(imageUri);
-//                    Log.d("realpath", realpath);
-//                    InputStream is = getContentResolver().openInputStream(imageUri);
-//                    Bitmap bitmap = BitmapFactory.decodeStream(is);
-//                    Glide.with(PostListing.this).load(imageUri).centerCrop().into(imageView1);
-//                } catch (FileNotFoundException e) {
-//                    e.printStackTrace();
-//                }
-//            }
-//        }
-//    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent resultData) {

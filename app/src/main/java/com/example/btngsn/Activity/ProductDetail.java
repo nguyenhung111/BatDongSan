@@ -15,6 +15,7 @@ import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.Html;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -22,6 +23,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -49,9 +51,9 @@ import retrofit2.Response;
 
 public class ProductDetail extends AppCompatActivity {
     public Toolbar toolbar;
-    ImageView imageView, imageViewFavorite;
+    ImageView imageViewFavorite;
     FloatingActionButton fab;
-    TextView titileName, price, inforDescription, Acreage, address, Species, directionHouse, NumberBed, NumberToilet, DatePost, phaply;
+    TextView titileName, price, inforDescription, Acreage, address, Species, directionHouse, NumberBed, NumberToilet, DatePost, phaply,dateEnd;
     TextView nameUser, phoneUser, emailUser;
     private static final int MY_PERMISSION_REQUEST_CODE_CALL_PHONE = 555;
     String idListing = "";
@@ -63,6 +65,8 @@ public class ProductDetail extends AppCompatActivity {
     private ViewPager viewPager;
     private ArrayList<Image> list;
     private viewPaperImage adapter;
+    private LinearLayout linearLayout;
+    private TextView[] textView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -87,6 +91,7 @@ public class ProductDetail extends AppCompatActivity {
         NumberBed = (TextView) findViewById(R.id.NumberBed);
         NumberToilet = (TextView) findViewById(R.id.NumberToilet);
         DatePost = (TextView) findViewById(R.id.DatePost);
+        dateEnd = (TextView) findViewById(R.id.dateEnd);
         phaply = (TextView) findViewById(R.id.phaply);
         nameUser = (TextView) findViewById(R.id.nameUser);
         phoneUser = (TextView) findViewById(R.id.phoneUser);
@@ -94,7 +99,7 @@ public class ProductDetail extends AppCompatActivity {
 
         viewPager = (ViewPager) findViewById(R.id.viewpager);
         viewPager.addOnPageChangeListener(viewListener);
-
+        linearLayout = (LinearLayout) findViewById(R.id.linear);
         imageViewFavorite = (ImageView) findViewById(R.id.imageViewFavorite);
         fab = (FloatingActionButton) findViewById(R.id.fab);
     }
@@ -110,18 +115,19 @@ public class ProductDetail extends AppCompatActivity {
 
         idListing = listing.getIdListing();
         titileName.setText(listing.getTitle());
-        price.setText(listing.getPrice());
+        price.setText(listing.getPrice() + listing.getUnit());
         inforDescription.setText(listing.getDescription());
-        Acreage.setText(listing.getAcreage() + " M2 ");
+        Acreage.setText( listing.getAcreage() + " M2 ");
         address.setText(listing.getAddress());
         Species.setText(listing.getIdSpecies());
         directionHouse.setText(listing.getDirectionHouse());
         NumberBed.setText(listing.getBedroom());
         NumberToilet.setText(listing.getToilet());
         DatePost.setText(listing.getDateStart());
+        dateEnd.setText(listing.getDateEnd());
         phaply.setText(listing.getJuridical());
         nameUser.setText(listing.getNameContact());
-        phoneUser.setText("0" + listing.getPhoneContact());
+        phoneUser.setText(listing.getPhoneContact());
         emailUser.setText(listing.getEmailContact());
 
         titileName.setMaxLines(3);
@@ -133,7 +139,7 @@ public class ProductDetail extends AppCompatActivity {
             @Override
             public void onResponse(Call<List<Image>> call, Response<List<Image>> response) {
                 list =  (ArrayList<Image>) response.body();
-                Log.d("list", String.valueOf(list.size()));
+
                 if(list.size() > 0 ){
                     adapter = new viewPaperImage(list,ProductDetail.this );
                     viewPager.setAdapter(adapter);
@@ -142,7 +148,6 @@ public class ProductDetail extends AppCompatActivity {
             }
             @Override
             public void onFailure(Call<List<Image>> call, Throwable t) {
-                Log.d("mes", t.getMessage());
             }
         });
     }
@@ -176,7 +181,7 @@ public class ProductDetail extends AppCompatActivity {
         try {
             this.startActivity(callIntent);
         } catch (Exception ex) {
-            Toast.makeText(getApplicationContext(), "Your call failed... " + ex.getMessage(),
+            Toast.makeText(getApplicationContext(), "Gọi thât bại vui lòng thử lại " + ex.getMessage(),
                     Toast.LENGTH_LONG).show();
             ex.printStackTrace();
         }
@@ -191,7 +196,23 @@ public class ProductDetail extends AppCompatActivity {
         });
 
     }
+    public void addDotsIndicator(int position){
+        textView = new TextView[list.size()];
+        linearLayout.removeAllViews();
+        for(int i = 0 ; i < list.size() ;i++){
+            textView[i] = new TextView(this);
+            textView[i].setText(Html.fromHtml("&#8226;"));
+            textView[i].setTextSize(28);
+            textView[i].setTextColor(getResources().getColor(R.color.white));
 
+            linearLayout.addView(textView[i]);
+
+        }
+
+        if(textView.length > 0){
+            textView[position].setTextColor(getResources().getColor(R.color.blue));
+        }
+    }
 
     ViewPager.OnPageChangeListener viewListener = new ViewPager.OnPageChangeListener() {
         @Override
@@ -201,7 +222,7 @@ public class ProductDetail extends AppCompatActivity {
 
         @Override
         public void onPageSelected(int position) {
-
+            addDotsIndicator(position);
         }
 
         @Override

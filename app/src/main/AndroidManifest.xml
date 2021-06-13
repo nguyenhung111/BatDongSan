@@ -12,7 +12,11 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.BấtĐộngSản"
         android:usesCleartextTraffic="true">
-        <activity android:name=".Activity.Detail_Buy_Rent"></activity>
+        <activity android:name=".Activity.Timkiem"></activity>
+        <activity
+            android:name=".Activity.Detail_Buy_Rent"
+            android:label="@string/title_activity_detail__buy__rent"
+            android:theme="@style/Theme.BấtĐộngSản.NoActionBar" />
         <activity android:name=".Activity.lienhe_mua_thue" />
         <activity android:name=".Activity.mota_mua_thue" />
         <activity android:name=".Activity.Infor_mua_thue" />
@@ -61,14 +65,14 @@
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
     </application>
-    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.CALL_PHONE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <uses-permission android:name="android.permission.CALL_PHONE" />
 
 </manifest>

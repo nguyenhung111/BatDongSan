@@ -1,5 +1,6 @@
 package com.example.btngsn.Adapter;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -52,6 +53,7 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemHoler> {
         return itemHoler;
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(@NonNull ItemHoler holder, int position) {
 
@@ -61,13 +63,13 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemHoler> {
         holder.idListing.setText("Mã tin rao : " + listing.getIdListing());
         holder.dateStart.setText("Ngày đăng : " + listing.getDateStart());
         holder.dateEnd.setText("Ngày kết thúc : " + listing.getDateEnd());
-        String status = listing.getTrangthai();
-        if (status.equals("1")) {
-            holder.status.setText("Trạng thái: " + "Chờ xác nhận");
-        } else if (status.equals("2")) {
-            holder.status.setText("Trạng thái: " + "Đã đăng tin");
+        String trangthai = listing.getTrangthai();
+        if (trangthai.equals("1")) {
+            holder.status.setText("Trạng thái: Chờ xác nhận");
+        } else if (trangthai.equals("2")) {
+            holder.status.setText("Trạng thái: Đã đăng tin");
         } else {
-            holder.status.setText("Trạng thái: " + "Đã hạ tin");
+            holder.status.setText("Trạng thái: Đã hạ tin");
         }
         Glide.with(context).load(listing.getImage()).centerCrop().placeholder(R.drawable.ic_baseline_hide_image_24)
                 .error(R.drawable.ic_baseline_error_24).into(holder.imageView);
@@ -118,8 +120,6 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemHoler> {
                                     int sodu = Integer.parseInt(listing.getSodu());
                                         String trangthai = "2";
                                         UpdateAdmin(idListing, trangthai, idUser, sodu);
-                                        Log.d("remover", String.valueOf(position));
-                                        Log.d("remover", String.valueOf(arrayList.size()));
                                         arrayList.remove(position);
                                         notifyDataSetChanged();
                                 }
@@ -181,8 +181,8 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemHoler> {
                                         String idListing = listing.getIdListing();
                                         String trangthai = "3";
                                         Update(idListing, trangthai);
-                                        holder.status.setText("Trạng thái: Đã hạ tin");
                                         notifyDataSetChanged();
+                                        holder.status.setText("Trạng thái: Đã hạ tin");
                                     }
                                 });
                                 dialogXoa.setNegativeButton("Không", new DialogInterface.OnClickListener() {
@@ -206,7 +206,7 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemHoler> {
                                         String idListing = listing.getIdListing();
                                         String trangthai = "2";
                                         Update(idListing, trangthai);
-                                        holder.status.setText("Trạng thái: " + "Đã đăng tin");
+                                        holder.status.setText("Trạng thái: Đã đăng tin");
                                         notifyDataSetChanged();
                                     }
                                 });

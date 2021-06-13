@@ -118,10 +118,25 @@ public interface DataClient {
     Call<List<Listing>> getListingForAdmin(@Field("trangthai") String trangthai,
                                            @Field("status") String status);
 
+    @FormUrlEncoded
+    @POST("Search.php")
+    Call<List<Listing>> getSearch(@Field("address") String address,
+                                  @Field("idForm") String idForm,
+                                  @Field("idSpecies") String idSpecies,
+                                  @Field("directionHouse") String directionHouse,
+                                  @Field("donvi") String donvi,
+                                  @Field("gia1") String gia1,
+                                  @Field("gia2") String gia2,
+                                  @Field("dientich1") String dientich1,
+                                  @Field("dientich2") String dientich2,
+                                  @Field("sophongngu") String sophongngu);
+
     @GET("updateStatus.php")
     Call<String> updaeStatus(@Query("idListing") String idListing,
                              @Query("trangthai") String trangthai);
 
+    @GET("getAll.php")
+    Call<List<Listing>> getAll();
     @GET("getForm.php")
     Call<List<viewForm>> getForm();
 
@@ -138,6 +153,7 @@ public interface DataClient {
                              @Field("idSpecies") String idSpecies,
                              @Field("acreage") String acreage,
                              @Field("price") String price,
+                             @Field("unit") String unit,
                              @Field("address") String address,
                              @Field("addressDetail") String addressDetail,
                              @Field("image") String image,
@@ -156,7 +172,8 @@ public interface DataClient {
                              @Field("dateStart") String dateStart,
                              @Field("dateEnd") String dateEnd,
                              @Field("loaitin") String loaitin,
-                             @Field("urlMap") String urlMap
+                             @Field("urlMap") String urlMap,
+                             @Field("sodu") int sodu
 
     );
 

@@ -28,6 +28,9 @@ public class Listing  implements Parcelable{
     @SerializedName("price")
     @Expose
     private String price;
+    @SerializedName("unit")
+    @Expose
+    private String unit;
     @SerializedName("address")
     @Expose
     private String address;
@@ -87,7 +90,7 @@ public class Listing  implements Parcelable{
     private String loaitin;
     @SerializedName("urlMap")
     @Expose
-    private String urlMap;
+    private Object urlMap;
     @SerializedName("sodu")
     @Expose
     private String sodu;
@@ -99,6 +102,7 @@ public class Listing  implements Parcelable{
         idSpecies = in.readString();
         acreage = in.readString();
         price = in.readString();
+        unit = in.readString();
         address = in.readString();
         addressDetail = in.readString();
         image = in.readString();
@@ -118,7 +122,6 @@ public class Listing  implements Parcelable{
         dateEnd = in.readString();
         trangthai = in.readString();
         loaitin = in.readString();
-        urlMap = in.readString();
         sodu = in.readString();
     }
 
@@ -180,6 +183,14 @@ public class Listing  implements Parcelable{
 
     public void setPrice(String price) {
         this.price = price;
+    }
+
+    public String getUnit() {
+        return unit;
+    }
+
+    public void setUnit(String unit) {
+        this.unit = unit;
     }
 
     public String getAddress() {
@@ -334,11 +345,11 @@ public class Listing  implements Parcelable{
         this.loaitin = loaitin;
     }
 
-    public String  getUrlMap() {
+    public Object getUrlMap() {
         return urlMap;
     }
 
-    public void setUrlMap(String urlMap) {
+    public void setUrlMap(Object urlMap) {
         this.urlMap = urlMap;
     }
 
@@ -363,6 +374,7 @@ public class Listing  implements Parcelable{
         parcel.writeString(idSpecies);
         parcel.writeString(acreage);
         parcel.writeString(price);
+        parcel.writeString(unit);
         parcel.writeString(address);
         parcel.writeString(addressDetail);
         parcel.writeString(image);
@@ -382,7 +394,6 @@ public class Listing  implements Parcelable{
         parcel.writeString(dateEnd);
         parcel.writeString(trangthai);
         parcel.writeString(loaitin);
-        parcel.writeString(urlMap);
         parcel.writeString(sodu);
     }
 }
