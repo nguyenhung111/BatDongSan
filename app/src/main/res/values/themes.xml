@@ -17,6 +17,7 @@
     <style name="Widget.MaterialComponents.TextInputLayout.OutlinedBox" parent="Theme.MaterialComponents.Light.NoActionBar">
 
     </style>
+
     <style name="Theme.BấtĐộngSản.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>

@@ -50,9 +50,9 @@ public class ListingAdapter extends RecyclerView.Adapter<ListingAdapter.ItemHole
         final Listing listing = arrayList.get(position);
 
         holder.title.setText(listing.getTitle());
-        holder.phone.setText(listing.getPhoneContact());
-        holder.price.setText("Giá "+ listing.getPrice() +listing.getUnit());
-        holder.acreage.setText("Diện tích " + listing.getAcreage() + "m2");
+        holder.phone.setText("0"+listing.getPhoneContact());
+        holder.price.setText("Giá : "+ listing.getPrice() +listing.getUnit());
+        holder.acreage.setText("Diện tích :  " + listing.getAcreage() + " m2");
         holder.address.setText(listing.getAddress());
 
         holder.dateStart.setText(listing.getDateStart());

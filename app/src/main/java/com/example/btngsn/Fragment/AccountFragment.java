@@ -1,5 +1,6 @@
 package com.example.btngsn.Fragment;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -22,6 +23,8 @@ import com.example.btngsn.Activity.ContactListing;
 import com.example.btngsn.Activity.InforUser;
 import com.example.btngsn.Activity.Infor_mua_thue;
 import com.example.btngsn.Activity.ManageListing;
+import com.example.btngsn.Activity.ManageMoney;
+import com.example.btngsn.Activity.NapTienTaiKhoan;
 import com.example.btngsn.Activity.PostListing;
 import com.example.btngsn.Activity.Thongtincoban;
 import com.example.btngsn.Home.HomePage;
@@ -53,6 +56,7 @@ public class AccountFragment extends Fragment {
     String idspUser;
     String fullname;
 
+    private TextView informoney;
     public AccountFragment() {
         // Required empty public constructor
     }
@@ -74,6 +78,7 @@ public class AccountFragment extends Fragment {
         changepass = (TextView) view.findViewById(R.id.changepass);
         post_mua_thue = (TextView) view.findViewById(R.id.post_mua_thue);
         sodu = (TextView) view.findViewById(R.id.sodu);
+        informoney = (TextView) view.findViewById(R.id.informoney);
 
         imgAva = (ImageView) view.findViewById(R.id.imgAva);
 
@@ -168,6 +173,13 @@ public class AccountFragment extends Fragment {
                 }
             }
         });
+        informoney.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getContext(), ManageMoney.class);
+                startActivity(intent);
+            }
+        });
         changepass.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -199,6 +211,14 @@ public class AccountFragment extends Fragment {
                 startActivity(intent);
             }
         });
+
+        btnNaptien.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getContext(), NapTienTaiKhoan.class);
+                startActivity(intent);
+            }
+        });
     }
 
     public void getData() {
@@ -209,6 +229,7 @@ public class AccountFragment extends Fragment {
                 DataClient loginData = APIUtils.getData();
                 Call<List<User>> callback = loginData.Login(username, password);
                 callback.enqueue(new Callback<List<User>>() {
+                    @SuppressLint("SetTextI18n")
                     @Override
                     public void onResponse(Call<List<User>> call, Response<List<User>> response) {
                         ArrayList<User> userArrayList = (ArrayList<User>) response.body();

@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,6 +21,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.btngsn.Activity.ManageListing;
 import com.example.btngsn.Activity.ProductDetail;
+import com.example.btngsn.Activity.lienhe_mua_thue;
 import com.example.btngsn.Model.CheckConnection;
 import com.example.btngsn.Model.Listing;
 import com.example.btngsn.Model.User;
@@ -27,7 +29,12 @@ import com.example.btngsn.R;
 import com.example.btngsn.Retrofit.APIUtils;
 import com.example.btngsn.Retrofit.DataClient;
 
+import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.Locale;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -39,6 +46,7 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemHoler> {
 
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
+    private int taikhoansodu;
 
     public ItemAdapter(Context context, ArrayList<Listing> arrayList) {
         this.context = context;
@@ -68,7 +76,7 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemHoler> {
             holder.status.setText("Trạng thái: Chờ xác nhận");
         } else if (trangthai.equals("2")) {
             holder.status.setText("Trạng thái: Đã đăng tin");
-        } else {
+        } else if (trangthai.equals("3")) {
             holder.status.setText("Trạng thái: Đã hạ tin");
         }
         Glide.with(context).load(listing.getImage()).centerCrop().placeholder(R.drawable.ic_baseline_hide_image_24)
@@ -118,10 +126,14 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemHoler> {
                                     String idListing = listing.getIdListing();
                                     String idUser = listing.getIdUser();
                                     int sodu = Integer.parseInt(listing.getSodu());
+                                    if (sodu >= taikhoansodu) {
                                         String trangthai = "2";
                                         UpdateAdmin(idListing, trangthai, idUser, sodu);
                                         arrayList.remove(position);
                                         notifyDataSetChanged();
+                                    } else {
+                                        Toast.makeText(context, "Số dư người dùng không đủ", Toast.LENGTH_LONG).show();
+                                    }
                                 }
                             });
                             dialogXoa.setNegativeButton("Không", new DialogInterface.OnClickListener() {
@@ -285,7 +297,7 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemHoler> {
         });
     }
 
-    public void UpdateAdmin(String idListing, String trangthai,String idUser, int sodu) {
+    public void UpdateAdmin(String idListing, String trangthai, String idUser, int sodu) {
         DataClient updateStatus = APIUtils.getData();
         retrofit2.Call<String> callback = updateStatus.updaeStatus(idListing, trangthai);
         callback.enqueue(new Callback<String>() {
@@ -294,7 +306,8 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemHoler> {
                 if (response != null) {
                     int result = Integer.parseInt(response.body());
                     if (result == 1) {
-                        UpDateSodu(idUser,sodu);
+                        UpDateSodu(idUser, sodu);
+                        insertTaichinh(sodu,idUser);
                     } else if (result == 0) {
                         Toast.makeText(context, "Thất bại mời thử lại", Toast.LENGTH_LONG).show();
                     }
@@ -333,13 +346,13 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemHoler> {
     }
 
 
-    public void UpDateSodu(String idUser,int sodu) {
+    public void UpDateSodu(String idUser, int sodu) {
         DataClient updateStatus = APIUtils.getData();
         retrofit2.Call<String> callback = updateStatus.updateSodu(idUser, sodu);
         callback.enqueue(new Callback<String>() {
             @Override
             public void onResponse(Call<String> call, Response<String> response) {
-               Log.d("respone", response.body());
+                Log.d("respone", response.body());
                 if (response != null) {
                     int result = Integer.parseInt(response.body());
                     if (result == 1) {
@@ -353,6 +366,50 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemHoler> {
             @Override
             public void onFailure(Call<String> call, Throwable t) {
                 Log.d("loi", t.getMessage());
+            }
+        });
+    }
+
+    public void getData() {
+        String idUser = sharedPreferences.getString("idUser", "");
+        if (!idUser.equals("")) {
+            DataClient loginData = APIUtils.getData();
+            Call<List<User>> callback = loginData.getIdUser(idUser);
+            callback.enqueue(new Callback<List<User>>() {
+                @SuppressLint("SetTextI18n")
+                @Override
+                public void onResponse(Call<List<User>> call, Response<List<User>> response) {
+                    ArrayList<User> userArrayList = (ArrayList<User>) response.body();
+                    if (userArrayList.size() > 0) {
+                        DecimalFormat decimalFormat = new DecimalFormat("###,###,###");
+                        taikhoansodu = Integer.parseInt(userArrayList.get(0).getSodu());
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<List<User>> call, Throwable t) {
+                }
+            });
+        }
+    }
+
+    public void insertTaichinh(int sotien,String idUser) {
+
+        String ngaygiaodich = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date());
+        DataClient inserData = APIUtils.getData();
+        retrofit2.Call<String> callback = inserData.postTaichinh(sotien,ngaygiaodich,"1","2",idUser);
+        callback.enqueue(new Callback<String>() {
+            @Override
+            public void onResponse(Call<String> call, Response<String> response) {
+                String idMuathue = response.body();
+                if (idMuathue.equals("1")) {
+                    Toast.makeText(context, "Thành công", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<String> call, Throwable t) {
+
             }
         });
     }

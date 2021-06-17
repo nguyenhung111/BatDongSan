@@ -127,7 +127,7 @@ public class ProductDetail extends AppCompatActivity {
         dateEnd.setText(listing.getDateEnd());
         phaply.setText(listing.getJuridical());
         nameUser.setText(listing.getNameContact());
-        phoneUser.setText(listing.getPhoneContact());
+        phoneUser.setText("0"+listing.getPhoneContact());
         emailUser.setText(listing.getEmailContact());
 
         titileName.setMaxLines(3);

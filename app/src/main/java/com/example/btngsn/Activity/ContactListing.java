@@ -302,6 +302,9 @@ public class ContactListing extends AppCompatActivity {
                                                                 String result = response.body();
                                                                 if (result.equals("1")) {
                                                                     Toast.makeText(ContactListing.this, "Thành công", Toast.LENGTH_SHORT).show();
+                                                                    Intent intent = new Intent(ContactListing.this, ManageListing.class);
+                                                                    startActivity(intent);
+                                                                    finish();
                                                                 }
                                                             }
 

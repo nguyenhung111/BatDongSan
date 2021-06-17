@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginBottom="10dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <androidx.cardview.widget.CardView
+        android:layout_marginBottom="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:cardCornerRadius="15dp">
+        <LinearLayout
+            android:layout_margin="10dp"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <LinearLayout
+                android:weightSum="2"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:id="@+id/ngaygiaodich"
+                    android:layout_weight="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="Ngày giao dịch"
+                    android:textSize="18sp"
+                    android:textColor="@color/xam">
+                </TextView>
+                <TextView
+                    android:id="@+id/loaigiaodich"
+                    android:layout_weight="1"
+                    android:textSize="18sp"
+                    android:textColor="@color/black"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="Khuyến mại">
+                </TextView>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_marginTop="10dp"
+                android:weightSum="2"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:layout_weight="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="Số tiền"
+                    android:textSize="18sp"
+                    android:textColor="@color/xam">
+                </TextView>
+                <TextView
+                    android:id="@+id/sotien"
+                    android:layout_weight="1"
+                    android:textSize="18sp"
+                    android:textColor="@color/colorRed"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text=" + 99999 đ">
+                </TextView>
+            </LinearLayout>
+            <TextView
+                android:id="@+id/noidung"
+                android:layout_marginTop="10dp"
+                android:textSize="18sp"
+                android:textColor="@color/black"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="Khuyến mãi cho khách hàng mới ">
+            </TextView>
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+</LinearLayout>

@@ -12,7 +12,11 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.BấtĐộngSản"
         android:usesCleartextTraffic="true">
-        <activity android:name=".Activity.Timkiem"></activity>
+        <activity
+            android:name=".Activity.ManageMoney"
+            android:label="@string/title_activity_manage_money"
+            android:theme="@style/Theme.BấtĐộngSản.NoActionBar" />
+        <activity android:name=".Activity.Timkiem" />
         <activity
             android:name=".Activity.Detail_Buy_Rent"
             android:label="@string/title_activity_detail__buy__rent"
@@ -28,6 +32,7 @@
         <activity android:name=".Activity.ContactListing" />
         <activity android:name=".Activity.PostListing" />
         <activity android:name=".Activity.ProductDetail" />
+        <activity android:name=".Activity.NapTienTaiKhoan"></activity>
         <activity
             android:name="com.facebook.FacebookActivity"
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
@@ -65,14 +70,14 @@
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
     </application>
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
-
     <uses-permission android:name="android.permission.CALL_PHONE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+    <uses-permission android:name="android.permission.CAMERA" />
 
 </manifest>

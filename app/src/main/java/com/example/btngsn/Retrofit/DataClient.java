@@ -4,11 +4,13 @@ import com.example.btngsn.Model.BuyRent;
 import com.example.btngsn.Model.Favorite;
 import com.example.btngsn.Model.Image;
 import com.example.btngsn.Model.Listing;
+import com.example.btngsn.Model.Taichinh;
 import com.example.btngsn.Model.User;
 import com.example.btngsn.Model.viewDirection;
 import com.example.btngsn.Model.viewForm;
 import com.example.btngsn.Model.viewSpecies;
 
+import java.sql.Date;
 import java.util.List;
 
 import okhttp3.MultipartBody;
@@ -75,7 +77,10 @@ public interface DataClient {
                            @Field("passWord") String passWord
     );
 
-
+    @FormUrlEncoded
+    @POST("getUser.php")
+    Call<List<User>> getIdUser(@Field("idUser") String idUser
+    );
     @GET("updatePass.php")
     Call<String> updatePass(@Query("userName") String userName,
                             @Query("passWord") String passWord,
@@ -197,8 +202,30 @@ public interface DataClient {
                              @Field("trangthai") int trangthai
     );
 
+    @FormUrlEncoded
+    @POST("postTaichinh.php")
+    Call<String> postTaichinh(@Field("sotien") int sotien,
+                              @Field("ngaygiaodich") String ngaygiaodich,
+                              @Field("loaigiaodich") String loaigiaodich,
+                              @Field("trangthai") String trangthai,
+                              @Field("idUser") String idUser
+                              );
+
     @GET("get_Tbl_mua_thue.php")
     Call<List<BuyRent>> getBuyRent();
+
+
+    @FormUrlEncoded
+    @POST("getCount.php")
+    Call<String> getCount (@Field("query") String query);
+
+    @FormUrlEncoded
+    @POST("getTongTien.php")
+    Call<String> getMoney (@Field("query") String query);
+
+    @FormUrlEncoded
+    @POST("getTaichinh.php")
+    Call<List<Taichinh>> getTaichinh(@Field("query") String query);
 
 
 }
