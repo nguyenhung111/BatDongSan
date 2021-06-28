@@ -53,6 +53,7 @@
                 android:id="@+id/phonecontact"
                 android:layout_below="@id/addresscontact"
                 android:hint="Phone"
+                android:maxLength="10"
                 android:inputType="phone"
                 android:textColor="@color/black"
                 android:layout_width="match_parent"

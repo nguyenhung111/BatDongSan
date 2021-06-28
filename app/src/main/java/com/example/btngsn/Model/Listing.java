@@ -137,6 +137,8 @@ public class Listing  implements Parcelable{
         }
     };
 
+
+
     public String getIdListing() {
         return idListing;
     }

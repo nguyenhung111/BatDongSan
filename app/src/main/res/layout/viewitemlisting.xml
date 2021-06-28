@@ -7,7 +7,7 @@
     <androidx.cardview.widget.CardView
         android:layout_marginBottom="5dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         app:cardCornerRadius="10dp">
         <LinearLayout
             android:layout_width="match_parent"
@@ -16,7 +16,7 @@
             <ImageView
                 android:id="@+id/imageView"
                 android:layout_width="150dp"
-                android:layout_height="130dp"
+                android:layout_height="150dp"
                 android:src="@drawable/home">
             </ImageView>
             <LinearLayout
@@ -60,8 +60,17 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Trạng thái">
-
                 </TextView>
+                <Button
+                    android:id="@+id/sua"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Sửa"
+                    android:textColor="@color/colorRed"
+                    android:textSize="18dp"
+                    android:background="@drawable/radiusbutton"
+                    android:layout_gravity="right">
+                </Button>
             </LinearLayout>
 
         </LinearLayout>

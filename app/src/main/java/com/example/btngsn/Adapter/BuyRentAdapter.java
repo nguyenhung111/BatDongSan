@@ -44,8 +44,8 @@ public class BuyRentAdapter extends RecyclerView.Adapter<BuyRentAdapter.ItemHole
 
         holder.title.setText(listing.getTieude());
         holder.noidung.setText(listing.getNoidung());
-        holder.price.setText("Giá : " + listing.getGia());
-        holder.acreage.setText("Diện tích : " + listing.getDientich());
+        holder.price.setText("Giá :" + listing.getGia() + " " + listing.getDonvi());
+        holder.acreage.setText("Diện tích :" + listing.getDientich());
         holder.address.setText(listing.getDiachi());
         holder.dateStart.setText(listing.getDateStart());
         Glide.with(context).load(listing.getHinhanh()).centerCrop().placeholder(R.drawable.ic_baseline_error_24)
@@ -79,7 +79,7 @@ public class BuyRentAdapter extends RecyclerView.Adapter<BuyRentAdapter.ItemHole
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(context, Detail_Buy_Rent.class);
-                    intent.putExtra("thongtinmuathue", arrayList.get(getPosition()));
+                    intent.putExtra("thongtinchitiet", arrayList.get(getPosition()));
                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     CheckConnection.ShowToast(context, arrayList.get(getPosition()).getTieude());
                     context.startActivity(intent);

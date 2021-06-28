@@ -32,7 +32,17 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:src="@drawable/home" />
-
+                    <TextView
+                        android:visibility="visible"
+                        android:id="@+id/loaitin"
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="top|left"
+                        android:background="@drawable/viewloaitin"
+                        android:padding="5dp"
+                        android:textSize="14dp"
+                        android:text="Nổi bật"
+                        android:textColor="@color/white" />
                     <TextView
                         android:id="@+id/phone"
                         android:layout_width="wrap_content"

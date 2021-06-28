@@ -42,6 +42,7 @@ public class FragmentSell extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_sell, container, false);
         recyviewsellhome = (RecyclerView) view.findViewById(R.id.recyviewsellhome);
+        recyviewsellhome.setHasFixedSize(true);
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 1);
         recyviewsellhome.setLayoutManager(gridLayoutManager);
         getDataOne();

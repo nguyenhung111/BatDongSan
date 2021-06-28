@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -21,6 +22,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.btngsn.Activity.ManageListing;
 import com.example.btngsn.Activity.ProductDetail;
+import com.example.btngsn.Activity.UpdateListing;
 import com.example.btngsn.Activity.lienhe_mua_thue;
 import com.example.btngsn.Model.CheckConnection;
 import com.example.btngsn.Model.Listing;
@@ -82,7 +84,35 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemHoler> {
         Glide.with(context).load(listing.getImage()).centerCrop().placeholder(R.drawable.ic_baseline_hide_image_24)
                 .error(R.drawable.ic_baseline_error_24).into(holder.imageView);
 
+        String dateStart = listing.getDateStart();
+        String dateEnd = listing.getDateEnd();
+        if(dateStart.equals(dateEnd)){
+            String image = listing.getImage();
+            image = image.substring(image.lastIndexOf("/"));
+            DataClient deleteListing = APIUtils.getData();
+            retrofit2.Call<String> callback = deleteListing.deleteListing(listing.getIdListing(), image);
+            callback.enqueue(new Callback<String>() {
+                @Override
+                public void onResponse(Call<String> call, Response<String> response) {
+                    if (response != null) {
+                        String result = response.body();
+                        Log.d("result", response.body());
+                        if (result.equals("1")) {
+                            arrayList.remove(position);
+                            notifyDataSetChanged();
+                            Toast.makeText(context, "Các tin đến hạn đã xóa", Toast.LENGTH_SHORT).show();
+                        } else if (result.equals("2")) {
+                            Toast.makeText(context, "Xóa tin hết hạn thất bại", Toast.LENGTH_LONG).show();
+                        }
+                    }
+                }
 
+                @Override
+                public void onFailure(Call<String> call, Throwable t) {
+                    Log.d("loi", t.getMessage());
+                }
+            });
+        }
         String idspUser = sharedPreferences.getString("idspUser", "");
         if (idspUser.equals("1")) {
             holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
@@ -247,7 +277,7 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemHoler> {
 
     public class ItemHoler extends RecyclerView.ViewHolder {
         private ImageView imageView;
-        private TextView title, idListing, dateStart, dateEnd, status;
+        private TextView title, idListing, dateStart, dateEnd, status,sua;
 
         public ItemHoler(@NonNull View itemView) {
             super(itemView);
@@ -261,16 +291,19 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemHoler> {
             dateStart = (TextView) itemView.findViewById(R.id.dateStart);
             dateEnd = (TextView) itemView.findViewById(R.id.dateEnd);
             status = (TextView) itemView.findViewById(R.id.status);
-            itemView.setOnClickListener(new View.OnClickListener() {
+            sua = (Button) itemView.findViewById(R.id.sua);
+
+            sua.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent = new Intent(context, ProductDetail.class);
+                    Intent intent = new Intent(context, UpdateListing.class);
                     intent.putExtra("thongtinchitiet", arrayList.get(getPosition()));
                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     CheckConnection.ShowToast(context, arrayList.get(getPosition()).getTitle());
                     context.startActivity(intent);
                 }
             });
+
         }
     }
 

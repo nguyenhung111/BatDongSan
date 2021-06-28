@@ -35,6 +35,9 @@ public class BuyRent  implements Parcelable  {
     @SerializedName("gia")
     @Expose
     private String gia;
+    @SerializedName("donvi")
+    @Expose
+    private String donvi;
     @SerializedName("tenlienhe")
     @Expose
     private String tenlienhe;
@@ -70,6 +73,7 @@ public class BuyRent  implements Parcelable  {
         diachi = in.readString();
         dientich = in.readString();
         gia = in.readString();
+        donvi = in.readString();
         tenlienhe = in.readString();
         diachilienhe = in.readString();
         dienthoai = in.readString();
@@ -164,6 +168,14 @@ public class BuyRent  implements Parcelable  {
         this.gia = gia;
     }
 
+    public String getDonvi() {
+        return donvi;
+    }
+
+    public void setDonvi(String donvi) {
+        this.donvi = donvi;
+    }
+
     public String getTenlienhe() {
         return tenlienhe;
     }
@@ -244,6 +256,7 @@ public class BuyRent  implements Parcelable  {
         parcel.writeString(diachi);
         parcel.writeString(dientich);
         parcel.writeString(gia);
+        parcel.writeString(donvi);
         parcel.writeString(tenlienhe);
         parcel.writeString(diachilienhe);
         parcel.writeString(dienthoai);
@@ -254,3 +267,5 @@ public class BuyRent  implements Parcelable  {
         parcel.writeString(trangthai);
     }
 }
+
+

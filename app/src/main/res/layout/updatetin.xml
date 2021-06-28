@@ -1,60 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".Activity.ProductDetail">
-    <androidx.cardview.widget.CardView
-        android:padding="10dp"
-        app:cardCornerRadius="10dp"
-        android:layout_width="match_parent"
-        android:layout_height="200dp">
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-            <androidx.viewpager.widget.ViewPager
-                android:id="@+id/viewpager"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                tools:ignore="MissingConstraints">
-            </androidx.viewpager.widget.ViewPager>
-            <ImageView
-                android:id="@+id/imageViewFavorite"
-                android:layout_gravity="right|bottom"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:layout_weight="1"
-                android:src="@drawable/ic_baseline_favorite_24">
-            </ImageView>
-            <LinearLayout
-                android:id="@+id/linear"
-                android:layout_gravity="bottom"
-                android:gravity="center_horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="30dp"
-                android:orientation="horizontal">
-            </LinearLayout>
-        </FrameLayout>
-    </androidx.cardview.widget.CardView>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent">
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="200dp">
+        android:layout_height="match_parent">
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:padding="15dp">
-            <TextView
+            <EditText
                 android:textColor="@color/colorRed"
                 android:id="@+id/titileName"
                 android:layout_width="match_parent"
                 android:layout_height="70dp"
-                android:text="Giá cực sốc"
                 android:textSize="20dp">
-            </TextView>
-            <TextView
+            </EditText>
+            <EditText
                 android:layout_marginTop="5dp"
                 android:id="@+id/price"
                 android:layout_width="match_parent"
@@ -64,7 +27,7 @@
                 android:textColor="@color/blue"
                 android:textSize="18dp">
 
-            </TextView>
+            </EditText>
             <LinearLayout
                 android:layout_marginTop="5dp"
                 android:id="@+id/inforDes"
@@ -85,14 +48,14 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
 
-                    <TextView
+                    <EditText
                         android:textSize="18dp"
                         android:textColor="@color/black"
                         android:id="@+id/inforDescription"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent">
 
-                    </TextView>
+                    </EditText>
                 </ScrollView>
 
             </LinearLayout>
@@ -126,7 +89,7 @@
                         android:gravity="center|start"
                         android:text="Diện tích" />
 
-                    <TextView
+                    <EditText
                         android:textSize="18dp"
                         android:id="@+id/Acreage"
                         android:layout_width="match_parent"
@@ -147,7 +110,7 @@
                         android:gravity="center|start"
                         android:text="Địa chỉ" />
 
-                    <TextView
+                    <EditText
                         android:textSize="18dp"
                         android:id="@+id/address"
                         android:layout_width="match_parent"
@@ -168,7 +131,7 @@
                         android:gravity="center|start"
                         android:text="Loại tin rao" />
 
-                    <TextView
+                    <EditText
                         android:textSize="18dp"
                         android:id="@+id/Species"
                         android:layout_width="match_parent"
@@ -190,7 +153,7 @@
                         android:gravity="center|start"
                         android:text="Hướng nhà" />
 
-                    <TextView
+                    <EditText
                         android:textSize="18dp"
                         android:id="@+id/directionHouse"
                         android:layout_width="match_parent"
@@ -212,7 +175,7 @@
                         android:gravity="center|start"
                         android:text="Huớng ban công" />
 
-                    <TextView
+                    <EditText
 
                         android:textSize="18dp"
                         android:id="@+id/huongbancong"
@@ -234,7 +197,7 @@
                         android:gravity="center|start"
                         android:text="Số tầng" />
 
-                    <TextView
+                    <EditText
                         android:textSize="18dp"
                         android:id="@+id/numberFloor"
                         android:layout_width="match_parent"
@@ -255,7 +218,7 @@
                         android:gravity="center|start"
                         android:text="Số phòng ngủ" />
 
-                    <TextView
+                    <EditText
                         android:textSize="18dp"
                         android:id="@+id/NumberBed"
                         android:layout_width="match_parent"
@@ -277,7 +240,7 @@
                         android:gravity="center|start"
                         android:text="Số toilet" />
 
-                    <TextView
+                    <EditText
                         android:textSize="18dp"
                         android:id="@+id/NumberToilet"
                         android:layout_width="match_parent"
@@ -298,7 +261,7 @@
                         android:gravity="center|start"
                         android:text="Nội thất" />
 
-                    <TextView
+                    <EditText
                         android:textSize="18dp"
                         android:id="@+id/noithat"
                         android:layout_width="match_parent"
@@ -319,7 +282,7 @@
                         android:gravity="center|start"
                         android:text="Pháp lý" />
 
-                    <TextView
+                    <EditText
                         android:textSize="18dp"
                         android:id="@+id/phaply"
                         android:layout_width="match_parent"
@@ -340,7 +303,7 @@
                         android:gravity="center|start"
                         android:text="Ngày đăng tin" />
 
-                    <TextView
+                    <EditText
                         android:textSize="18dp"
                         android:id="@+id/DatePost"
                         android:layout_width="match_parent"
@@ -360,7 +323,7 @@
                         android:gravity="center|start"
                         android:text="Ngày hết hạn" />
 
-                    <TextView
+                    <EditText
                         android:textSize="18dp"
                         android:id="@+id/dateEnd"
                         android:layout_width="match_parent"
@@ -401,7 +364,7 @@
                     android:layout_weight="3"
                     android:orientation="vertical">
 
-                    <TextView
+                    <EditText
                         android:textColor="@color/colorRed"
                         android:id="@+id/nameUser"
                         android:layout_width="match_parent"
@@ -411,7 +374,7 @@
                         android:text="Tên liên hệ"
                         android:textSize="18dp" />
 
-                    <TextView
+                    <EditText
                         android:textColor="@color/blue"
                         android:id="@+id/phoneUser"
                         android:layout_width="match_parent"
@@ -421,7 +384,7 @@
                         android:text="Phone liên hệ"
                         android:textSize="18dp" />
 
-                    <TextView
+                    <EditText
                         android:textColor="@color/blue"
                         android:id="@+id/emailUser"
                         android:layout_width="match_parent"
@@ -432,34 +395,16 @@
                         android:textSize="18dp" />
                 </LinearLayout>
             </LinearLayout>
-            <LinearLayout
-                android:id="@+id/lineartuongtu"
-                android:orientation="vertical"
-                android:layout_below="@id/thongtin"
+            <Button
+                android:background="@color/blue"
+                android:text="Lưu thông tin"
+                android:id="@+id/luuthongtin"
+                android:textColor="@color/white"
                 android:layout_width="match_parent"
-                android:layout_height="250dp">
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textSize="18sp"
-                    android:text="Tin tương tự">
-                </TextView>
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/recyviews"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-                </androidx.recyclerview.widget.RecyclerView>
-            </LinearLayout>
+                android:layout_height="match_parent"
+                android:layout_below="@+id/thongtin">
+            </Button>
         </RelativeLayout>
     </ScrollView>
 
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_margin="@dimen/fab_margin"
-        app:srcCompat="@android:drawable/sym_call_outgoing" />
-
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

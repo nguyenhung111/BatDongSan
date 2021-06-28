@@ -291,7 +291,7 @@ public class PostListing extends AppCompatActivity {
 
 
     private void EventSpiner() {
-        String[] donvi = new String[]{"Thỏa thuân", "Triệu", "Tỷ", "Trăm nghìn/m2", "Triệu/m2"};
+        String[] donvi = new String[]{"Thỏa thuân", "Triệu", "Tỷ", "Trăm nghìn/m2", "Triệu/m2","Triệu/tháng"};
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, donvi);
         spndonvi.setAdapter(arrayAdapter);
     }
@@ -316,7 +316,6 @@ public class PostListing extends AppCompatActivity {
                         while (currentItem < count) {
                             Uri imageUri = resultData.getClipData().getItemAt(currentItem).getUri();
                             currentItem = currentItem + 1;
-
                             Log.d("Uri Selected", imageUri.toString());
 
                             try {
@@ -365,7 +364,7 @@ public class PostListing extends AppCompatActivity {
                             Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
 
                 Snackbar.make(this.findViewById(android.R.id.content),
-                        "Please grant permissions to write data in sdcard",
+                        "Vui lòng cấp quyền để ghi dữ liệu vào sdcard",
                         Snackbar.LENGTH_INDEFINITE).setAction("ENABLE",
                         v -> ActivityCompat.requestPermissions(PostListing.this,
                                 new String[]{Manifest.permission.READ_EXTERNAL_STORAGE,
@@ -392,7 +391,7 @@ public class PostListing extends AppCompatActivity {
                 showChooser();
             } else {
                 // Permission Denied
-                Toast.makeText(PostListing.this, "Permission Denied!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(PostListing.this, "Quyền bị từ chối!", Toast.LENGTH_SHORT).show();
             }
         } else {
             super.onRequestPermissionsResult(requestCode, permissions, grantResults);

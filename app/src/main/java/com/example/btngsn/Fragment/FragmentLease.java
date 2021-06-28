@@ -43,7 +43,7 @@ public class FragmentLease extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_lease, container, false);
         recyviewthuehome = (RecyclerView) view.findViewById(R.id.recyviewthuehome);
-
+        recyviewthuehome.setHasFixedSize(true);
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 1);
         recyviewthuehome.setLayoutManager(gridLayoutManager);
         getDataTwo();

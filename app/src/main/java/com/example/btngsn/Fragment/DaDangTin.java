@@ -46,6 +46,7 @@ public class DaDangTin extends Fragment {
         View view =  inflater.inflate(R.layout.fragment_da_dang_tin, container, false);
 
         recyclerView = (RecyclerView) view.findViewById(R.id.recyviews);
+        recyclerView.setHasFixedSize(true);
         arrayList = new ArrayList<>();
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 1);
         recyclerView.setLayoutManager(gridLayoutManager);

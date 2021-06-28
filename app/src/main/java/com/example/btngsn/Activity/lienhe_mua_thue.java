@@ -38,7 +38,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class lienhe_mua_thue extends AppCompatActivity {
-    String tieude, noidung, hinhthuc, loaidat, diachi, dientich, gia, tenlienhe, diachilienhe, dienthoai, email, image;
+    String tieude, noidung, hinhthuc, loaidat, diachi, dientich, gia,donvi, tenlienhe, diachilienhe, dienthoai, email, image;
     Button dangtin;
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
@@ -114,6 +114,7 @@ public class lienhe_mua_thue extends AppCompatActivity {
             loaidat = bundle.getString("loai", "");
             dientich = bundle.getString("dientich", "");
             gia = bundle.getString("giatien", "");
+            donvi = bundle.getString("donvitinh", "");
             diachi = bundle.getString("diachi", "");
             noidung = bundle.getString("mota", "");
             Toast.makeText(this, ""+noidung, Toast.LENGTH_SHORT).show();
@@ -207,7 +208,7 @@ public class lienhe_mua_thue extends AppCompatActivity {
                         if (response != null) {
                             String massege = response.body();
                             DataClient inserData = APIUtils.getData();
-                            retrofit2.Call<String> callback = inserData.postMuaThue(tieude, noidung, APIUtils.Base_Url + "image/" + massege, hinhthuc, loaidat, diachi, dientich, gia, tenlienhe,
+                            retrofit2.Call<String> callback = inserData.postMuaThue(tieude, noidung, APIUtils.Base_Url + "image/" + massege, hinhthuc, loaidat, diachi, dientich, gia,donvi, tenlienhe,
                                     diachilienhe, dienthoai, email, idUser, currentDate, date,1);
                             callback.enqueue(new Callback<String>() {
                                 @Override

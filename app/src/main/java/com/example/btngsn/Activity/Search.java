@@ -6,6 +6,7 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -13,6 +14,7 @@ import android.widget.EditText;
 import android.widget.SeekBar;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.btngsn.Model.viewSpecies;
 import com.example.btngsn.R;
@@ -76,8 +78,11 @@ public class Search extends AppCompatActivity {
                     txtKhoanggia.setText("Tất cả");
                     gia1 = 0;
                     gia2 = 0;
+                    donvi ="";
                 } else if (currenProgess == 10) {
                     txtKhoanggia.setText("Thỏa thuận");
+                    gia1 = 0;
+                    gia2 = 0;
                     donvi = "Thỏa thuận";
                 } else if (currenProgess == 20) {
                     txtKhoanggia.setText("< 500 triệu");
@@ -132,13 +137,13 @@ public class Search extends AppCompatActivity {
                 } else if (currenProgess == 120) {
                     txtKhoanggia.setText("> 30 tỷ");
                     gia1 = 30;
+                    gia2= 100000;
                     donvi = "Tỷ";
                 }
             }
 
             @Override
             public void onStartTrackingTouch(SeekBar seekBar) {
-
             }
 
             @Override
@@ -157,9 +162,8 @@ public class Search extends AppCompatActivity {
                     dientich1 = 0;
                     dientich2 = 0;
                 } else if (currenProgess == 10) {
-                    txtDientich.setText("<= 30 m2>");
-                    dientich1 = 0;
-                    dientich2 = 0;
+                    txtDientich.setText("<= 30 m2");
+                    dientich1 = 1;
                     dientich2 = 30;
                 } else if (currenProgess == 20) {
                     txtDientich.setText("30 - 50 m2");
@@ -191,7 +195,8 @@ public class Search extends AppCompatActivity {
                     dientich2 = 300;
                 } else if (currenProgess == 90) {
                     txtDientich.setText(">= 300 m2");
-                    dientich2 = 300;
+                    dientich2 = 10000;
+                    dientich1 = 300;
                 }
             }
 
@@ -202,7 +207,39 @@ public class Search extends AppCompatActivity {
 
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
-
+                Log.d("dientich", String.valueOf(dientich1));
+                if (currenProgess == 0) {
+                    txtDientich.setText("Tất cả");
+                    dientich1 = 0;
+                    dientich2 = 0;
+                } else if (currenProgess == 10) {
+                    dientich1 = 1;
+                    dientich2 = 30;
+                } else if (currenProgess == 20) {
+                    dientich1 = 30;
+                    dientich2 = 50;
+                } else if (currenProgess == 30) {
+                    dientich1 = 30;
+                    dientich2 = 80;
+                } else if (currenProgess == 40) {
+                    dientich1 = 80;
+                    dientich2 = 100;
+                } else if (currenProgess == 50) {
+                    dientich1 = 100;
+                    dientich2 = 150;
+                } else if (currenProgess == 60) {
+                    dientich1 = 150;
+                    dientich2 = 200;
+                } else if (currenProgess == 70) {
+                    dientich1 = 200;
+                    dientich2 = 250;
+                } else if (currenProgess == 80) {
+                    dientich1 = 250;
+                    dientich2 = 300;
+                } else if (currenProgess == 90) {
+                    dientich2 = 10000;
+                    dientich1 = 300;
+                }
             }
         });
 
@@ -258,6 +295,7 @@ public class Search extends AppCompatActivity {
                 SKsophong.setProgress(0);
                 txtSophong.setText("Tất cả");
                 sophong="";
+
             }
         });
         timkiem.setOnClickListener(new View.OnClickListener() {
@@ -290,7 +328,7 @@ public class Search extends AppCompatActivity {
     public void sendData() {
         if (spnForm.getSelectedItem().toString().equals("Nhà đất bán")) {
             hinhthuc = "2";
-        } else if (spnForm.getSelectedItem().toString().equals("Nhà đất bán")) {
+        } else if (spnForm.getSelectedItem().toString().equals("Nhà đất cho thuê")) {
             hinhthuc = "3";
         } else {
             hinhthuc = "";
@@ -307,7 +345,7 @@ public class Search extends AppCompatActivity {
         }
         Intent intent = new Intent(Search.this, Timkiem.class);
         Bundle bundle = new Bundle();
-        if(gia1 == 0 && gia2 == 0 && dientich1 == 0 && dientich2 == 0){
+        if(gia2 == 0  && dientich2 == 0){
             bundle.putString("diachi", editSearch.getText().toString());
             bundle.putString("hinhthuc", hinhthuc);
             bundle.putString("loaitin", loaitin);
@@ -319,7 +357,7 @@ public class Search extends AppCompatActivity {
             bundle.putString("dientich2", "");
             bundle.putString("sophongngu", sophong);
         }
-        else if(gia1 == 0 && gia2 == 0 ){
+        else if(gia2 == 0 ){
             bundle.putString("diachi", editSearch.getText().toString());
             bundle.putString("hinhthuc", hinhthuc);
             bundle.putString("loaitin", loaitin);
@@ -331,7 +369,7 @@ public class Search extends AppCompatActivity {
             bundle.putString("dientich2", String.valueOf(dientich2));
             bundle.putString("sophongngu", sophong);
         }
-        else  if( dientich1 == 0 && dientich2 == 0){
+        else  if(dientich2 == 0){
             bundle.putString("diachi", editSearch.getText().toString());
             bundle.putString("hinhthuc", hinhthuc);
             bundle.putString("loaitin", loaitin);
@@ -341,6 +379,17 @@ public class Search extends AppCompatActivity {
             bundle.putString("gia2", String.valueOf(gia2));
             bundle.putString("dientich1", "");
             bundle.putString("dientich2", "");
+            bundle.putString("sophongngu", sophong);
+        } else {
+            bundle.putString("diachi", editSearch.getText().toString());
+            bundle.putString("hinhthuc", hinhthuc);
+            bundle.putString("loaitin", loaitin);
+            bundle.putString("huongnha", huongnha);
+            bundle.putString("donvi", donvi);
+            bundle.putString("gia1", String.valueOf(gia1));
+            bundle.putString("gia2", String.valueOf(gia2));
+            bundle.putString("dientich1", String.valueOf(dientich1));
+            bundle.putString("dientich2", String.valueOf(dientich2));
             bundle.putString("sophongngu", sophong);
         }
         intent.putExtras(bundle);

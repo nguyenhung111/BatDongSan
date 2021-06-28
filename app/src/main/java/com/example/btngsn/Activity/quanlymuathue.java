@@ -1,22 +1,16 @@
-package com.example.btngsn.Fragment;
+package com.example.btngsn.Activity;
 
-import android.os.Bundle;
-
-import androidx.appcompat.widget.Toolbar;
-import androidx.fragment.app.Fragment;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.os.Bundle;
 import android.widget.Toast;
 
 import com.example.btngsn.Adapter.BuyRentAdapter;
-import com.example.btngsn.Adapter.ListingAdapter;
 import com.example.btngsn.Model.BuyRent;
-import com.example.btngsn.Model.Listing;
 import com.example.btngsn.R;
 import com.example.btngsn.Retrofit.APIUtils;
 import com.example.btngsn.Retrofit.DataClient;
@@ -28,34 +22,30 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class mua_thue extends Fragment {
-    private Toolbar toolbar;
+public class quanlymuathue extends AppCompatActivity {
     private RecyclerView recyclerView;
     ArrayList<BuyRent> arrayList;
     BuyRentAdapter adapter;
 
-    public mua_thue() {
-
-    }
-
-
+    SharedPreferences sharedPreferences;
+    SharedPreferences.Editor editor;
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_mua_thue, container, false);
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_quanlymuathue);
 
-        toolbar = (Toolbar) view.findViewById(R.id.toolbar);
-        recyclerView = (RecyclerView) view.findViewById(R.id.recyviews);
-        recyclerView.setHasFixedSize(true);
-        GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 1);
+        recyclerView = (RecyclerView) findViewById(R.id.recyviews);
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(getApplicationContext(), 1);
         recyclerView.setLayoutManager(gridLayoutManager);
+
+        sharedPreferences = getSharedPreferences("datalogin", Context.MODE_PRIVATE);
+        editor = sharedPreferences.edit();
         getData();
-        return view;
     }
 
     public void getData() {
-        String query = "SELECT * FROM tbl_muathue WHERE trangthai = 2";
+        String idUser = sharedPreferences.getString("idUser","");
+        String query = "SELECT * FROM tbl_muathue WHERE trangthai = 2 and idUser = "+idUser+" ";
         DataClient getData = APIUtils.getData();
         Call<List<BuyRent>> callback = getData.getBuyRent(query);
         callback.enqueue(new Callback<List<BuyRent>>() {
@@ -63,12 +53,9 @@ public class mua_thue extends Fragment {
             public void onResponse(Call<List<BuyRent>> call, Response<List<BuyRent>> response) {
                 arrayList = (ArrayList<BuyRent>) response.body();
                 if (arrayList.size() > 0) {
-                    adapter = new BuyRentAdapter(getContext(), arrayList);
+                    adapter = new BuyRentAdapter(getApplicationContext(), arrayList);
                     recyclerView.setAdapter(adapter);
                     adapter.notifyDataSetChanged();
-                }
-                else {
-                    Toast.makeText(getContext(), "Không có tin nào", Toast.LENGTH_SHORT).show();
                 }
             }
 

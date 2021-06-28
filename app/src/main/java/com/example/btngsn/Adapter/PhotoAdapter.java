@@ -1,6 +1,9 @@
 package com.example.btngsn.Adapter;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.provider.MediaStore;
@@ -47,6 +50,7 @@ public class PhotoAdapter extends RecyclerView.Adapter<PhotoAdapter.PhotoViewHol
                 .load(uriList.get(position))
                 .into(holder.imageView);
 
+
     }
 
     @Override
@@ -64,6 +68,27 @@ public class PhotoAdapter extends RecyclerView.Adapter<PhotoAdapter.PhotoViewHol
             super(itemView);
 
             imageView = itemView.findViewById(R.id.imd_photo);
+
+//            itemView.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View view) {
+//                    AlertDialog.Builder dialog = new AlertDialog.Builder(context);
+//                    dialog.setMessage("Bạn muốn xóa ảnh này");
+//                    dialog.setPositiveButton("Có", new DialogInterface.OnClickListener() {
+//                        @Override
+//                        public void onClick(DialogInterface dialogInterface, int i) {
+//                            uriList.remove(getPosition());
+//                        }
+//                    });
+//                    dialog.setNegativeButton("Không", new DialogInterface.OnClickListener() {
+//                        @Override
+//                        public void onClick(DialogInterface dialog, int i) {
+//
+//                        }
+//                    });
+//                    dialog.show();
+//                }
+//            });
         }
     }
 }

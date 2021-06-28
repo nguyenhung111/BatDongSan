@@ -112,6 +112,13 @@ public interface DataClient {
     @POST("getListing.php")
     Call<List<Listing>> getListing(@Field("idForm") String idForm);
 
+
+    @FormUrlEncoded
+    @POST("getTintuongtu.php")
+    Call<List<Listing>> getTinTuongTu(@Field("address") String address,
+                                      @Field("idListing") String idListing);
+
+
     @FormUrlEncoded
     @POST("getListingForId.php")
     Call<List<Listing>> getListingForId(@Field("idUser") String idUser,
@@ -192,6 +199,7 @@ public interface DataClient {
                              @Field("diachi") String diachi,
                              @Field("dientich") String dientich,
                              @Field("gia") String gia,
+                             @Field("donvi") String donvi,
                              @Field("tenlienhe") String tenlienhe,
                              @Field("diachilienhe") String diachilienhe,
                              @Field("dienthoai") String dienthoai,
@@ -210,9 +218,9 @@ public interface DataClient {
                               @Field("trangthai") String trangthai,
                               @Field("idUser") String idUser
                               );
-
-    @GET("get_Tbl_mua_thue.php")
-    Call<List<BuyRent>> getBuyRent();
+    @FormUrlEncoded
+    @POST("get_Tbl_mua_thue.php")
+    Call<List<BuyRent>> getBuyRent(@Field("query") String query);
 
 
     @FormUrlEncoded

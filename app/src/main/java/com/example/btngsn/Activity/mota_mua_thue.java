@@ -185,7 +185,8 @@ public class mota_mua_thue extends AppCompatActivity {
                 Bundle bundle = new Bundle();
                 bundle.putString("tieude", edttieude.getText().toString().trim());
                 bundle.putString("dientich", edtdientich.getText().toString().trim());
-                bundle.putString("giatien", txttongtien.getText().toString().trim());
+                bundle.putString("giatien", giatien);
+                bundle.putString("donvitinh", donvitinh);
                 bundle.putString("mota", edtmota.getText().toString().trim());
                 bundle.putString("hinhthuc", hinhthuc);
                 bundle.putString("loai", loai);

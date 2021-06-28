@@ -253,8 +253,10 @@ public class ContactListing extends AppCompatActivity {
 
             file_path = mangtenfile[0] + System.currentTimeMillis() + "." + mangtenfile[1];
 
+            //xác nhận kiểu dữ liệu file
             RequestBody requestBody = RequestBody.create(MediaType.parse("multipart/form-data"), file);
 
+            // convert sang key để truyền lên server
             MultipartBody.Part body = MultipartBody.Part.createFormData("uploaded_file", file_path, requestBody);
             //tao ket noi
             DataClient dataClient = APIUtils.getData();
@@ -268,8 +270,9 @@ public class ContactListing extends AppCompatActivity {
                         DataClient inserData = APIUtils.getData();
                         retrofit2.Call<String> callback = inserData.PostListing(titile, idForm, idSpecies, acreage, price, unit, address, addressDetai,
                                 APIUtils.Base_Url + "image/" + massege, description, floors, bedroom, toilet, directionHouse, directionBancoly, furniture, juridical,
-                                nameContact, phoneContact, emailcontact, idUser, currentDate, date, spnloaitin.getSelectedItem().toString(), urlmap, sodu);
+                                nameContact, phoneContact, emailcontact, idUser,startDate.getText().toString(), endDate.getText().toString(), spnloaitin.getSelectedItem().toString(), urlmap, sodu);
                         callback.enqueue(new Callback<String>() {
+                            //trả về kết quả gì
                             @Override
                             public void onResponse(Call<String> call, Response<String> response) {
                                 String idListing = response.body();
@@ -302,7 +305,7 @@ public class ContactListing extends AppCompatActivity {
                                                                 String result = response.body();
                                                                 if (result.equals("1")) {
                                                                     Toast.makeText(ContactListing.this, "Thành công", Toast.LENGTH_SHORT).show();
-                                                                    Intent intent = new Intent(ContactListing.this, ManageListing.class);
+                                                                    Intent intent = new Intent(ContactListing.this, HomePage.class);
                                                                     startActivity(intent);
                                                                     finish();
                                                                 }
@@ -327,12 +330,12 @@ public class ContactListing extends AppCompatActivity {
 
                             @Override
                             public void onFailure(Call<String> call, Throwable t) {
-
+                                Log.d("tin", t.getMessage());
                             }
                         });
                     }
                 }
-
+                // client không kết nối đc server xử lý tại đây
                 @Override
                 public void onFailure(Call<String> call, Throwable t) {
                     Log.d("aa", t.getMessage());

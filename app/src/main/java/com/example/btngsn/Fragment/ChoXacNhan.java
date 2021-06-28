@@ -47,6 +47,7 @@ public class ChoXacNhan extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_cho_xac_nhan, container, false);
         recyclerView = (RecyclerView) view.findViewById(R.id.recyviews);
+        recyclerView.setHasFixedSize(true);
         arrayList = new ArrayList<>();
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 1);
         recyclerView.setLayoutManager(gridLayoutManager);

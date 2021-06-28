@@ -90,7 +90,7 @@ public class Registration extends AppCompatActivity {
         pass = edtpass.getText().toString();
         fullName = edtFullname.getText().toString();
 
-        String numberPhone = "0";
+        String numberPhone = "";
         String idspUser = "2";
         String CMND = "0";
 //

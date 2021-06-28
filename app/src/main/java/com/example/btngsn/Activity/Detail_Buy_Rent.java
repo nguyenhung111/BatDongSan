@@ -68,7 +68,7 @@ public class Detail_Buy_Rent extends AppCompatActivity {
 
     public void getData() {
         Intent intent = (Intent) getIntent();
-        BuyRent buyRent = (BuyRent) intent.getParcelableExtra("thongtinmuathue");
+        BuyRent buyRent = (BuyRent) intent.getParcelableExtra("thongtinchitiet");
 
         tieude.setText(buyRent.getTieude());
         mota.setText(buyRent.getNoidung());

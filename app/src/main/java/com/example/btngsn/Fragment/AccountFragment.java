@@ -27,6 +27,7 @@ import com.example.btngsn.Activity.ManageMoney;
 import com.example.btngsn.Activity.NapTienTaiKhoan;
 import com.example.btngsn.Activity.PostListing;
 import com.example.btngsn.Activity.Thongtincoban;
+import com.example.btngsn.Activity.quanlymuathue;
 import com.example.btngsn.Home.HomePage;
 import com.example.btngsn.Login.Login;
 import com.example.btngsn.Login.Registration;
@@ -48,7 +49,7 @@ import retrofit2.Response;
 
 public class AccountFragment extends Fragment {
     public Button login, registration, btnlogout, btnNaptien;
-    public TextView postlisting, fullName, sdt, managerinfor, changepass, managerlisting, post_mua_thue, sodu;
+    public TextView postlisting, fullName, sdt, managerinfor, changepass, managerlisting, post_mua_thue, sodu,manger_mua_thue;
     public ImageView imgAva;
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
@@ -79,6 +80,7 @@ public class AccountFragment extends Fragment {
         post_mua_thue = (TextView) view.findViewById(R.id.post_mua_thue);
         sodu = (TextView) view.findViewById(R.id.sodu);
         informoney = (TextView) view.findViewById(R.id.informoney);
+        manger_mua_thue = (TextView) view.findViewById(R.id.manger_mua_thue);
 
         imgAva = (ImageView) view.findViewById(R.id.imgAva);
 
@@ -207,16 +209,38 @@ public class AccountFragment extends Fragment {
         post_mua_thue.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getContext(), Infor_mua_thue.class);
-                startActivity(intent);
+                if (!TextUtils.isEmpty(fullname)) {
+                    Intent intent = new Intent(getContext(), Infor_mua_thue.class);
+                    startActivity(intent);
+                } else {
+                    Toast.makeText(getActivity(), "Bạn vui lòng đăng nhập để sử dụng chức năng", Toast.LENGTH_LONG).show();
+                }
             }
         });
 
         btnNaptien.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getContext(), NapTienTaiKhoan.class);
-                startActivity(intent);
+                if (!TextUtils.isEmpty(fullname)) {
+                    Intent intent = new Intent(getContext(), NapTienTaiKhoan.class);
+                    startActivity(intent);
+                } else {
+                    Toast.makeText(getActivity(), "Bạn vui lòng đăng nhập để sử dụng chức năng", Toast.LENGTH_LONG).show();
+                }
+
+            }
+        });
+
+        manger_mua_thue.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (!TextUtils.isEmpty(fullname)) {
+                    Intent intent = new Intent(getContext(), quanlymuathue.class);
+                    startActivity(intent);
+                } else {
+                    Toast.makeText(getActivity(), "Bạn vui lòng đăng nhập để sử dụng chức năng", Toast.LENGTH_LONG).show();
+                }
+
             }
         });
     }

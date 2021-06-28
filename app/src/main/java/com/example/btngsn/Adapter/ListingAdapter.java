@@ -6,6 +6,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.text.InputFilter;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,6 +21,7 @@ import com.example.btngsn.Activity.ProductDetail;
 import com.example.btngsn.Model.CheckConnection;
 import com.example.btngsn.Model.Listing;
 import com.example.btngsn.R;
+import com.example.btngsn.Retrofit.APIUtils;
 import com.squareup.picasso.Picasso;
 
 import java.sql.Date;
@@ -54,11 +56,20 @@ public class ListingAdapter extends RecyclerView.Adapter<ListingAdapter.ItemHole
         holder.price.setText("Giá : "+ listing.getPrice() +listing.getUnit());
         holder.acreage.setText("Diện tích :  " + listing.getAcreage() + " m2");
         holder.address.setText(listing.getAddress());
-
         holder.dateStart.setText(listing.getDateStart());
-        Glide.with(context).load(listing.getImage()).centerCrop().placeholder(R.drawable.ic_baseline_hide_image_24)
+        String image = listing.getImage();
+        image = image.substring(image.lastIndexOf("/"));
+        Glide.with(context).load(APIUtils.Base_Url+"/image/"+image).centerCrop().placeholder(R.drawable.ic_baseline_hide_image_24)
                 .error(R.drawable.ic_baseline_error_24).into(holder.imageView);
+        String loaitin = listing.getLoaitin();
 
+        if(Integer.parseInt(loaitin) == 2){
+            holder.loaitin.setText("Nổi bật");
+        } else  if(Integer.parseInt(loaitin) == 3){
+            holder.loaitin.setText("Đặc biệt");
+        } else {
+            holder.loaitin.setVisibility(View.GONE);
+        }
     }
 
     @Override
@@ -71,7 +82,7 @@ public class ListingAdapter extends RecyclerView.Adapter<ListingAdapter.ItemHole
 
     public class ItemHoler extends RecyclerView.ViewHolder {
         private ImageView imageView;
-        private TextView title, price, acreage, address, dateStart, phone;
+        private TextView title, price, acreage, address, dateStart, phone,loaitin;
 
         public ItemHoler(@NonNull View itemView) {
             super(itemView);
@@ -83,6 +94,7 @@ public class ListingAdapter extends RecyclerView.Adapter<ListingAdapter.ItemHole
             address = (TextView) itemView.findViewById(R.id.address);
             dateStart = (TextView) itemView.findViewById(R.id.datepost);
             phone = (TextView) itemView.findViewById(R.id.phone);
+            loaitin = (TextView) itemView.findViewById(R.id.loaitin);
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

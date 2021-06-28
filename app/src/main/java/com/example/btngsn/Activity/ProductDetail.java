@@ -3,6 +3,9 @@ package com.example.btngsn.Activity;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
 import android.Manifest;
@@ -29,6 +32,8 @@ import android.widget.Toast;
 
 
 import com.bumptech.glide.Glide;
+import com.example.btngsn.Adapter.AdapterTinTuongTu;
+import com.example.btngsn.Adapter.ListingAdapter;
 import com.example.btngsn.Adapter.formAdapter;
 import com.example.btngsn.Adapter.viewPaperImage;
 import com.example.btngsn.Model.Favorite;
@@ -53,8 +58,11 @@ public class ProductDetail extends AppCompatActivity {
     public Toolbar toolbar;
     ImageView imageViewFavorite;
     FloatingActionButton fab;
-    TextView titileName, price, inforDescription, Acreage, address, Species, directionHouse, NumberBed, NumberToilet, DatePost, phaply,dateEnd;
-    TextView nameUser, phoneUser, emailUser;
+    TextView titileName, price, inforDescription, Acreage, address, Species, directionHouse, NumberBed, NumberToilet, DatePost, phaply, dateEnd;
+    TextView nameUser, phoneUser, emailUser, noithat, numberFloor, huongbancong;
+    private RecyclerView recyviews;
+    private AdapterTinTuongTu adapterTinTuongTu;
+    private ArrayList<Listing> arrayListTinTuongTu;
     private static final int MY_PERMISSION_REQUEST_CODE_CALL_PHONE = 555;
     String idListing = "";
     String idUser = "";
@@ -67,6 +75,10 @@ public class ProductDetail extends AppCompatActivity {
     private viewPaperImage adapter;
     private LinearLayout linearLayout;
     private TextView[] textView;
+
+
+    private LinearLayout linearHuongnha, linearbancong, Linearsotang, linearphongngu, lineartoilet, linearnoitthat, linearphaply, lineartuongtu;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -96,12 +108,29 @@ public class ProductDetail extends AppCompatActivity {
         nameUser = (TextView) findViewById(R.id.nameUser);
         phoneUser = (TextView) findViewById(R.id.phoneUser);
         emailUser = (TextView) findViewById(R.id.emailUser);
+        noithat = (TextView) findViewById(R.id.noithat);
+        numberFloor = (TextView) findViewById(R.id.numberFloor);
+        huongbancong = (TextView) findViewById(R.id.huongbancong);
 
         viewPager = (ViewPager) findViewById(R.id.viewpager);
         viewPager.addOnPageChangeListener(viewListener);
         linearLayout = (LinearLayout) findViewById(R.id.linear);
         imageViewFavorite = (ImageView) findViewById(R.id.imageViewFavorite);
         fab = (FloatingActionButton) findViewById(R.id.fab);
+
+        linearHuongnha = (LinearLayout) findViewById(R.id.linearHuongnha);
+        linearbancong = (LinearLayout) findViewById(R.id.linearbancong);
+        linearphongngu = (LinearLayout) findViewById(R.id.linearphongngu);
+        Linearsotang = (LinearLayout) findViewById(R.id.Linearsotang);
+        lineartoilet = (LinearLayout) findViewById(R.id.lineartoilet);
+        linearnoitthat = (LinearLayout) findViewById(R.id.linearnoitthat);
+        linearphaply = (LinearLayout) findViewById(R.id.linearphaply);
+        lineartuongtu = (LinearLayout) findViewById(R.id.lineartuongtu);
+
+        recyviews = (RecyclerView) findViewById(R.id.recyviews);
+        arrayListTinTuongTu = new ArrayList<>();
+        LinearLayoutManager gridLayoutManager = new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.HORIZONTAL, false);
+        recyviews.setLayoutManager(gridLayoutManager);
     }
 
     public void initShare() {
@@ -109,47 +138,68 @@ public class ProductDetail extends AppCompatActivity {
         editor = sharedPreferences.edit();
     }
 
+    @SuppressLint("SetTextI18n")
     public void GetInfor() {
         Intent intent = (Intent) getIntent();
         Listing listing = (Listing) intent.getParcelableExtra("thongtinchitiet");
 
         idListing = listing.getIdListing();
         titileName.setText(listing.getTitle());
-        price.setText(listing.getPrice() + listing.getUnit());
+        price.setText(listing.getPrice() + " " + listing.getUnit());
         inforDescription.setText(listing.getDescription());
-        Acreage.setText( listing.getAcreage() + " M2 ");
-        address.setText(listing.getAddress());
+        Acreage.setText(listing.getAcreage() + " M2 ");
+        if (listing.getAddressDetail().equals("")) {
+            address.setText(listing.getAddress());
+        } else {
+            address.setText(listing.getAddressDetail());
+        }
         Species.setText(listing.getIdSpecies());
         directionHouse.setText(listing.getDirectionHouse());
-        NumberBed.setText(listing.getBedroom());
-        NumberToilet.setText(listing.getToilet());
+        huongbancong.setText(listing.getDirectionBancoly());
+        String sotang = listing.getFloors();
+        Log.d("sotang", sotang);
+        if (Integer.parseInt(sotang) == 0) {
+            Linearsotang.setVisibility(View.GONE);
+        } else {
+            numberFloor.setText(listing.getFloors());
+        }
+        String phongngu = listing.getBedroom();
+        if (Integer.parseInt(phongngu) == 0) {
+            linearphongngu.setVisibility(View.GONE);
+        } else {
+            NumberBed.setText(listing.getBedroom());
+        }
+        String toilet = listing.getToilet();
+        if (Integer.parseInt(toilet) == 0) {
+            lineartoilet.setVisibility(View.GONE);
+        } else {
+            NumberToilet.setText(listing.getToilet());
+        }
+
+        if ((TextUtils.isEmpty(listing.getFurniture()))) {
+            linearnoitthat.setVisibility(View.GONE);
+        } else {
+            noithat.setText(listing.getFurniture());
+        }
+
         DatePost.setText(listing.getDateStart());
         dateEnd.setText(listing.getDateEnd());
-        phaply.setText(listing.getJuridical());
+        if ((TextUtils.isEmpty(listing.getJuridical()))) {
+            linearphaply.setVisibility(View.GONE);
+        } else {
+            phaply.setText(listing.getJuridical());
+        }
         nameUser.setText(listing.getNameContact());
-        phoneUser.setText("0"+listing.getPhoneContact());
+        phoneUser.setText("0" + listing.getPhoneContact());
         emailUser.setText(listing.getEmailContact());
+
 
         titileName.setMaxLines(3);
         titileName.setEllipsize(TextUtils.TruncateAt.END);
 
-        DataClient getData = APIUtils.getData();
-        Call<List<Image>> callback = getData.getImage(listing.getIdListing());
-        callback.enqueue(new Callback<List<Image>>() {
-            @Override
-            public void onResponse(Call<List<Image>> call, Response<List<Image>> response) {
-                list =  (ArrayList<Image>) response.body();
+        GetAnh(listing.getIdListing());
+        TinTuongTu(listing.getAddress(), listing.getIdListing());
 
-                if(list.size() > 0 ){
-                    adapter = new viewPaperImage(list,ProductDetail.this );
-                    viewPager.setAdapter(adapter);
-                    adapter.notifyDataSetChanged();
-                }
-            }
-            @Override
-            public void onFailure(Call<List<Image>> call, Throwable t) {
-            }
-        });
     }
 
     private void askPermissionAndCall() {
@@ -196,10 +246,11 @@ public class ProductDetail extends AppCompatActivity {
         });
 
     }
-    public void addDotsIndicator(int position){
+
+    public void addDotsIndicator(int position) {
         textView = new TextView[list.size()];
         linearLayout.removeAllViews();
-        for(int i = 0 ; i < list.size() ;i++){
+        for (int i = 0; i < list.size(); i++) {
             textView[i] = new TextView(this);
             textView[i].setText(Html.fromHtml("&#8226;"));
             textView[i].setTextSize(28);
@@ -209,7 +260,7 @@ public class ProductDetail extends AppCompatActivity {
 
         }
 
-        if(textView.length > 0){
+        if (textView.length > 0) {
             textView[position].setTextColor(getResources().getColor(R.color.blue));
         }
     }
@@ -335,6 +386,50 @@ public class ProductDetail extends AppCompatActivity {
                         Log.d("loi", t.getMessage());
                     }
                 });
+            }
+        });
+    }
+
+    public void GetAnh(String idListing) {
+        DataClient getData = APIUtils.getData();
+        Call<List<Image>> callback = getData.getImage(idListing);
+        callback.enqueue(new Callback<List<Image>>() {
+            @Override
+            public void onResponse(Call<List<Image>> call, Response<List<Image>> response) {
+                list = (ArrayList<Image>) response.body();
+                if (list.size() > 0) {
+                    adapter = new viewPaperImage(list, ProductDetail.this);
+                    viewPager.setAdapter(adapter);
+                    adapter.notifyDataSetChanged();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Image>> call, Throwable t) {
+            }
+        });
+    }
+
+    public void TinTuongTu(String address, String idListing) {
+        DataClient getData = APIUtils.getData();
+        Call<List<Listing>> callback = getData.getTinTuongTu(address,idListing);
+        callback.enqueue(new Callback<List<Listing>>() {
+            @Override
+            public void onResponse(Call<List<Listing>> call, Response<List<Listing>> response) {
+                arrayListTinTuongTu = (ArrayList<Listing>) response.body();
+                if (arrayListTinTuongTu.size() == 0) {
+                    lineartuongtu.setVisibility(View.GONE);
+                    Toast.makeText(ProductDetail.this, "Không có tin tương tự", Toast.LENGTH_SHORT).show();
+                } else {
+                    adapterTinTuongTu = new AdapterTinTuongTu(ProductDetail.this, arrayListTinTuongTu);
+                    recyviews.setAdapter(adapterTinTuongTu);
+                    adapterTinTuongTu.notifyDataSetChanged();
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Listing>> call, Throwable t) {
             }
         });
     }

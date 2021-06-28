@@ -2,12 +2,21 @@
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="200dp"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <ImageView
-        android:id="@+id/imd_photo"
+    <androidx.cardview.widget.CardView
         android:layout_width="200dp"
         android:layout_height="match_parent"
-        android:scaleType="centerCrop">
-    </ImageView>
+        app:cardCornerRadius="5dp">
+        <ImageView
+            android:layout_marginLeft="5dp"
+            android:id="@+id/imd_photo"
+            android:layout_width="200dp"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            android:layout_marginStart="5dp">
+        </ImageView>
+    </androidx.cardview.widget.CardView>
+
 </androidx.cardview.widget.CardView>

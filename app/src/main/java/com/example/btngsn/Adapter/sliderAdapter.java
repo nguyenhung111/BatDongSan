@@ -25,7 +25,7 @@ public class sliderAdapter extends PagerAdapter {
     }
 
     public int[] slide_image = {
-            R.drawable.realestatelogodesign,
+            R.drawable.logo,
             R.drawable.timkiem,
             R.drawable.congcu,
             R.drawable.congdong

@@ -199,7 +199,7 @@ public class Thongtincoban extends AppCompatActivity {
                     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                         dataWard = dataWardList.get(position);
                         ward = dataWard.getTitle();
-                        String address = ward.concat(" "+ district.concat(" "+city));
+                        String address = ward.concat(","+ district.concat(","+city));
                         edtdiachi.setText(address);
                     }
 

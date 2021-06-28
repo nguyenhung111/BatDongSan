@@ -13,6 +13,7 @@ import androidx.viewpager.widget.PagerAdapter;
 import com.bumptech.glide.Glide;
 import com.example.btngsn.Model.Image;
 import com.example.btngsn.R;
+import com.example.btngsn.Retrofit.APIUtils;
 
 import java.util.ArrayList;
 
@@ -40,8 +41,9 @@ public class viewPaperImage extends PagerAdapter {
         View view = layoutInflater.inflate(R.layout.viewimagedetail, container, false);
 
         ImageView imageView = (ImageView) view.findViewById(R.id.imageView);
-
-        Glide.with(context).load(arrayList.get(position).getHinhanh()).centerCrop().into(imageView);
+        String image = arrayList.get(position).getHinhanh();
+        image = image.substring(image.lastIndexOf("/"));
+        Glide.with(context).load(APIUtils.Base_Url+"/image/"+image).centerCrop().into(imageView);
 
         container.addView(view);
         return  view;
