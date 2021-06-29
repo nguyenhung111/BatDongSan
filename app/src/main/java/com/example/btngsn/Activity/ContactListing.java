@@ -146,10 +146,12 @@ public class ContactListing extends AppCompatActivity {
         tindang.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (!edtnamecontact.getText().toString().isEmpty() || !phonecontact.getText().toString().isEmpty()) {
-                    PostListing();
+                if (edtnamecontact.getText().toString().isEmpty()) {
+                    Toast.makeText(ContactListing.this, "Vui lòng nhập đầy đủ tên", Toast.LENGTH_SHORT).show();
+                }  else if(phonecontact.getText().toString().length() < 10) {
+                    Toast.makeText(ContactListing.this, "Nhập đủ 10 số điện thoại", Toast.LENGTH_SHORT).show();
                 } else {
-                    Toast.makeText(ContactListing.this, "Vui lòng nhập đầy đủ tên và số điện thoại", Toast.LENGTH_SHORT).show();
+                    PostListing();
                 }
             }
         });
