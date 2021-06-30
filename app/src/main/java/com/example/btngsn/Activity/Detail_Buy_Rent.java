@@ -44,8 +44,7 @@ public class Detail_Buy_Rent extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                ShowDailog();
             }
         });
     }
@@ -79,7 +78,7 @@ public class Detail_Buy_Rent extends AppCompatActivity {
         ngaydangtin.setText(buyRent.getDateStart());
         ngayketthuc.setText(buyRent.getDateEnd());
         tenlienlac.setText(buyRent.getTenlienhe());
-        dienthoai.setText(buyRent.getDienthoai());
+        dienthoai.setText("0"+buyRent.getDienthoai());
         DClienlac.setText(buyRent.getDiachilienhe());
         Email.setText(buyRent.getEmail());
         String url = buyRent.getHinhanh();

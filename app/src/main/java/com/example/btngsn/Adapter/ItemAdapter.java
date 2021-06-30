@@ -292,7 +292,16 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemHoler> {
             dateEnd = (TextView) itemView.findViewById(R.id.dateEnd);
             status = (TextView) itemView.findViewById(R.id.status);
             sua = (Button) itemView.findViewById(R.id.sua);
-
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(context, ProductDetail.class);
+                    intent.putExtra("thongtinchitiet", arrayList.get(getPosition()));
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    CheckConnection.ShowToast(context, arrayList.get(getPosition()).getTitle());
+                    context.startActivity(intent);
+                }
+            });
             sua.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

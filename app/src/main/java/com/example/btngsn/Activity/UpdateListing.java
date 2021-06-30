@@ -63,7 +63,7 @@ public class UpdateListing extends AppCompatActivity {
         titileName.setText(listing.getTitle());
         price.setText(listing.getPrice() + " " + listing.getUnit());
         inforDescription.setText(listing.getDescription());
-        Acreage.setText(listing.getAcreage() + " M2 ");
+        Acreage.setText(listing.getAcreage());
         address.setText(listing.getAddressDetail());
         Species.setText(listing.getIdSpecies());
         directionHouse.setText(listing.getDirectionHouse());
